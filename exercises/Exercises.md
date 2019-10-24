@@ -1,6 +1,6 @@
 # Introduction
 
-TODO: add repo link to exercises folder
+Exercise related files are available from [exercises folder](https://github.com/learnbyexample/learn_gnused/tree/master/exercises)
 
 **a)** Replace `5` with `five` for the given stdin source.
 
