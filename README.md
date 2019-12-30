@@ -18,7 +18,8 @@ You can purchase the book using these links:
 
 * https://gumroad.com/l/gnu_sed
 * https://leanpub.com/gnu_sed
-* https://www.instamojo.com/learnbyexample/gnu-sed/
+* You can also get the book as part of **Awesome Regex** bundle from https://leanpub.com/b/regex
+* See https://learnbyexample.github.io/books/ for list of other books
 
 For a preview of the book, see [sample chapters](https://github.com/learnbyexample/learn_gnused/blob/master/sample_chapters/sed_sample_chapters.pdf)
 
