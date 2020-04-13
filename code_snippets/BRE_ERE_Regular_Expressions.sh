@@ -118,6 +118,10 @@ echo 'foot' | sed -E 's/f.?o/X/'
 
 echo 'car bat cod map scat dot abacus' | sed 's/.*/X/'
 
+echo 'foo123312baz' | sed -E 's/o(1|2|3)+(12baz)?/X/'
+
+echo 'foo123312baz' | perl -pe 's/o(1|2|3)+(12baz)?/X/'
+
 echo 'car bat cod map scat dot abacus' | sed 's/.*m/-/'
 
 echo 'car bat cod map scat dot abacus' | sed 's/b.*t/-/'
@@ -187,6 +191,12 @@ printf 'a\t\r\fb\vc\n' | sed -E 's/[\t\v\f\r]+/:/g'
 echo "universe: '42'" | sed 's/\x27/"/g'
 
 echo 'universe: "42"' | sed 's/"/\x27/g'
+
+printf 'cute\ncot\ncat\ncoat\n' | sed -n '/\x5eco/p'
+
+echo 'hello world' | sed 's/.*/"&"/'
+
+echo 'hello world' | sed 's/.*/"\x26"/'
 
 echo 'effort flee facade oddball rat tool' | sed -E 's/\w*(\w)\1\w*/X/g'
 

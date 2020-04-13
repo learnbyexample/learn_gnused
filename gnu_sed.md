@@ -4,7 +4,7 @@ You are likely to be familiar with the "Find and Replace" dialog box from a text
 
 The book heavily leans on examples to present options and features of `sed` one by one. Regular expressions will also be discussed in detail. However, commands to manipulate data buffers and multiline techniques will be discussed only briefly and some commands are skipped entirely.
 
-It is recommended that you manually type each example and experiment with them. Understanding both the nature of sample input string and the output produced is essential. As an analogy, consider learning to drive a bike or a car - no matter how much you read about them or listen to explanations, you need to practice a lot and infer your own conclusions. Should you feel that copy-paste is ideal for you, [code snippets are available chapter wise on GitHub](https://github.com/learnbyexample/learn_gnused/tree/master/code_snippets).
+It is recommended that you manually type each example and experiment with them. Understanding both the nature of sample input string and the output produced is essential. As an analogy, consider learning to drive a bike or a car — no matter how much you read about them or listen to explanations, you need to practice a lot and infer your own conclusions. Should you feel that copy-paste is ideal for you, [code snippets are available chapter wise on GitHub](https://github.com/learnbyexample/learn_gnused/tree/master/code_snippets).
 
 ## Prerequisites
 
@@ -25,9 +25,9 @@ My [Command Line Text Processing](https://github.com/learnbyexample/Command-line
 
 ## Acknowledgements
 
-* [GNU sed documentation](https://www.gnu.org/software/sed/manual/sed.html) - manual and examples
-* [stackoverflow](https://stackoverflow.com/) and [unix.stackexchange](https://unix.stackexchange.com/) - for getting answers to pertinent questions on `bash`, `sed` and other commands
-* [tex.stackexchange](https://tex.stackexchange.com/) - for help on `pandoc` and `tex` related questions
+* [GNU sed documentation](https://www.gnu.org/software/sed/manual/sed.html) — manual and examples
+* [stackoverflow](https://stackoverflow.com/) and [unix.stackexchange](https://unix.stackexchange.com/) — for getting answers to pertinent questions on `bash`, `sed` and other commands
+* [tex.stackexchange](https://tex.stackexchange.com/) — for help on `pandoc` and `tex` related questions
 * Cover image
     * [draw.io](https://about.draw.io/)
     * [tree icon](https://www.iconfinder.com/icons/3199231/ellipse_green_nature_tree_icon) by [Gopi Doraisamy](https://www.iconfinder.com/gopidoraisamy) under [Creative Commons Attribution 3.0 Unported](https://creativecommons.org/licenses/by/3.0/)
@@ -64,7 +64,7 @@ Resources mentioned in Acknowledgements section above are available under origin
 
 ## Book version
 
-1.0
+1.1
 
 See [Version_changes.md](https://github.com/learnbyexample/learn_gnused/blob/master/Version_changes.md) to track changes across book versions.
 
@@ -1156,7 +1156,7 @@ $ seq 32 100 | sed ##### add your solution here
 
 # BRE/ERE Regular Expressions
 
-This chapter will cover Basic and Extended Regular Expressions as implemented in `GNU sed`. Though not strictly conforming to [POSIX specifications]( https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap09.html), most of it is applicable to other `sed` implementations as well. Unless otherwise indicated, examples and descriptions will assume ASCII input.
+This chapter will cover Basic and Extended Regular Expressions as implemented in `GNU sed`. Though not strictly conforming to [POSIX specifications](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap09.html), most of it is applicable to other `sed` implementations as well. Unless otherwise indicated, examples and descriptions will assume ASCII input.
 
 By default, `sed` treats the search pattern as Basic Regular Expression (BRE). Using `-E` option will enable Extended Regular Expression (ERE). Older versions used `-r` for ERE, which can still be used, but `-E` is more portable. In `GNU sed`, BRE and ERE only differ in how metacharacters are applied, there's no difference in features.
 
@@ -1204,7 +1204,7 @@ spar.
 
 ## Word Anchors
 
-The second type of restriction is word anchors. A word character is any alphabet (irrespective of case), digit and the underscore character. You might wonder why there are digits and underscores as well, why not only alphabets? This comes from variable and function naming conventions - typically alphabets, digits and underscores are allowed. So, the definition is more programming oriented than natural language.
+The second type of restriction is word anchors. A word character is any alphabet (irrespective of case), digit and the underscore character. You might wonder why there are digits and underscores as well, why not only alphabets? This comes from variable and function naming conventions — typically alphabets, digits and underscores are allowed. So, the definition is more programming oriented than natural language.
 
 The escape sequence `\b` denotes a word boundary. This works for both start of word and end of word anchoring. Start of word means either the character prior to the word is a non-word character or there is no character (start of line). Similarly, end of word means the character after the word is a non-word character or no character (end of line). This implies that you cannot have word boundary without a word character.
 
@@ -1291,9 +1291,9 @@ sub par
 two spare computers
 ```
 
-There's some tricky situations when using alternation. If it is used for filtering a line, there is no ambiguity. However, for use cases like substitution, it depends on a few factors. Say, you want to replace `are` or `spared` - which one should get precedence? The bigger word `spared` or the substring `are` inside it or based on something else?
+There's some tricky situations when using alternation. If it is used for filtering a line, there is no ambiguity. However, for use cases like substitution, it depends on a few factors. Say, you want to replace `are` or `spared` — which one should get precedence? The bigger word `spared` or the substring `are` inside it or based on something else?
 
-In `sed`, the alternative which matches earliest in the input gets precedence. In case of matches starting from same location, for example `spar` and `spared`, the longest portion gets precedence. See [regular-expressions: alternation](https://www.regular-expressions.info/alternation.html) for more information on this topic.
+In `sed`, the alternative which matches earliest in the input gets precedence. Unlike other regular expression implementations, order of alternation doesn't affect the results. See [regular-expressions: alternation](https://www.regular-expressions.info/alternation.html) for more information on this topic.
 
 ```bash
 $ # output will be same irrespective of alternation order
@@ -1302,8 +1302,11 @@ $ echo 'cats dog bee parrot foxed' | sed -E 's/bee|parrot|at/--/'
 c--s dog bee parrot foxed
 $ echo 'cats dog bee parrot foxed' | sed -E 's/parrot|at|bee/--/'
 c--s dog bee parrot foxed
+```
 
-$ # example for alternations starting from same location
+In case of matches starting from same location, for example `spar` and `spared`, the longest matching portion gets precedence. See also [Longest match wins](#longest-match-wins) section for more examples.
+
+```bash
 $ echo 'spared party parent' | sed -E 's/spa|spared/**/g'
 ** party parent
 $ echo 'spared party parent' | sed -E 's/spared|spa/**/g'
@@ -1412,9 +1415,9 @@ $ printf 'abc\nxyz\n' | sed 'N; s/c.x/ /'
 ab yz
 ```
 
-## Greedy Quantifiers
+## Quantifiers
 
-As an analogy, alternation provides logical OR. Combining the dot metacharacter `.` and quantifiers (and alternation if needed) paves a way to perform logical AND. For example, to check if a string matches two patterns with any number of characters in between. Quantifiers can be applied to both characters and groupings. Apart from ability to specify exact quantity and bounded range, these can also match unbounded varying quantities. BRE/ERE support only greedy type of quantifiers, other implementations like PCRE (Perl Compatible Regular Expressions) support two more variations.
+As an analogy, alternation provides logical OR. Combining the dot metacharacter `.` and quantifiers (and alternation if needed) paves a way to perform logical AND. For example, to check if a string matches two patterns with any number of characters in between. Quantifiers can be applied to both characters and groupings. Apart from ability to specify exact quantity and bounded range, these can also match unbounded varying quantities.
 
 First up, the `?` metacharacter which quantifies a character or group to match `0` or `1` times. This helps to define optional patterns and build terser patterns compared to groupings for some cases.
 
@@ -1436,12 +1439,12 @@ $ # same as: sed -E 's/part|parrot|parent/X/g'
 $ echo 'par part parrot parent' | sed -E 's/par(en|ro)?t/X/g'
 par X X X
 
-$ # '<' to be replaced with '\<' only if not preceded by '\'
+$ # both '<' and '\<' are replaced with '\<'
 $ echo 'blah \< foo bar < blah baz <' | sed -E 's/\\?</\\</g'
 blah \< foo bar \< blah baz \<
 ```
 
-The `*` metacharacter quantifies a character or group to match `0` or more times. There is no upper bound, more details will be discussed later in this section.
+The `*` metacharacter quantifies a character or group to match `0` or more times. There is no upper bound, more details will be discussed in the next section.
 
 ```bash
 $ # 'f' followed by zero or more of 'e' followed by 'd'
@@ -1511,19 +1514,29 @@ $ echo 'two dogs and a cat' | sed -E 's/cat.*dog|dog.*cat/pets/'
 two pets
 ```
 
-So, how much do these greedy quantifiers match? When you are using `?` how does `sed` decide to match `0` or `1` times, if both quantities can satisfy the pattern? For example, consider the expression `f.?o` for an input string `foot` - should `foo` be matched or `fo`? It will always match `foo`, because these are **greedy** quantifiers, meaning longest match wins.
+## Longest match wins
+
+You've already seen an example with alternation, where the longest matching portion was chosen if two alternatives started from same location. For example `spar|spared` will result in `spared` being chosen over `spar`. The same applies whenever there are two or more matching possibilities with quantifiers starting from same location. For example, `f.?o` will match `foo` instead of `fo` if the input string to match is `foot`.
 
 ```bash
 $ # longest match among 'foo' and 'fo' wins here
 $ echo 'foot' | sed -E 's/f.?o/X/'
 Xt
-
 $ # everything will match here
 $ echo 'car bat cod map scat dot abacus' | sed 's/.*/X/'
 X
+
+$ # longest match happens when (1|2|3)+ matches up to '1233' only
+$ # so that '12baz' can match as well
+$ echo 'foo123312baz' | sed -E 's/o(1|2|3)+(12baz)?/X/'
+foX
+$ # in other implementations like 'perl', that is not the case
+$ # quantifiers match as much as possible, but precedence is left to right
+$ echo 'foo123312baz' | perl -pe 's/o(1|2|3)+(12baz)?/X/'
+foXbaz
 ```
 
-But wait, how did `Error.*valid` example work? Shouldn't `.*` consume all the characters after `Error`? Good question. Depending on the implementation of regular expression engine, longest match will be selected from all valid matches generated with varying number of characters for `.*` or the engine would **backtrack** character by character from end of string until the pattern can be satisfied or fails. This can become quite time consuming for certain corner cases.
+While determining the longest match, overall regular expression matching is also considered. That's how `Error.*valid` example worked. If `.*` had consumed everything after `Error`, there wouldn't be any more characters to try to match after `valid`. So, among the varying quantity of characters to match for `.*`, the longest portion that satisfies the overall regular expression is chosen. Something like `a.*b` will match from first `a` in the input string to the last `b` in the string. In other implementations, like `perl`, this is achieved through a process called **backtracking**. Both approaches have their own advantages and disadvantages and have cases where the pattern can result in exponential time consumption.
 
 ```bash
 $ # from start of line to last 'm' in the line
@@ -1595,7 +1608,6 @@ Character classes can also be used to construct numeric ranges. However, it is e
 $ # numbers between 10 to 29
 $ echo '23 154 12 26 34' | sed -E 's/\b[12][0-9]\b/X/g'
 X 154 X X 34
-
 $ # numbers >= 100 with optional leading zeros
 $ echo '0501 035 154 12 26 98234' | sed -E 's/\b0*[1-9][0-9]{2,}\b/X/g'
 X 035 X 12 26 X
@@ -1659,7 +1671,7 @@ A **named character set** is defined by a name enclosed between `[:` and `:]` an
 | `[:alpha:]`  | `[a-zA-Z]` |
 | `[:alnum:]`  | `[0-9a-zA-Z]` |
 | `[:xdigit:]` | `[0-9a-fA-F]` |
-| `[:cntrl:]`  | control characters - first 32 ASCII characters and 127th (DEL) |
+| `[:cntrl:]`  | control characters — first 32 ASCII characters and 127th (DEL) |
 | `[:punct:]`  | all the punctuation characters |
 | `[:graph:]`  | `[:alnum:]` and `[:punct:]` |
 | `[:print:]`  | `[:alnum:]`, `[:punct:]` and space |
@@ -1710,7 +1722,7 @@ f*(c) - 3*(c)/(a-b)
 
 ## Escape sequences
 
-Certain ASCII characters like tab `\t`, carriage return `\r`, newline `\n`, etc have escape sequences to represent them. Additionally, any character can be represented using their ASCII value in decimal `\dNNN` or octal `\oNNN` or hexadecimal `\xNN` formats. Unlike character set escape sequences like `\w`, these can be used inside character classes. As `\` is special inside character class, use `\\` to represent it literally.
+Certain ASCII characters like tab `\t`, carriage return `\r`, newline `\n`, etc have escape sequences to represent them. Additionally, any character can be represented using their ASCII value in decimal `\dNNN` or octal `\oNNN` or hexadecimal `\xNN` formats. Unlike character set escape sequences like `\w`, these can be used inside character classes. As `\` is special inside character class, use `\\` to represent it literally (technically, this is only needed if the combination of `\` and the character(s) that follows is a valid escape sequence).
 
 ```bash
 $ # using \t to represent tab character
@@ -1730,7 +1742,25 @@ universe: "42"
 $ echo 'universe: "42"' | sed 's/"/\x27/g'
 universe: '42'
 ```
->![info](images/info.svg) ![warning](images/warning.svg) See [sed manual: Escapes](https://www.gnu.org/software/sed/manual/sed.html#Escapes) for full list and details such as precedence rules.
+
+>![info](images/info.svg) If a metacharacter is specified by ASCII value format in search section, it will still act as the metacharacter. However, metacharacters specified by ASCII value format in replacement section acts as a literal character. Undefined escape sequences (both search and replacement section) will be treated as the character it escapes, for example, `\e` will match `e` (not `\` and `e`).
+
+```bash
+$ # \x5e is ^ character, acts as line anchor here
+$ printf 'cute\ncot\ncat\ncoat\n' | sed -n '/\x5eco/p'
+cot
+coat
+
+$ # & metacharacter in replacement will be discussed in next section
+$ # it represents entire matched portion
+$ echo 'hello world' | sed 's/.*/"&"/'
+"hello world"
+$ # \x26 is & character, acts as literal character here
+$ echo 'hello world' | sed 's/.*/"\x26"/'
+"&"
+```
+
+>![warning](images/warning.svg) See [sed manual: Escapes](https://www.gnu.org/software/sed/manual/sed.html#Escapes) for full list and details such as precedence rules.
 
 ## Backreferences
 
@@ -1738,7 +1768,7 @@ The grouping metacharacters `()` are also known as **capture groups**. They are 
 
 ```bash
 $ # whole words that have at least one consecutive repeated character
-$ # word boundaries are not needed here due to greedy quantifiers
+$ # word boundaries are not needed here due to longest match wins effect
 $ echo 'effort flee facade oddball rat tool' | sed -E 's/\w*(\w)\1\w*/X/g'
 X X facade X rat X
 
@@ -1776,7 +1806,7 @@ $ echo 'hello world' | sed 's/.*/Hi. &. Have a nice day/'
 Hi. hello world. Have a nice day
 ```
 
-If quantifier is applied on a pattern grouped inside `()` metacharacters, you'll need an outer `()` group to capture the matching portion. Other regular expression engines like PCRE provide non-capturing group to handle such cases. In `sed`, you'll have to work around the extra capture group.
+If quantifier is applied on a pattern grouped inside `()` metacharacters, you'll need an outer `()` group to capture the matching portion. Other regular expression engines like PCRE (Perl Compatible Regular Expressions) provide non-capturing group to handle such cases. In `sed`, you'll have to work around the extra capture group.
 
 ```bash
 $ # surround only third column with double quotes
@@ -1943,7 +1973,7 @@ $ echo 'a+42//5-c pressure*3+42/5-14256' | sed ##### add your solution here
 a+8-c pressure*3+8-14256
 ```
 
-**i)** For the given greedy quantifiers, what would be the equivalent form using `{m,n}` representation?
+**i)** For the given quantifiers, what would be the equivalent form using `{m,n}` representation?
 
 * `?` is same as
 * `*` is same as
@@ -2107,7 +2137,7 @@ $ echo 'foo:123:bar:baz' | sed -E 's/[^:]+/"&"/3'
 foo:123:"bar":baz
 ```
 
-Greedy quantifiers can be used to replace *N*th match from the end of line.
+Quantifiers can be used to replace *N*th match from the end of line.
 
 ```bash
 $ # replacing last occurrence
@@ -2216,9 +2246,13 @@ $ cat 3.txt
 
 ## Executing external commands
 
-The `e` flag allows to use output of a shell command. Quoting from the manual:
+The `e` flag allows to use output of a shell command. The external command can be based on the pattern space contents or provided as an argument. Quoting from the manual:
 
->This command allows one to pipe input from a shell command into pattern space. If a substitution was made, the command that is found in pattern space is executed and pattern space is replaced with its output. A trailing newline is suppressed; results are undefined if the command to be executed contains a NUL character.
+>This command allows one to pipe input from a shell command into pattern space. Without parameters, the e command executes the command that is found in pattern space and replaces the pattern space with the output; a trailing newline is suppressed.
+
+>If a parameter is specified, instead, the e command interprets it as a command and sends its output to the output stream. The command can run across multiple lines, all but the last ending with a back-slash.
+
+>In both cases, the results are undefined if the command to be executed contains a NUL character.
 
 First, examples with substitution command.
 
@@ -2266,16 +2300,16 @@ $ # replaces the matching line with output of the command
 $ printf 'date\ndate -I\n' | sed '/date/e'
 Wed Aug 14 11:51:06 IST 2019
 2019-08-14
-
 $ printf 'date\ndate -I\n' | sed '2e'
 date
 2019-08-14
 
-$ printf 'date\ndate -I\n' > dates.txt
-$ sed -i '/date/e' dates.txt
-$ cat dates.txt
-Wed Aug 14 11:52:25 IST 2019
-2019-08-14
+$ # command provided as argument, output is inserted before matching line
+$ printf 'show\nexample\n' | sed '/am/e seq 2'
+show
+1
+2
+example
 ```
 
 ## Multiline mode
@@ -2363,6 +2397,8 @@ X Day
 | | whenever the REGEXP address matches or substitution succeeds |
 | `e` | executes contents of pattern space as shell command |
 | | and replaces the pattern space with command output |
+| | if argument is passed, executes that external command |
+| | and inserts output before matching lines |
 | `m` or `M` | multiline mode flag |
 | | `.` will not match the newline character |
 | | `^` and `$` will match every line's start and end locations |
@@ -2520,36 +2556,59 @@ $ echo 'home path is:' | sed 's|$| '"${HOME}"'|'
 home path is: /home/learnbyexample
 
 $ # but you may not have the luxury of choosing a delimiter
-$ # in such cases, preprocess the value before variable substitution
+$ # in such cases, escape all delimiter characters before variable substitution
 $ home=${HOME//\//\\/}
 $ echo 'home path is:' | sed 's/$/ '"${home}"'/'
 home path is: /home/learnbyexample
 ```
 
-Next, you have to properly escape all the metacharacters depending upon whether the variable is used as search or replacement string. This is needed only if the content of the variable has to be treated literally (other than the delimiter character discussed above).
-
 >![warning](images/warning.svg) If the variable value is obtained from an external source, such as user input, then you need to worry about security too. See [unix.stackexchange: security consideration when using shell substitution](https://unix.stackexchange.com/questions/297122/replace-the-first-occurence-of-a-pattern-in-a-file-that-may-contain-a-slash/297128#297128) for more details.
+
+## Escaping metacharacters
+
+Next, you have to properly escape all the metacharacters depending upon whether the variable is used as search or replacement string. This is needed only if the content of the variable has to be treated literally. Here's an example to illustrate the issue with one metacharacter.
 
 ```bash
 $ c='&'
-$ # no change because & will backreference entire matched portion
+$ # & will backreference entire matched portion
 $ echo 'a and b and c' | sed 's/and/'"${c}"'/g'
-a and b and c
+a [and] b [and] c
 
+$ # escape all occurrences of & to insert it literally
 $ c1=${c//&/\\&}
 $ echo 'a and b and c' | sed 's/and/'"${c1}"'/g'
-a & b & c
+a [&] b [&] c
 ```
 
-For a detailed analysis on escaping the metacharacters, which is beyond the scope of this book, refer to these wonderful Q&A threads:
+Typically, you'd need to escape `\`, `&` and the delimiter for variables used in the replacement section. For the search section, the characters to be escaped will depend upon whether you are using BRE or ERE.
 
-* [unix.stackexchange: How to ensure that string interpolated into sed substitution escapes all metacharacters](https://unix.stackexchange.com/questions/129059/how-to-ensure-that-string-interpolated-into-sed-substitution-escapes-all-metac)
+```bash
+$ # replacement string
+$ r='a/b&c\d'
+$ r=$(printf '%s' "$r" | sed 's#[\&/]#\\&#g')
+
+$ # ERE version for search string
+$ s='{[(\ta^b/d).*+?^$|]}'
+$ s=$(printf '%s' "$s" | sed 's#[{[()^$*?+.\|/]#\\&#g')
+$ echo 'f*{[(\ta^b/d).*+?^$|]} - 3' | sed -E 's/'"$s"'/'"$r"'/g'
+f*a/b&c\d - 3
+
+$ # BRE version for search string
+$ s='{[(\ta^b/d).*+?^$|]}'
+$ s=$(printf '%s' "$s" | sed 's#[[^$*.\/]#\\&#g')
+$ echo 'f*{[(\ta^b/d).*+?^$|]} - 3' | sed 's/'"$s"'/'"$r"'/g'
+f*a/b&c\d - 3
+```
+
+For a more detailed analysis on escaping the metacharacters, refer to these wonderful Q&A threads.
+
+* [unix.stackexchange: How to ensure that string interpolated into sed substitution escapes all metacharacters](https://unix.stackexchange.com/questions/129059/how-to-ensure-that-string-interpolated-into-sed-substitution-escapes-all-metac) — also discusses how to escape literal newlines in replacement string
 * [stackoverflow: Is it possible to escape regex metacharacters reliably with sed](https://stackoverflow.com/questions/29613304/is-it-possible-to-escape-regex-metacharacters-reliably-with-sed)
 * [unix.stackexchange: What characters do I need to escape when using sed in a script?](https://unix.stackexchange.com/questions/32907/what-characters-do-i-need-to-escape-when-using-sed-in-a-sh-script)
 
 ## Command substitution
 
-This section will show examples of using output of shell command as part of `sed` command. And all the precautions seen in previous section apply here too.
+This section will show examples of using output of shell command as part of `sed` command. And all the precautions seen in previous sections apply here too.
 
 >![info](images/info.svg) See also [wooledge: Why is $() preferred over backticks?](https://mywiki.wooledge.org/BashFAQ/082)
 
@@ -2569,11 +2628,18 @@ $ printf 'f1.txt\nf2.txt\n' | sed 's/^/'"${p}"'\//'
 /home/learnbyexample/f2.txt
 ```
 
->![warning](images/warning.svg) Multiline command output cannot be substituted in this manner, as substitute command doesn't allow literal newlines in replacement section.
+>![warning](images/warning.svg) Multiline command output cannot be substituted in this manner, as substitute command doesn't allow literal newlines in replacement section unless escaped.
 
 ```bash
-$ echo '123' | sed 's/2/'"$(seq 5)"'/'
+$ printf 'a\n[x]\nb\n' | sed 's/x/'"$(seq 3)"'/'
 sed: -e expression #1, char 5: unterminated `s' command
+$ # prefix literal newlines with \ except the last newline
+$ printf 'a\n[x]\nb\n' | sed 's/x/'"$(seq 3 | sed '$!s/$/\\/' )"'/'
+a
+[1
+2
+3]
+b
 ```
 
 ## Cheatsheet and summary
@@ -2589,9 +2655,13 @@ sed: -e expression #1, char 5: unterminated `s' command
 | | and variable contents have to be preprocessed to prevent |
 | | clashing with `sed` metacharacters and security issue |
 | | if you don't control the variable contents |
+| `sed 's#[\&/]#\\&#g'` | escape metacharacters for replacement section |
+| `sed '$!s/$/\\/'` | escape literal newlines for replacement section |
+| `sed 's#[{[()^$*?+.\\|/]#\\&#g'` | escape metacharacters for search section, ERE |
+| `sed 's#[[^$*.\/]#\\&#g'` | escape metacharacters for search section, BRE |
 | `sed 's/date/'"$(date -I)"'/'` | example for command substitution |
-| | command output's newline character gets stripped |
-| | command output shouldn't have multiple newlines |
+| | command output's final newline character gets stripped |
+| | other literal newlines, if any, have to be escaped |
 
 This chapter covered some of the ways to construct a `sed` command dynamically. Like most things in software programming, 90% of the cases are relatively easier to accomplish. But the other 10% could get significantly complicated. Dealing with the clash between shell and `sed` metacharacters is a mess and I'd even suggest looking for alternatives such as `perl` to reduce the complexity. The next chapter will cover some more command line options.
 
@@ -2763,6 +2833,7 @@ Have a nice day
 | | literal newline can be used to separate the commands |
 | | single quotes can be freely used |
 | | comments can be specified after the `#` character |
+| `F` | command to insert current filename at the given address |
 
 This chapter covered three command line options that come in handy for specific situations. You also saw a few examples of `sed` being used as part of a solution with other commands in a pipeline or a shell script. In the next chapter, you'll learn three commands that are also specialized for particular use cases.
 
@@ -3042,7 +3113,7 @@ $ seq 0 5 | sed ##### add your solution here
 
 The previous chapter discussed how to use `a`, `c` and `i` commands to append, change or insert the given string for matching address. Any `\` in the string argument is treated according to `sed` escape sequence rules and it cannot contain literal newline character. The `r` and `R` commands allow to use file contents as the source string which is always treated literally and can contain newline characters. Thus, these two commands provide a robust way to add multiline text literally.
 
-However, `r` and `R` provide only *append* functionality for matching address. You'll have to use other `sed` features if you need `c` and `i` variations.
+However, `r` and `R` provide only *append* functionality for matching address. Other `sed` features will be used to show examples for `c` and `i` variations.
 
 ## r for entire file
 
@@ -3123,7 +3194,33 @@ Quoting from manual:
 
 >The empty regular expression ‘//’ repeats the last regular expression match (the same holds if the empty regular expression is passed to the s command). Note that modifiers to regular expressions are evaluated when the regular expression is compiled, thus it is invalid to specify them together with the empty regular expression
 
-Emulating `i` command functionality with `r` command requires advanced usage of `sed` and well beyond the scope of this book. Also, I would rather suggest to use `awk` or `perl` for this scenario. See [unix.stackexchange: insert file contents before matching line](https://unix.stackexchange.com/questions/32908/how-to-insert-the-content-of-a-file-into-another-file-before-a-pattern-marker) for solutions with `sed` as well as other command line tools.
+Emulating `i` command functionality with `r` command requires advanced usage of `sed` and well beyond the scope of this book. See [unix.stackexchange: insert file contents before matching line](https://unix.stackexchange.com/questions/32908/how-to-insert-the-content-of-a-file-into-another-file-before-a-pattern-marker) for examples. Instead of `r` command, the next section will show how to use the `e` flag seen earlier for this purpose.
+
+## Using e and cat command
+
+The manual has this handy note for the `e` flag:
+
+>Note that, unlike the r command, the output of the command will be printed immediately; the r command instead delays the output to the end of the current cycle.
+
+This makes the `e` flag the easiest way to insert file contents before the matching lines. Similar to `r` command, the output of external command is inserted literally. But one difference from `r` command is that if the filename passed to the external `cat` command doesn't exist, then you will see its error message inserted.
+
+```bash
+$ sed '/red/e cat ip.txt' fav_colors.txt
+    * sky
+    * apple
+deep red
+yellow
+    * sky
+    * apple
+reddish
+brown
+
+$ text='good\tone\nfood\tpun'
+$ echo "$text" | sed '1e cat /dev/stdin' ip.txt
+good\tone\nfood\tpun
+    * sky
+    * apple
+```
 
 ## R for line by line
 
@@ -3157,6 +3254,7 @@ brown
 | Note                     | Description    |
 | ------------------------ | -------------- |
 | `r filename` | entire contents of file is added after each matching line |
+| `e cat filename` | entire contents of file is added before each matching line |
 | `R filename` | add one line at a time from file after each matching line |
 | | space between command and filename is optional |
 | | use `/dev/stdin` as filename to use stdin as file source |
@@ -3204,8 +3302,10 @@ end address: 0xFF, func2 address: 0xB0
 | `b` | skip rest of the commands and start next cycle |
 | `t label` | branch to specified `label` on successful substitution |
 | `t` | on successful substitution, skip rest of the commands and start next cycle |
+| `T label` | branch to specified `label` if substitution fails |
+| `T` | if substitution fails, skip rest of the commands and start next cycle |
 
-A label is specified by prefixing a command with `:label` where `label` is the name given to be referenced elsewhere with `b` or `t` branching commands.
+A label is specified by prefixing a command with `:label` where `label` is the name given to be referenced elsewhere with branching commands. Note that for `t` command, any successful substitution since the last input line was read or a conditional branch will count. So, you could have few failed substitutions and a single successful substitution in any order and the branch will be taken. Similarly, `T` command will branch only if there has been no successful substitution since the last input line was read or a conditional branch.
 
 ## if-then-else
 
@@ -3236,9 +3336,27 @@ $ sed '/^-/ s///; t; s/^/-/' nums.txt
 -4567
 ```
 
+The `T` command will branch only if there has been no successful substitution since the last input was read or conditional branch. Rephrased it another way, the commands after the `T` branch will be executed only if there has been at least one successful substitution.
+
+```bash
+$ # 2nd substitution will work only if 1st one succeeds
+$ # same as: sed '/o/{s//-/g; s/d/*/g}'
+$ printf 'good\nbad\n' | sed 's/o/-/g; T; s/d/*/g'
+g--*
+bad
+
+$ # append will work if any of the substitution succeeds
+$ printf 'good\nbad\nneed\n' | sed 's/o/-/g; s/a/%/g; T; a ----'
+g--d
+----
+b%d
+----
+need
+```
+
 ## loop
 
-Without labels, `b` and `t` commands will skip rest of the commands and then start processing the next line from input. By marking a command location with a label, you can branch to that particular location when required. In this case, you'll still be processing the current pattern space.
+Without labels, branching commands will skip rest of the commands and then start processing the next line from input. By marking a command location with a label, you can branch to that particular location when required. In this case, you'll still be processing the current pattern space.
 
 The below example replaces all consecutive digit characters from start of line with `*` character. `:a` marks the substitute command with label named `a` and `ta` would branch to label `a` if the substitute command succeeds. Effectively, you get a **looping** mechanism to replace the current line as long as the substitute condition is satisfied.
 
@@ -3308,6 +3426,8 @@ cog
 | `b` | skip rest of the commands and start next cycle |
 | `t label` | branch to specified `label` on successful substitution |
 | `t` | on successful substitution, skip rest of the commands and start next cycle |
+| `T label` | branch to specified `label` if substitution fails |
+| `T` | if substitution fails, skip rest of the commands and start next cycle |
 
 This chapter introduced branching commands that can be used to emulate programming features like if-else and loops. These are handy for certain cases, especially when combined with filtering features of `sed`. Speaking of filtering features, the next chapter will focus entirely on using address range for various use cases.
 
@@ -3317,7 +3437,6 @@ This chapter introduced branching commands that can be used to emulate programmi
 
 ```bash
 $ sed ##### add your solution here
-
 $ cat markers.txt 
 good start
 Start working on that
@@ -3733,7 +3852,7 @@ hi
 3
 ```
 
-9) Greediness of quantifiers. See also [stackoverflow: Greedy vs Reluctant vs Possessive](https://stackoverflow.com/questions/5319840/greedy-vs-reluctant-vs-possessive-quantifiers)
+9) Longest match wins. See also [stackoverflow: Greedy vs Reluctant vs Possessive](https://stackoverflow.com/questions/5319840/greedy-vs-reluctant-vs-possessive-quantifiers)
 
 ```bash
 $ s='food land bark sand band cue combat'
@@ -3977,21 +4096,21 @@ $ echo 'car bat cod map' | rg -P '(bat|map)(*SKIP)(*F)|\w+' -r '[$0]'
     * [sed FAQ](http://sed.sourceforge.net/sedfaq.html), great resource, but last modified *10 March 2003*
     * [stackoverflow: BSD/macOS sed vs GNU sed vs the POSIX sed specification](https://stackoverflow.com/questions/24275070/sed-not-giving-me-correct-substitute-operation-for-newline-with-mac-difference/24276470#24276470)
     * [unix.stackexchange: Differences between sed on Mac OSX and other standard sed](https://unix.stackexchange.com/questions/13711/differences-between-sed-on-mac-osx-and-other-standard-sed)
-    * [grymoire: sed tutorial](https://www.grymoire.com/Unix/Sed.html) - has details on differences between various `sed` versions as well
+    * [grymoire: sed tutorial](https://www.grymoire.com/Unix/Sed.html) — has details on differences between various `sed` versions as well
 * Q&A on stackoverflow/stackexchange are good source of learning material, good for practice exercises as well
     * [sed Q&A on unix stackexchange](https://unix.stackexchange.com/questions/tagged/sed?sort=votes&pageSize=15)
     * [sed Q&A on stackoverflow](https://stackoverflow.com/questions/tagged/sed?sort=votes&pageSize=15)
 * Learn Regular Expressions (has information on flavors other than BRE/ERE too)
-    * [regular-expressions](https://www.regular-expressions.info/) - tutorials and tools
-    * [rexegg](https://www.rexegg.com/) - tutorials, tricks and more
+    * [regular-expressions](https://www.regular-expressions.info/) — tutorials and tools
+    * [rexegg](https://www.rexegg.com/) — tutorials, tricks and more
     * [stackoverflow: What does this regex mean?](https://stackoverflow.com/questions/22937618/reference-what-does-this-regex-mean)
-    * [online regex tester and debugger](https://regex101.com/) - not fully suitable for cli tools, but most of ERE syntax works
+    * [online regex tester and debugger](https://regex101.com/) — not fully suitable for cli tools, but most of ERE syntax works
 * [My repo on cli text processing tools](https://github.com/learnbyexample/Command-line-text-processing)
 * Related tools
-    * [rpl](https://unix.stackexchange.com/questions/112023/how-can-i-replace-a-string-in-a-files/251742#251742) - search and replace tool, has interesting options like interactive mode and recursive mode
-    * [sedsed](https://github.com/aureliojargas/sedsed) - Debugger, indenter and HTMLizer for sed scripts
-    * [xo](https://github.com/ezekg/xo) - composes regular expression match groups
-    * [sd](https://github.com/chmln/sd) - simple search and replace, implemented in Rust
+    * [rpl](https://unix.stackexchange.com/questions/112023/how-can-i-replace-a-string-in-a-files/251742#251742) — search and replace tool, has interesting options like interactive mode and recursive mode
+    * [sedsed](https://github.com/aureliojargas/sedsed) — Debugger, indenter and HTMLizer for sed scripts
+    * [xo](https://github.com/ezekg/xo) — composes regular expression match groups
+    * [sd](https://github.com/chmln/sd) — simple search and replace, implemented in Rust
 * [unix.stackexchange: When to use grep, sed, awk, perl, etc](https://unix.stackexchange.com/questions/303044/when-to-use-grep-less-awk-sed)
 
 Here's some links for specific topics:

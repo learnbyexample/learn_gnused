@@ -4,6 +4,10 @@ sed '/^-/{s///; b}; s/^/-/' nums.txt
 
 sed '/^-/ s///; t; s/^/-/' nums.txt
 
+printf 'good\nbad\n' | sed 's/o/-/g; T; s/d/*/g'
+
+printf 'good\nbad\nneed\n' | sed 's/o/-/g; s/a/%/g; T; a ----'
+
 echo '12345 hello42' | sed -E ':a s/^(\**)[0-9]/\1*/; ta'
 
 echo '123x45 hello42' | sed -E ':a s/^(\**)[0-9]/\1*/; ta'

@@ -18,6 +18,12 @@ printf '%b' "$items" | sed -e '2 {r /dev/stdin' -e 'd}' ip.txt
 
 sed -e '/^red/r ip.txt' -e '/yellow/,//d' fav_colors.txt
 
+sed '/red/e cat ip.txt' fav_colors.txt
+
+text='good\tone\nfood\tpun'
+
+echo "$text" | sed '1e cat /dev/stdin' ip.txt
+
 sed '/red/R ip.txt' fav_colors.txt
 
 seq 4 | sed 'R /dev/stdin' fav_colors.txt

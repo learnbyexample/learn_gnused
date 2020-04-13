@@ -292,7 +292,7 @@ $ echo 'a+42//5-c pressure*3+42/5-14256' | sed ##### add your solution here
 a+8-c pressure*3+8-14256
 ```
 
-**i)** For the given greedy quantifiers, what would be the equivalent form using `{m,n}` representation?
+**i)** For the given quantifiers, what would be the equivalent form using `{m,n}` representation?
 
 * `?` is same as
 * `*` is same as

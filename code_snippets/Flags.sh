@@ -90,11 +90,7 @@ printf 'date\ndate -I\n' | sed '/date/e'
 
 printf 'date\ndate -I\n' | sed '2e'
 
-printf 'date\ndate -I\n' > dates.txt
-
-sed -i '/date/e' dates.txt
-
-cat dates.txt
+printf 'show\nexample\n' | sed '/am/e seq 2'
 
 printf 'Hi there\nHave a Nice Day\n' | sed 'N; s/H.*e/X/'
 
