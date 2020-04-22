@@ -1,5 +1,13 @@
 <br>
 
+### 1.2
+
+* Some typos corrected and some explanations/comments changed/added for clarity
+* Added epub version of the book
+* For more detailed view of changes, see the [commit changes for the markdown source file](https://github.com/learnbyexample/learn_gnused/commit/03176da7f6d66667c9a3008f6b381cf1534483b8#diff-aa7b5f43cdce36fc0ca603bf4d5fd6fb)
+
+<br>
+
 ### 1.1
 
 * Quantifiers terminology and explanation corrected, it is longest match wins instead of greedy
