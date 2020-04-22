@@ -69,6 +69,7 @@ Twitter: https://twitter.com/learn_byexample
     * [wand icon](https://www.iconfinder.com/icons/1679640/design_magic_magician_tool_wand_icon) by [roundicons.com](https://www.iconfinder.com/roundicons)
 * [softwareengineering.stackexchange](https://softwareengineering.stackexchange.com/questions/39/whats-your-favourite-quote-about-programming) and [skolakoda](https://skolakoda.org/programming-quotes) for programming quotes
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
+* [arifmahmudrana](https://github.com/arifmahmudrana) for spotting an ambiguous explanation
 
 Special thanks to all my friends and online acquaintances for their help, support and encouragement, especially during difficult times.
 
