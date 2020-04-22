@@ -34,6 +34,7 @@ My [Command Line Text Processing](https://github.com/learnbyexample/Command-line
     * [wand icon](https://www.iconfinder.com/icons/1679640/design_magic_magician_tool_wand_icon) by [roundicons.com](https://www.iconfinder.com/roundicons)
 * [softwareengineering.stackexchange](https://softwareengineering.stackexchange.com/questions/39/whats-your-favourite-quote-about-programming) and [skolakoda](https://skolakoda.org/programming-quotes) for programming quotes
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
+* [arifmahmudrana](https://github.com/arifmahmudrana) for spotting an ambiguous explanation
 
 Special thanks to all my friends and online acquaintances for their help, support and encouragement, especially during difficult times.
 
@@ -64,7 +65,7 @@ Resources mentioned in Acknowledgements section above are available under origin
 
 ## Book version
 
-1.1
+1.2
 
 See [Version_changes.md](https://github.com/learnbyexample/learn_gnused/blob/master/Version_changes.md) to track changes across book versions.
 
@@ -197,7 +198,7 @@ $ printf '1,2,3,4\na,b,c,d\n' | sed 's/,/-/g'
 a-b-c-d
 ```
 
-Here sample input is created using `printf` command to showcase stream editing. By default, `sed` processes input line by line. To determine a line, `sed` uses the newline character `\n`. The first `sed` command replaces only the first occurrence of `,` with `-`. The second command replaces all occurrences as `g` flag is also used (`g` stands for `global`).
+Here sample input is created using `printf` command to showcase stream editing. By default, `sed` processes input line by line. To determine a line, `sed` uses the `\n` newline character. The first `sed` command replaces only the first occurrence of `,` with `-`. The second command replaces all occurrences as `g` flag is also used (`g` stands for `global`).
 
 >![warning](images/warning.svg) If you have a file with a different line ending style, you'll need to preprocess it first. For example, a text file downloaded from internet or a file originating from Windows OS would typically have lines ending with `\r\n` (carriage return + line feed). Modern text editors, IDEs and word processors can handle both styles easily. But every character matters when it comes to command line text processing. See [stackoverflow: Why does my tool output overwrite itself and how do I fix it?](https://stackoverflow.com/questions/45772525/why-does-my-tool-output-overwrite-itself-and-how-do-i-fix-it) for a detailed discussion and mitigation methods.
 
@@ -640,7 +641,7 @@ eAT
 drop
 ```
 
-Another way is to separate the commands using literal newline character. If more than 2-3 lines are needed, it is better to use a [sed script](#file-as-source-of-sed-commands) instead.
+Another way is to separate the commands using a literal newline character. If more than 2-3 lines are needed, it is better to use a [sed script](#file-as-source-of-sed-commands) instead.
 
 ```bash
 $ # here, each command is separated by literal newline character
@@ -657,7 +658,7 @@ There are two hard problems in computer science: cache invalidation,
 naming things, and off-by-one errors by Leon Bambrick
 ```
 
->![warning](images/warning.svg) Do not use multiple commands to construct conditional OR of multiple search strings, as you might get lines duplicated in the output. For example, check what output you get for `sed -ne '/use/p; /two/p' programming_quotes.txt` command. You can use regular expression feature [alternation](#alternation) for such cases.
+>![warning](images/warning.svg) Do not use multiple commands to construct conditional OR of multiple search strings, as you might get lines duplicated in the output. For example, check what output you get for `sed -ne '/use/p' -e '/two/p' programming_quotes.txt` command. You can use regular expression feature [alternation](#alternation) for such cases.
 
 To execute multiple commands for a common filter, use `{}` to group the commands. You can also nest them if needed.
 
@@ -1030,7 +1031,7 @@ used
 | | and then append next line of input |
 | | exit without executing other commands if there's no more input |
 
-This chapter introduced the filtering capabilities of `sed` and how it can be combined with `sed` commands to process only lines of interest instead of entire input file. Filtering can be specified using a REGEXP, line number or a combination of them. You also learnt various ways to compose multiple `sed` commands. In the next chapter, you will learn syntax and features of regular expression as implemented in `sed` command.
+This chapter introduced the filtering capabilities of `sed` and how it can be combined with `sed` commands to process only lines of interest instead of entire input file. Filtering can be specified using a REGEXP, line number or a combination of them. You also learnt various ways to compose multiple `sed` commands. In the next chapter, you will learn syntax and features of regular expressions as implemented in `sed` command.
 
 ## Exercises
 
@@ -1536,7 +1537,7 @@ $ echo 'foo123312baz' | perl -pe 's/o(1|2|3)+(12baz)?/X/'
 foXbaz
 ```
 
-While determining the longest match, overall regular expression matching is also considered. That's how `Error.*valid` example worked. If `.*` had consumed everything after `Error`, there wouldn't be any more characters to try to match after `valid`. So, among the varying quantity of characters to match for `.*`, the longest portion that satisfies the overall regular expression is chosen. Something like `a.*b` will match from first `a` in the input string to the last `b` in the string. In other implementations, like `perl`, this is achieved through a process called **backtracking**. Both approaches have their own advantages and disadvantages and have cases where the pattern can result in exponential time consumption.
+While determining the longest match, overall regular expression matching is also considered. That's how `Error.*valid` example worked. If `.*` had consumed everything after `Error`, there wouldn't be any more characters to try to match `valid`. So, among the varying quantity of characters to match for `.*`, the longest portion that satisfies the overall regular expression is chosen. Something like `a.*b` will match from first `a` in the input string to the last `b` in the string. In other implementations, like `perl`, this is achieved through a process called **backtracking**. Both approaches have their own advantages and disadvantages and have cases where the pattern can result in exponential time consumption.
 
 ```bash
 $ # from start of line to last 'm' in the line
@@ -2154,6 +2155,8 @@ $ echo '456:foo:123:bar:789:baz' | sed -E 's/(.*):((.*:){2})/\1[]\2/'
 456:foo:123[]bar:789:baz
 ```
 
+>![warning](images/warning.svg) See [unix.stackexchange: Why doesn't this sed command replace the 3rd-to-last "and"?](https://unix.stackexchange.com/questions/579889/why-doesnt-this-sed-command-replace-the-3rd-to-last-and) for a bug related to use of word boundaries in the `((){N})` generic case.
+
 A combination of number and `g` flag will replace all matches except the first *N-1* occurrences. In other words, all matches starting from the *N*th occurrence will be replaced.
 
 ```bash
@@ -2217,7 +2220,7 @@ $ cat cols.txt
 a:b:c:d
 ```
 
-For multiple output files, use `-e` for each file. Don't use `;` as that will be interpreted as part of the filename!
+For multiple output files, use `-e` for each file. Don't use `;` between commands as that will be interpreted as part of the filename!
 
 ```bash
 $ seq 20 | sed -n -e 's/5/five/w 5.txt' -e 's/7/seven/w 7.txt'
@@ -2613,7 +2616,7 @@ This section will show examples of using output of shell command as part of `sed
 >![info](images/info.svg) See also [wooledge: Why is $() preferred over backticks?](https://mywiki.wooledge.org/BashFAQ/082)
 
 ```bash
-$ # note that the newline character of command output gets stripped
+$ # note that the trailing newline character of command output gets stripped
 $ echo 'today is date.' | sed 's/date/'"$(date -I)"'/'
 today is 2019-08-23.
 
@@ -2647,10 +2650,10 @@ b
 | Note                     | Description    |
 | ------------------------ | -------------- |
 | `sed -n "${start},+${step}p"` | dynamically construct `sed` command |
-| | within double quotes, `$`, `\`, `!` and `` ` `` are special |
 | | in above example, `start` and `step` are shell variables |
 | | their values gets substituted before `sed` is executed |
 | `sed "/${word}/!d"` | entire command in double quotes is risky |
+| | within double quotes, `$`, `\`, `!` and `` ` `` are special |
 | `sed '/'"${word}"'/!d'` | use double quotes only where needed |
 | | and variable contents have to be preprocessed to prevent |
 | | clashing with `sed` metacharacters and security issue |
@@ -3047,12 +3050,13 @@ Wednesday
 15
 ```
 
-Literal newline in the substituted string may cause an error depending upon content.
+Literal newline in the substituted string may cause an error depending upon content. To avoid the behavior shown below, process the command output as discussed in [Command substitution](#command-substitution) section.
 
 ```bash
 $ seq 13 15 | sed '3i'"$(printf 'hi\n123')"
 sed: -e expression #1, char 8: missing command
 
+$ # here, the content after newline gets executed as a command
 $ # same as: sed -e '3i hi' -e 's/5/five/'
 $ seq 13 15 | sed '3i'"$(printf 'hi\ns/5/five/')"
 13
@@ -3132,6 +3136,7 @@ reddish
 brown
 
 $ # space between r and filename is optional
+$ # adds entire contents of 'ip.txt' after each line containing 'red'
 $ sed '/red/r ip.txt' fav_colors.txt
 deep red
     * sky
@@ -3260,7 +3265,7 @@ brown
 | | use `/dev/stdin` as filename to use stdin as file source |
 | | file contents are added literally, no escape sequence interpretation |
 
-This chapter covered two powerful and robust solutions for adding text literally from a file or command output. These are particularly useful for templating solutions where a line containing a keyword gets replaced with text from elsewhere. In the next chapter, you'll learn how to implement control structures using branch commands.
+This chapter covered powerful and robust solutions for adding text literally from a file or command output. These are particularly useful for templating solutions where a line containing a keyword gets replaced with text from elsewhere. In the next chapter, you'll learn how to implement control structures using branch commands.
 
 ## Exercises
 
@@ -3675,7 +3680,7 @@ $ tac log.txt | sed -n '/error/,/warning/p' | tac
 ==> error 1
 ```
 
->![info](images/info.svg) If both the starting and ending markers can occur multiple times, then [learnbyexample gawk: broken blocks](https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md#broken-blocks) or [learnbyexample perl: broken blocks](https://github.com/learnbyexample/Command-line-text-processing/blob/master/perl_the_swiss_knife.md#broken-blocks) would suit better than trying to solve with `sed`
+>![info](images/info.svg) If both the starting and ending markers can occur multiple times, then [learn_gnuawk: broken blocks](https://github.com/learnbyexample/learn_gnuawk/blob/master/gnu_awk.md#broken-blocks) or [learnbyexample perl: broken blocks](https://github.com/learnbyexample/Command-line-text-processing/blob/master/perl_the_swiss_knife.md#broken-blocks) would suit better than trying to solve with `sed`
 
 ## Summary
 
