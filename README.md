@@ -18,6 +18,7 @@ You can purchase the book using these links:
 
 * https://gumroad.com/l/gnu_sed
 * https://leanpub.com/gnu_sed
+* You can also get the book as part of **Magical one-liners** bundle from https://gumroad.com/l/oneliners or https://leanpub.com/b/oneliners
 * You can also get the book as part of **Awesome Regex** bundle from https://leanpub.com/b/regex or https://gumroad.com/l/regex
 * See https://learnbyexample.github.io/books/ for list of other books
 
@@ -64,9 +65,7 @@ Twitter: https://twitter.com/learn_byexample
 * [stackoverflow](https://stackoverflow.com/) and [unix.stackexchange](https://unix.stackexchange.com/) - for getting answers to pertinent questions on `bash`, `sed` and other commands
 * [tex.stackexchange](https://tex.stackexchange.com/) - for help on `pandoc` and `tex` related questions
 * Cover image
-    * [draw.io](https://about.draw.io/)
-    * [tree icon](https://www.iconfinder.com/icons/3199231/ellipse_green_nature_tree_icon) by [Gopi Doraisamy](https://www.iconfinder.com/gopidoraisamy) under [Creative Commons Attribution 3.0 Unported](https://creativecommons.org/licenses/by/3.0/)
-    * [wand icon](https://www.iconfinder.com/icons/1679640/design_magic_magician_tool_wand_icon) by [roundicons.com](https://www.iconfinder.com/roundicons)
+    * [LibreOffice Draw](https://www.libreoffice.org/discover/draw/)
 * [softwareengineering.stackexchange](https://softwareengineering.stackexchange.com/questions/39/whats-your-favourite-quote-about-programming) and [skolakoda](https://skolakoda.org/programming-quotes) for programming quotes
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
 * [arifmahmudrana](https://github.com/arifmahmudrana) for spotting an ambiguous explanation
