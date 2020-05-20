@@ -16,7 +16,7 @@ My [Command Line Text Processing](https://github.com/learnbyexample/Command-line
 
 ## Conventions
 
-* The examples presented here have been tested on `GNU bash` shell with **GNU sed 4.7** and may include features not available in earlier versions
+* The examples presented here have been tested on `GNU bash` shell with **GNU sed 4.8** and may include features not available in earlier versions
 * Code snippets shown are copy pasted from `bash` shell and modified for presentation purposes. Some commands are preceded by comments to provide context and explanations. Blank lines to improve readability, only `real` time shown for speed comparisons, output skipped for commands like `wget` and so on
 * Unless otherwise noted, all examples and explanations are meant for *ASCII* characters only
 * `sed` would mean `GNU sed`, `grep` would mean `GNU grep` and so on unless otherwise specified
@@ -29,9 +29,7 @@ My [Command Line Text Processing](https://github.com/learnbyexample/Command-line
 * [stackoverflow](https://stackoverflow.com/) and [unix.stackexchange](https://unix.stackexchange.com/) — for getting answers to pertinent questions on `bash`, `sed` and other commands
 * [tex.stackexchange](https://tex.stackexchange.com/) — for help on `pandoc` and `tex` related questions
 * Cover image
-    * [draw.io](https://about.draw.io/)
-    * [tree icon](https://www.iconfinder.com/icons/3199231/ellipse_green_nature_tree_icon) by [Gopi Doraisamy](https://www.iconfinder.com/gopidoraisamy) under [Creative Commons Attribution 3.0 Unported](https://creativecommons.org/licenses/by/3.0/)
-    * [wand icon](https://www.iconfinder.com/icons/1679640/design_magic_magician_tool_wand_icon) by [roundicons.com](https://www.iconfinder.com/roundicons)
+    * [LibreOffice Draw](https://www.libreoffice.org/discover/draw/)
 * [softwareengineering.stackexchange](https://softwareengineering.stackexchange.com/questions/39/whats-your-favourite-quote-about-programming) and [skolakoda](https://skolakoda.org/programming-quotes) for programming quotes
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
 * [arifmahmudrana](https://github.com/arifmahmudrana) for spotting an ambiguous explanation
@@ -65,7 +63,7 @@ Resources mentioned in Acknowledgements section above are available under origin
 
 ## Book version
 
-1.2
+1.3
 
 See [Version_changes.md](https://github.com/learnbyexample/learn_gnused/blob/master/Version_changes.md) to track changes across book versions.
 
@@ -81,9 +79,9 @@ If you are on a Unix like system, you are most likely to already have some versi
 
 ```bash
 $ # use a dir, say ~/Downloads/sed_install before following the steps below
-$ wget https://ftp.gnu.org/gnu/sed/sed-4.7.tar.xz
-$ tar -Jxf sed-4.7.tar.xz
-$ cd sed-4.7/
+$ wget https://ftp.gnu.org/gnu/sed/sed-4.8.tar.xz
+$ tar -Jxf sed-4.8.tar.xz
+$ cd sed-4.8/
 $ ./configure 
 $ make
 $ sudo make install
@@ -92,7 +90,7 @@ $ type -a sed
 sed is /usr/local/bin/sed
 sed is /bin/sed
 $ sed --version | head -n1
-sed (GNU sed) 4.7
+sed (GNU sed) 4.8
 ```
 
 If you are not using a Linux distribution, you may be able to access `GNU sed` using below options:
@@ -268,9 +266,7 @@ end address: 0x7F, func2 address: 0xB0
 
 **c)** The substitute command searches and replaces sequences of characters. When you need to map one or more characters with another set of corresponding characters, you can use the `y` command. Quoting from the manual:
 
->**y/src/dst/**
-
->Transliterate any characters in the pattern space which match any of the source-chars with the corresponding character in dest-chars.
+>**y/src/dst/** Transliterate any characters in the pattern space which match any of the source-chars with the corresponding character in dest-chars.
 
 Use the `y` command to transform the given input string to get the output string as shown below.
 
@@ -1294,10 +1290,10 @@ two spare computers
 
 There's some tricky situations when using alternation. If it is used for filtering a line, there is no ambiguity. However, for use cases like substitution, it depends on a few factors. Say, you want to replace `are` or `spared` — which one should get precedence? The bigger word `spared` or the substring `are` inside it or based on something else?
 
-In `sed`, the alternative which matches earliest in the input gets precedence. Unlike other regular expression implementations, order of alternation doesn't affect the results. See [regular-expressions: alternation](https://www.regular-expressions.info/alternation.html) for more information on this topic.
+The alternative which matches earliest in the input gets precedence.
 
 ```bash
-$ # output will be same irrespective of alternation order
+$ # here, the output will be same irrespective of alternation order
 $ # note that 'g' flag isn't used here, so only first match gets replaced
 $ echo 'cats dog bee parrot foxed' | sed -E 's/bee|parrot|at/--/'
 c--s dog bee parrot foxed
@@ -1305,13 +1301,17 @@ $ echo 'cats dog bee parrot foxed' | sed -E 's/parrot|at|bee/--/'
 c--s dog bee parrot foxed
 ```
 
-In case of matches starting from same location, for example `spar` and `spared`, the longest matching portion gets precedence. See also [Longest match wins](#longest-match-wins) section for more examples.
+In case of matches starting from same location, for example `spar` and `spared`, the longest matching portion gets precedence. Unlike other regular expression implementations, left-to-right priority for alternation comes into play only if length of the matches are the same. See [Longest match wins](#longest-match-wins) and [Backreferences](#backreferences) sections for more examples. See [regular-expressions: alternation](https://www.regular-expressions.info/alternation.html) for more information on this topic.
 
 ```bash
 $ echo 'spared party parent' | sed -E 's/spa|spared/**/g'
 ** party parent
 $ echo 'spared party parent' | sed -E 's/spared|spa/**/g'
 ** party parent
+
+$ # other implementations like 'perl' have left-to-right priority
+$ echo 'spared party parent' | perl -pe 's/spa|spared/**/'
+**red party parent
 ```
 
 ## Grouping
@@ -1319,25 +1319,25 @@ $ echo 'spared party parent' | sed -E 's/spared|spa/**/g'
 Often, there are some common things among the regular expression alternatives. It could be common characters or qualifiers like the anchors. In such cases, you can group them using a pair of parentheses metacharacters. Similar to `a(b+c)d = abd+acd` in maths, you get `a(b|c)d = abd|acd` in regular expressions.
 
 ```bash
-# without grouping
+$ # without grouping
 $ printf 'red\nreform\nread\narrest\n' | sed -nE '/reform|rest/p'
 reform
 arrest
-# with grouping
+$ # with grouping
 $ printf 'red\nreform\nread\narrest\n' | sed -nE '/re(form|st)/p'
 reform
 arrest
 
-# without grouping
+$ # without grouping
 $ printf 'sub par\nspare\npart time\n' | sed -nE '/\bpar\b|\bpart\b/p'
 sub par
 part time
-# taking out common anchors
+$ # taking out common anchors
 $ printf 'sub par\nspare\npart time\n' | sed -nE '/\b(par|part)\b/p'
 sub par
 part time
-# taking out common characters as well
-# you'll later learn a better technique instead of using empty alternate
+$ # taking out common characters as well
+$ # you'll later learn a better technique instead of using empty alternate
 $ printf 'sub par\nspare\npart time\n' | sed -nE '/\bpar(|t)\b/p'
 sub par
 part time
@@ -1816,6 +1816,38 @@ $ echo 'one,2,3.14,42' | sed -E 's/^(([^,]+,){2})([^,]+)/\1"\3"/'
 one,2,"3.14",42
 ```
 
+Here's an example where alternation order matters when matching portions have same length. Aim is to delete all whole words unless it starts with `g` or `p` and contains `y`. See [stackoverflow: Non greedy matching in sed](https://stackoverflow.com/questions/1103149/non-greedy-reluctant-regex-matching-in-sed/39752929#39752929) for another use case.
+
+```bash
+$ s='tryst,fun,glyph,pity,why,group'
+
+$ # all words get deleted because \b\w+\b gets priority here
+$ echo "$s" | sed -E 's/\b\w+\b|(\b[gp]\w*y\w*\b)/\1/g'
+,,,,,
+
+$ # capture group gets priority here, thus words matching the group are retained
+$ echo "$s" | sed -E 's/(\b[gp]\w*y\w*\b)|\b\w+\b/\1/g'
+,,glyph,pity,,
+```
+
+As `\` and `&` are special characters in replacement section, use `\\` and `\&` respectively for literal representation.
+
+```bash
+$ echo 'foo and bar' | sed 's/and/[&]/'
+foo [and] bar
+$ echo 'foo and bar' | sed 's/and/[\&]/'
+foo [&] bar
+
+$ echo 'foo and bar' | sed 's/and/\\/'
+foo \ bar
+```
+
+>![warning](images/warning.svg) Backreference will provide the string that was matched, not the pattern that was inside the capture group. For example, if `([0-9][a-f])` matches `3b`, then backreferencing will give `3b` and not any other valid match like `8f`, `0a` etc. This is akin to how variables behave in programming, only the result of expression stays after variable assignment, not the expression itself.
+
+## Known Bugs
+
+Visit [sed bug list](https://debbugs.gnu.org/cgi/pkgreport.cgi?package=sed) for known issues.
+
 Here's is an [issue for certain usage of backreferences and quantifier](https://debbugs.gnu.org/cgi/bugreport.cgi?bug=26864) that was filed by yours truly.
 
 ```bash
@@ -1833,19 +1865,33 @@ Appaloosa
 Appleseed
 ```
 
-As `\` and `&` are special characters in replacement section, use `\\` and `\&` respectively for literal representation.
+>![warning](images/warning.svg) [unix.stackexchange: Why doesn't this sed command replace the 3rd-to-last "and"?](https://unix.stackexchange.com/questions/579889/why-doesnt-this-sed-command-replace-the-3rd-to-last-and) shows another interesting bug when word boundaries and group repetition are involved. Some examples are shown below. Again, workaround is to expand the group.
 
 ```bash
-$ echo 'foo and bar' | sed 's/and/[&]/'
-foo [and] bar
-$ echo 'foo and bar' | sed 's/and/[\&]/'
-foo [&] bar
+$ # wrong output
+$ echo 'cocoa' | sed -nE '/(\bco){2}/p'
+cocoa
+$ # correct behavior, no output
+$ echo 'cocoa' | sed -nE '/\bco\bco/p'
 
-$ echo 'foo and bar' | sed 's/and/\\/'
-foo \ bar
+$ # wrong output, there's only 1 whole word 'it' after 'with'
+$ echo 'it line with it here sit too' | sed -E 's/with(.*\bit\b){2}/XYZ/'
+it line XYZ too
+$ # correct behavior, input isn't modified
+$ echo 'it line with it here sit too' | sed -E 's/with.*\bit\b.*\bit\b/XYZ/'
+it line with it here sit too
+
+$ # changing word boundaries to \< and \> results in a different problem
+$ # this correctly doesn't modify the input
+$ echo 'it line with it here sit too' | sed -E 's/with(.*\<it\>){2}/XYZ/'
+it line with it here sit too
+$ # this correctly modifies the input
+$ echo 'it line with it here it too' | sed -E 's/with(.*\<it\>){2}/XYZ/'
+it line XYZ too
+$ # but this one fails to modify the input
+$ echo 'it line with it here it too sit' | sed -E 's/with(.*\<it\>){2}/XYZ/'
+it line with it here it too sit
 ```
-
->![warning](images/warning.svg) Backreference will provide the string that was matched, not the pattern that was inside the capture group. For example, if `([0-9][a-f])` matches `3b`, then backreferencing will give `3b` and not any other valid match like `8f`, `0a` etc. This is akin to how variables behave in programming, only the result of expression stays after variable assignment, not the expression itself.
 
 ## Cheatsheet and summary
 
@@ -1865,7 +1911,7 @@ foo \ bar
 | `\|` | combine multiple patterns as conditional OR |
 |   | each alternative can have independent anchors  |
 | | alternative which matches earliest in the input gets precedence |
-| | and the longest portion wins in case of a tie |
+| | and the leftmost longest portion wins in case of a tie |
 | `()` | group pattern(s) |
 | `a(b\|c)d` | same as `abd\|acd` |
 | `\` | prefix metacharacters with `\` to match them literally |
@@ -1985,9 +2031,11 @@ a+8-c pressure*3+8-14256
 **k)** For the given input, construct two different REGEXPs to get the outputs as shown below.
 
 ```bash
+$ # delete from '(' till next ')'
 $ echo 'a/b(division) + c%d() - (a#(b)2(' | sed ##### add your solution here
 a/b + c%d - 2(
 
+$ # delete from '(' till next ')' but not if there is '(' in between
 $ echo 'a/b(division) + c%d() - (a#(b)2(' | sed ##### add your solution here
 a/b + c%d - (a#2(
 ```
@@ -1998,10 +2046,30 @@ a/b + c%d - (a#2(
 $ cat anchors.txt
 # <a name="regular-expressions"></a>Regular Expressions
 ## <a name="subexpression-calls"></a>Subexpression calls
+## <a name="the-dot-meta-character"></a>The dot meta character
 
 $ sed ##### add your solution here
 [Regular Expressions](#regular-expressions)
 [Subexpression calls](#subexpression-calls)
+[The dot meta character](#the-dot-meta-character)
+```
+
+**m)** Replace the space character that occurs after a word ending with `a` or `r` with a newline character.
+
+```bash
+$ echo 'area not a _a2_ roar took 22' | sed ##### add your solution here
+area
+not a
+_a2_ roar
+took 22
+```
+
+**n)** Surround all whole words with `()`. Additionally, if the whole word is `imp` or `ant`, delete them. Can you do it with single substitution?
+
+```bash
+$ words='tiger imp goat eagle ant important'
+$ echo "$words" | sed ##### add your solution here
+(tiger) () (goat) (eagle) () (important)
 ```
 
 # Flags
@@ -2502,6 +2570,34 @@ hi there
 bye
 ```
 
+**h)** For the given strings, replace last but third `so` with `X`. Only print the lines which are changed by the substitution.
+
+```bash
+$ printf 'so and so also sow and soup\n' | sed ##### add your solution here
+so and X also sow and soup
+
+$ printf 'sososososososo\nso and so\n' | sed ##### add your solution here
+sososoXsososo
+```
+
+**i)** Display all lines that satisfies **both** of these conditions:
+
+* `professor` matched irrespective of case
+* `quip` or `this` matched case sensitively
+
+Input is a file downloaded from internet as shown below.
+
+```bash
+$ wget https://www.gutenberg.org/files/345/345.txt -O dracula.txt
+
+$ sed ##### add your solution here
+equipment of a professor of the healing craft. When we were shown in,
+should be. I could see that the Professor had carried out in this room,
+"Not up to this moment, Professor," she said impulsively, "but up to
+and sprang at us. But by this time the Professor had gained his feet,
+this time the Professor had to ask her questions, and to ask them pretty
+```
+
 # Shell substitutions
 
 So far, the `sed` commands have been constructed statically. All the details were known. For example, which line numbers to act upon, the search REGEXP, the replacement string and so on. When it comes to automation and scripting, you'd often need to construct commands dynamically based on user input, file contents, etc. And sometimes, output of a shell command is needed as part of the replacement string. This chapter will discuss how to incorporate shell variables and command output to compose a `sed` command dynamically. As mentioned before, this book assumes `bash` as the shell being used.
@@ -2961,7 +3057,6 @@ $ seq 3 | sed '2c rat\tdog\nwolf'
 rat     dog
 wolf
 3
-
 $ seq 3 | sed '2a it\x27s sunny today'
 1
 2
@@ -3293,6 +3388,29 @@ copyright: 2019
 end address: 0xFF, func2 address: 0xB0
 ```
 
+**c)** For every line of the input file `hex.txt`, insert `---` before the line and add one line from `replace.txt` after the line as shown below.
+
+```bash
+$ sed ##### add your solution here
+---
+start address: 0xA0, func1 address: 0xA0
+0xA0 0x5000
+---
+end address: 0xFF, func2 address: 0xB0
+0xB0 0x6000
+```
+
+**d)** Insert the contents of `hex.txt` file before a line matching `0x6000` of the input file `replace.txt`.
+
+```bash
+$ sed ##### add your solution here
+0xA0 0x5000
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+0xB0 0x6000
+0xFF 0x7000
+```
+
 # Control structures
 
 `sed` supports two types of branching commands that helps to construct control structures. These commands (and other advanced features not discussed in this book) allow you to emulate a wide range of features that are common in programming languages. This chapter will show basic examples and you'll find some more use cases in a later chapter.
@@ -3478,6 +3596,23 @@ $ echo '123-87-593 42-3 foo' | sed ##### add your solution here
 
 $ echo '53783-0913 hi 3 4-2' | sed ##### add your solution here
 [53783]-[0913] hi 3 4-2
+```
+
+**d)** Convert the contents of `headers.txt` such that it matches the content of `anchors.txt`. The input file `headers.txt` contains one header per line, starting with one or more `#` character followed by a space character and then followed by the heading. You have to convert this heading into anchor tag as shown by the contents of `anchors.txt`.
+
+```bash
+$ cat headers.txt
+# Regular Expressions
+## Subexpression calls
+## The dot meta character
+$ cat anchors.txt
+# <a name="regular-expressions"></a>Regular Expressions
+## <a name="subexpression-calls"></a>Subexpression calls
+## <a name="the-dot-meta-character"></a>The dot meta character
+
+$ sed ##### add your solution here headers.txt > out.txt
+$ diff -s out.txt anchors.txt
+Files out.txt and anchors.txt are identical
 ```
 
 # Processing lines bounded by distinct markers
@@ -3715,6 +3850,18 @@ $ # expected output
 $ ##### add your solution here
 3.14
 1234567890
+```
+
+**b)** For the input file `addr.txt`, replace the lines occurring between the markers `How` and `12345` with contents of the file `hex.txt`. 
+
+```bash
+$ sed ##### add your solution here
+Hello World
+How are you
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+12345
+You are funny
 ```
 
 # Gotchas and Tricks
