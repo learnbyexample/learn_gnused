@@ -1,5 +1,16 @@
 <br>
 
+### 1.3
+
+* Command version updated to **GNU sed 4.8**
+* Corrected explanation for same-length alternations
+* Added chapter sub-headings for code snippets in the repo for clarity
+* Added more exercises and examples, corrected typos
+* Updated cover image
+* For more detailed view of changes, see the [commit changes for the markdown source file](https://github.com/learnbyexample/learn_gnused/commit/fae6d2fda0fd3157f7e03f656ba07e4016b2867e#diff-aa7b5f43cdce36fc0ca603bf4d5fd6fb)
+
+<br>
+
 ### 1.2
 
 * Some typos corrected and some explanations/comments changed/added for clarity
