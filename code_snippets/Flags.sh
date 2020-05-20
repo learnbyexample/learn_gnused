@@ -1,8 +1,12 @@
+## Case insensitive matching
+
 printf 'Cat\ncOnCaT\nscatter\ncot\n' | sed -n '/cat/p'
 
 printf 'Cat\ncOnCaT\nscatter\ncot\n' | sed -n '/cat/Ip'
 
 printf 'Cat\ncOnCaT\nscatter\ncot\n' | sed 's/cat/dog/I'
+
+## Changing case in replacement section
 
 echo 'hello there. how are you?' | sed 's/\b\w/\u&/g'
 
@@ -22,9 +26,13 @@ echo 'HeLLo:bYe gOoD:beTTEr' | sed -E 's/[a-z]+/\L\u&/Ig'
 
 echo 'HeLLo:bYe gOoD:beTTEr' | sed -E 's/[a-z]+/\U\l&/Ig'
 
+## Global replace
+
 printf '1,2,3,4\na,b,c,d\n' | sed 's/,/-/'
 
 printf '1,2,3,4\na,b,c,d\n' | sed 's/,/-/g'
+
+## Replace specific occurrences
 
 echo 'foo:123:bar:baz' | sed 's/:/-/'
 
@@ -54,9 +62,13 @@ echo '456:foo:123:bar:789:baz' | sed 's/:/[]/3; s/:/[]/2'
 
 echo '456:foo:123:bar:789:baz' | sed 's/:/[]/5; s/:/[]/3; s/:/[]/2'
 
+## Print flag
+
 echo 'hi there. have a nice day' | sed -n 's/xyz/XYZ/p'
 
 echo 'hi there. have a nice day' | sed -n 's/\bh/H/pg'
+
+## Write to a file
 
 seq 20 | sed -n 's/3/three/w 3.txt'
 
@@ -76,6 +88,8 @@ sed -i 's/three/3/w /dev/stdout' 3.txt
 
 cat 3.txt
 
+## Executing external commands
+
 printf 'Date:\nreplace this line\n'
 
 printf 'Date:\nreplace this line\n' | sed 's/^replace.*/date/e'
@@ -91,6 +105,8 @@ printf 'date\ndate -I\n' | sed '/date/e'
 printf 'date\ndate -I\n' | sed '2e'
 
 printf 'show\nexample\n' | sed '/am/e seq 2'
+
+## Multiline mode
 
 printf 'Hi there\nHave a Nice Day\n' | sed 'N; s/H.*e/X/'
 

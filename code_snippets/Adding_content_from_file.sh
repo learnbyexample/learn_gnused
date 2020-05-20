@@ -1,3 +1,5 @@
+## r for entire file
+
 cat ip.txt
 
 cat fav_colors.txt
@@ -18,11 +20,15 @@ printf '%b' "$items" | sed -e '2 {r /dev/stdin' -e 'd}' ip.txt
 
 sed -e '/^red/r ip.txt' -e '/yellow/,//d' fav_colors.txt
 
+## Using e and cat command
+
 sed '/red/e cat ip.txt' fav_colors.txt
 
 text='good\tone\nfood\tpun'
 
 echo "$text" | sed '1e cat /dev/stdin' ip.txt
+
+## R for line by line
 
 sed '/red/R ip.txt' fav_colors.txt
 

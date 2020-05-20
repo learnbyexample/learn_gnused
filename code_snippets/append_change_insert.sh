@@ -1,3 +1,5 @@
+## Basic usage
+
 seq 3 | sed '2a hello'
 
 seq 5 | sed '/[24]/c hello'
@@ -9,6 +11,8 @@ seq 5 | sed '2,4i hi there!'
 seq 5 | sed '2,4c hi there!'
 
 seq 5 | sed '2,4 s/.*/hi there!/'
+
+## Escape sequences
 
 seq 3 | sed '2c rat\tdog\nwolf'
 
@@ -22,6 +26,8 @@ seq 3 | sed '2c\nhi'
 
 seq 3 | sed '2c\\nhi'
 
+## Multiple commands
+
 seq 4 | sed '2c hi ; 3a bye'
 
 seq 3 | sed '2{s/^/*/; a hi}'
@@ -30,6 +36,8 @@ seq 4 | sed -e '2c hi' -e '3a bye'
 
 seq 3 | sed '2{c hi
 }'
+
+## Shell substitution
 
 text='good\tone\nfood\tpun'
 

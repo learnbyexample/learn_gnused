@@ -1,3 +1,5 @@
+## Line Anchors
+
 printf 'spared no one\npar\nspar\n' | sed -n '/^sp/p'
 
 printf 'spared no one\npar\nspar\n' | sed -n '/ar$/p'
@@ -7,6 +9,8 @@ printf 'spared no one\npar\nspar\n' | sed 's/^par$/PAR/'
 printf 'spared no one\npar\nspar\n' | sed 's/^/* /'
 
 printf 'spared no one\npar\nspar\n' | sed '/ /! s/$/./'
+
+## Word Anchors
 
 cat word_anchors.txt
 
@@ -26,6 +30,8 @@ echo 'copper' | sed 's/\b/:/g'
 
 echo 'copper' | sed 's/\B/:/g'
 
+## Alternation
+
 sed -n '/two\|sub/p' word_anchors.txt
 
 sed -nE '/two|sub/p' word_anchors.txt
@@ -42,6 +48,10 @@ echo 'spared party parent' | sed -E 's/spa|spared/**/g'
 
 echo 'spared party parent' | sed -E 's/spared|spa/**/g'
 
+echo 'spared party parent' | perl -pe 's/spa|spared/**/'
+
+## Grouping
+
 printf 'red\nreform\nread\narrest\n' | sed -nE '/reform|rest/p'
 
 printf 'red\nreform\nread\narrest\n' | sed -nE '/re(form|st)/p'
@@ -52,6 +62,8 @@ printf 'sub par\nspare\npart time\n' | sed -nE '/\b(par|part)\b/p'
 
 printf 'sub par\nspare\npart time\n' | sed -nE '/\bpar(|t)\b/p'
 
+## Matching the metacharacters
+
 echo 'a^2 + b^2 - C*3' | sed -n '/b^2/p'
 
 echo '$a = $b + $c' | sed -n '/$b/p'
@@ -61,6 +73,8 @@ echo '$a = $b + $c' | sed 's/\$//g'
 printf '(a/b) + c\n3 + (a/b) - c\n' | sed -n '/^(a\/b)/p'
 
 printf '(a/b) + c\n3 + (a/b) - c\n' | sed -nE '/^\(a\/b\)/p'
+
+## Using different delimiters
 
 echo '/home/learnbyexample/reports' | sed 's/\/home\/learnbyexample\//~\//'
 
@@ -74,11 +88,15 @@ printf '/foo/bar/1\n/foo/baz/1\n'
 
 printf '/foo/bar/1\n/foo/baz/1\n' | sed -n '\;/foo/bar/;p'
 
+## The dot meta character
+
 echo 'tac tin cot abc:tyz excited' | sed 's/c.t/-/g'
 
 printf '42\t35\n' | sed 's/.3.//'
 
 printf 'abc\nxyz\n' | sed 'N; s/c.x/ /'
+
+## Quantifiers
 
 echo 'fed fold fe:d feeder' | sed -E 's/\bfe.?d\b/X/g'
 
@@ -114,6 +132,8 @@ echo 'two cats and a dog' | sed -E 's/cat.*dog|dog.*cat/pets/'
 
 echo 'two dogs and a cat' | sed -E 's/cat.*dog|dog.*cat/pets/'
 
+## Longest match wins
+
 echo 'foot' | sed -E 's/f.?o/X/'
 
 echo 'car bat cod map scat dot abacus' | sed 's/.*/X/'
@@ -129,6 +149,8 @@ echo 'car bat cod map scat dot abacus' | sed 's/b.*t/-/'
 echo 'car bat cod map scat dot abacus' | sed 's/b.*at/-/'
 
 echo 'car bat cod map scat dot abacus' | sed 's/a.*m*/-/'
+
+## Character classes
 
 printf 'cute\ncat\ncot\ncoat\ncost\nscuttle\n' | sed -n '/c[ou]t/p'
 
@@ -182,6 +204,8 @@ echo 'int a[5]' | sed -n '/[x[y.]/p'
 
 echo 'f*(a^b) - 3*(a+b)/(a-b)' | sed 's/a[+^]b/c/g'
 
+## Escape sequences
+
 printf 'foo\tbar\tbaz\n' | sed 's/\t/ /g'
 
 echo 'a b c' | sed 's/ /\t/g'
@@ -197,6 +221,8 @@ printf 'cute\ncot\ncat\ncoat\n' | sed -n '/\x5eco/p'
 echo 'hello world' | sed 's/.*/"&"/'
 
 echo 'hello world' | sed 's/.*/"\x26"/'
+
+## Backreferences
 
 echo 'effort flee facade oddball rat tool' | sed -E 's/\w*(\w)\1\w*/X/g'
 
@@ -214,13 +240,35 @@ echo 'hello world' | sed 's/.*/Hi. &. Have a nice day/'
 
 echo 'one,2,3.14,42' | sed -E 's/^(([^,]+,){2})([^,]+)/\1"\3"/'
 
-sed -nE '/^(\w*(\w)\2\w*){2}$/p' words.txt | head -n5
+s='tryst,fun,glyph,pity,why,group'
 
-sed -nE '/^\w*(\w)\1\w*(\w)\2\w*$/p' words.txt | head -n5
+echo "$s" | sed -E 's/\b\w+\b|(\b[gp]\w*y\w*\b)/\1/g'
+
+echo "$s" | sed -E 's/(\b[gp]\w*y\w*\b)|\b\w+\b/\1/g'
 
 echo 'foo and bar' | sed 's/and/[&]/'
 
 echo 'foo and bar' | sed 's/and/[\&]/'
 
 echo 'foo and bar' | sed 's/and/\\/'
+
+## Known Bugs
+
+sed -nE '/^(\w*(\w)\2\w*){2}$/p' words.txt | head -n5
+
+sed -nE '/^\w*(\w)\1\w*(\w)\2\w*$/p' words.txt | head -n5
+
+echo 'cocoa' | sed -nE '/(\bco){2}/p'
+
+echo 'cocoa' | sed -nE '/\bco\bco/p'
+
+echo 'it line with it here sit too' | sed -E 's/with(.*\bit\b){2}/XYZ/'
+
+echo 'it line with it here sit too' | sed -E 's/with.*\bit\b.*\bit\b/XYZ/'
+
+echo 'it line with it here sit too' | sed -E 's/with(.*\<it\>){2}/XYZ/'
+
+echo 'it line with it here it too' | sed -E 's/with(.*\<it\>){2}/XYZ/'
+
+echo 'it line with it here it too sit' | sed -E 's/with(.*\<it\>){2}/XYZ/'
 

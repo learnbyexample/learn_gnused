@@ -1,10 +1,16 @@
+## Conditional execution
+
 printf '1,2,3,4\na,b,c,d\n' | sed '/2/ s/,/-/g'
 
 printf '1,2,3,4\na,b,c,d\n' | sed '/2/! s/,/-/g'
 
+## Delete command
+
 printf 'sea\neat\ndrop\n' | sed '/at/d'
 
 printf 'sea\neat\ndrop\n' | sed '/at/!d'
+
+## Print command
 
 cat programming_quotes.txt
 
@@ -20,6 +26,8 @@ printf 'sea\neat\ndrop\n' | sed -n '/at/!p'
 
 seq 2 | sed 'p'
 
+## Quit commands
+
 sed '/if/q' programming_quotes.txt
 
 sed '/if/Q' programming_quotes.txt
@@ -33,6 +41,8 @@ echo $?
 printf 'sea\neat\ndrop\n' | sed '/at/Q3'
 
 echo $?
+
+## Multiple commands
 
 printf 'sea\neat\ndrop\n' | sed -n -e 'p' -e 's/at/AT/p'
 
@@ -54,6 +64,8 @@ sed -n '/in/{/not/{/you/p}}' programming_quotes.txt
 
 sed -n '/not/{/you/!p}' programming_quotes.txt
 
+## Line addressing
+
 sed -n '3p' programming_quotes.txt
 
 sed -n '2p; 5p' programming_quotes.txt
@@ -72,6 +84,8 @@ time seq 3542 4623452 | sed -n '2452p' > f2
 
 seq 23 45 | sed '5q'
 
+## Print only line number
+
 grep -n 'not' programming_quotes.txt
 
 sed -n '/not/=' programming_quotes.txt
@@ -79,6 +93,8 @@ sed -n '/not/=' programming_quotes.txt
 sed -n '/off/{=; p}' programming_quotes.txt
 
 sed -n '/off/{p; =}' programming_quotes.txt
+
+## Address range
 
 sed -n '/are/,/by/p' programming_quotes.txt
 
@@ -96,6 +112,8 @@ sed -n '0,/in/p' programming_quotes.txt
 
 sed -n '0,/not/p' programming_quotes.txt
 
+## Relative addressing
+
 sed -n '/not/,+2p' programming_quotes.txt
 
 sed -n '5,+1p' programming_quotes.txt
@@ -109,6 +127,8 @@ seq 10 | sed -n '2,~4p'
 seq 10 | sed -n '5,~4p'
 
 sed -n '/regular/,~3p' programming_quotes.txt
+
+## n and N commands
 
 seq 10 | sed -n 'n; p'
 

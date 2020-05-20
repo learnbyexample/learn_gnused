@@ -1,3 +1,5 @@
+## Variable substitution
+
 start=5; step=1
 
 sed -n "${start},+${step}p" programming_quotes.txt
@@ -19,6 +21,8 @@ echo 'home path is:' | sed 's|$| '"${HOME}"'|'
 home=${HOME//\//\\/}
 
 echo 'home path is:' | sed 's/$/ '"${home}"'/'
+
+## Escaping metacharacters
 
 c='&'
 
@@ -43,6 +47,8 @@ s='{[(\ta^b/d).*+?^$|]}'
 s=$(printf '%s' "$s" | sed 's#[[^$*.\/]#\\&#g')
 
 echo 'f*{[(\ta^b/d).*+?^$|]} - 3' | sed 's/'"$s"'/'"$r"'/g'
+
+## Command substitution
 
 echo 'today is date.' | sed 's/date/'"$(date -I)"'/'
 

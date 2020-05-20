@@ -23,9 +23,7 @@ end address: 0x7F, func2 address: 0xB0
 
 **c)** The substitute command searches and replaces sequences of characters. When you need to map one or more characters with another set of corresponding characters, you can use the `y` command. Quoting from the manual:
 
->**y/src/dst/**
-
->Transliterate any characters in the pattern space which match any of the source-chars with the corresponding character in dest-chars.
+>**y/src/dst/** Transliterate any characters in the pattern space which match any of the source-chars with the corresponding character in dest-chars.
 
 Use the `y` command to transform the given input string to get the output string as shown below.
 
@@ -33,6 +31,8 @@ Use the `y` command to transform the given input string to get the output string
 $ echo 'goal new user sit eat dinner' | sed ##### add your solution here
 gOAl nEw UsEr sIt EAt dInnEr
 ```
+
+<br>
 
 # In-place file editing
 
@@ -99,6 +99,8 @@ $ echo '2 apples' > b1.txt
 $ echo '5 bananas' > -ibkp.txt
 $ sed -ibkp.* 's/2/two/' b1.txt
 ```
+
+<br>
 
 # Selective editing
 
@@ -222,6 +224,8 @@ $ seq 32 100 | sed ##### add your solution here
 88
 ```
 
+<br>
+
 # BRE/ERE Regular Expressions
 
 **a)** For the given input, print all lines that start with `den` or end with `ly`.
@@ -303,9 +307,11 @@ a+8-c pressure*3+8-14256
 **k)** For the given input, construct two different REGEXPs to get the outputs as shown below.
 
 ```bash
+$ # delete from '(' till next ')'
 $ echo 'a/b(division) + c%d() - (a#(b)2(' | sed ##### add your solution here
 a/b + c%d - 2(
 
+$ # delete from '(' till next ')' but not if there is '(' in between
 $ echo 'a/b(division) + c%d() - (a#(b)2(' | sed ##### add your solution here
 a/b + c%d - (a#2(
 ```
@@ -316,11 +322,33 @@ a/b + c%d - (a#2(
 $ cat anchors.txt
 # <a name="regular-expressions"></a>Regular Expressions
 ## <a name="subexpression-calls"></a>Subexpression calls
+## <a name="the-dot-meta-character"></a>The dot meta character
 
 $ sed ##### add your solution here
 [Regular Expressions](#regular-expressions)
 [Subexpression calls](#subexpression-calls)
+[The dot meta character](#the-dot-meta-character)
 ```
+
+**m)** Replace the space character that occurs after a word ending with `a` or `r` with a newline character.
+
+```bash
+$ echo 'area not a _a2_ roar took 22' | sed ##### add your solution here
+area
+not a
+_a2_ roar
+took 22
+```
+
+**n)** Surround all whole words with `()`. Additionally, if the whole word is `imp` or `ant`, delete them. Can you do it with single substitution?
+
+```bash
+$ words='tiger imp goat eagle ant important'
+$ echo "$words" | sed ##### add your solution here
+(tiger) () (goat) (eagle) () (important)
+```
+
+<br>
 
 # Flags
 
@@ -414,6 +442,36 @@ hi there
 bye
 ```
 
+**h)** For the given strings, replace last but third `so` with `X`. Only print the lines which are changed by the substitution.
+
+```bash
+$ printf 'so and so also sow and soup\n' | sed ##### add your solution here
+so and X also sow and soup
+
+$ printf 'sososososososo\nso and so\n' | sed ##### add your solution here
+sososoXsososo
+```
+
+**i)** Display all lines that satisfies **both** of these conditions:
+
+* `professor` matched irrespective of case
+* `quip` or `this` matched case sensitively
+
+Input is a file downloaded from internet as shown below.
+
+```bash
+$ wget https://www.gutenberg.org/files/345/345.txt -O dracula.txt
+
+$ sed ##### add your solution here
+equipment of a professor of the healing craft. When we were shown in,
+should be. I could see that the Professor had carried out in this room,
+"Not up to this moment, Professor," she said impulsively, "but up to
+and sprang at us. But by this time the Professor had gained his feet,
+this time the Professor had to ask her questions, and to ask them pretty
+```
+
+<br>
+
 # Shell substitutions
 
 **a)** Replace `#expr#` with value of `usr_ip` shell variable. Assume that this variable can only contain the metacharacters as shown in the sample below.
@@ -432,6 +490,8 @@ $ usr_ip='c = (a/b/y) && (x-5)'
 $ echo 'Expression: #expr#' | sed ##### add your solution here
 Expression: c = (a/b/y) && (x-5)
 ```
+
+<br>
 
 # z, s and f command line options
 
@@ -476,6 +536,8 @@ start address: 0x5000, func1 address: 0x5000
 end address: 0x7000, func2 address: 0x6000
 ```
 
+<br>
+
 # append, change, insert
 
 **a)** For the input file `addr.txt`, print only the third line and surround it with `-----`
@@ -508,6 +570,8 @@ $ seq 0 5 | sed ##### add your solution here
 ---
 ```
 
+<br>
+
 # Adding content from file
 
 **a)** Replace third to fifth lines of input file `addr.txt` with second to fourth lines from file `para.txt`
@@ -534,13 +598,37 @@ copyright: 2019
 end address: 0xFF, func2 address: 0xB0
 ```
 
+**c)** For every line of the input file `hex.txt`, insert `---` before the line and add one line from `replace.txt` after the line as shown below.
+
+```bash
+$ sed ##### add your solution here
+---
+start address: 0xA0, func1 address: 0xA0
+0xA0 0x5000
+---
+end address: 0xFF, func2 address: 0xB0
+0xB0 0x6000
+```
+
+**d)** Insert the contents of `hex.txt` file before a line matching `0x6000` of the input file `replace.txt`.
+
+```bash
+$ sed ##### add your solution here
+0xA0 0x5000
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+0xB0 0x6000
+0xFF 0x7000
+```
+
+<br>
+
 # Control structures
 
 **a)** Using the input file `para.txt`, create a file named `markers.txt` with all lines that contain `start` or `end` (matched case insensitively) and a file named `rest.txt` with rest of the lines.
 
 ```bash
 $ sed ##### add your solution here
-
 $ cat markers.txt 
 good start
 Start working on that
@@ -579,6 +667,25 @@ $ echo '53783-0913 hi 3 4-2' | sed ##### add your solution here
 [53783]-[0913] hi 3 4-2
 ```
 
+**d)** Convert the contents of `headers.txt` such that it matches the content of `anchors.txt`. The input file `headers.txt` contains one header per line, starting with one or more `#` character followed by a space character and then followed by the heading. You have to convert this heading into anchor tag as shown by the contents of `anchors.txt`.
+
+```bash
+$ cat headers.txt
+# Regular Expressions
+## Subexpression calls
+## The dot meta character
+$ cat anchors.txt
+# <a name="regular-expressions"></a>Regular Expressions
+## <a name="subexpression-calls"></a>Subexpression calls
+## <a name="the-dot-meta-character"></a>The dot meta character
+
+$ sed ##### add your solution here headers.txt > out.txt
+$ diff -s out.txt anchors.txt
+Files out.txt and anchors.txt are identical
+```
+
+<br>
+
 # Processing lines bounded by distinct markers
 
 **a)** For the input file `broken.txt`, print all lines between the markers `top` and `bottom`. The first `sed` command shown below doesn't work because `sed` will match till end of file if second address isn't found.
@@ -608,5 +715,17 @@ $ # expected output
 $ ##### add your solution here
 3.14
 1234567890
+```
+
+**b)** For the input file `addr.txt`, replace the lines occurring between the markers `How` and `12345` with contents of the file `hex.txt`. 
+
+```bash
+$ sed ##### add your solution here
+Hello World
+How are you
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+12345
+You are funny
 ```
 

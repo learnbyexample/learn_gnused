@@ -1,3 +1,5 @@
+## Uniform markers
+
 cat uniform.txt
 
 sed -n '/start/,/end/p' uniform.txt
@@ -16,11 +18,15 @@ sed '/start/,/end/{/start/!d}' uniform.txt
 
 sed '/start/,/end/{/end/!d}' uniform.txt
 
+## Extracting first or last group
+
 sed -n '/start/,/end/{p; /end/q}' uniform.txt
 
 sed -n '/start/,/end/{//!p; /end/q}' uniform.txt
 
 tac uniform.txt | sed -n '/end/,/start/{p; /start/q}' | tac
+
+## Broken groups
 
 cat log.txt
 
