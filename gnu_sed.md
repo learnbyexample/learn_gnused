@@ -63,7 +63,7 @@ Resources mentioned in Acknowledgements section above are available under origin
 
 ## Book version
 
-1.3
+1.4
 
 See [Version_changes.md](https://github.com/learnbyexample/learn_gnused/blob/master/Version_changes.md) to track changes across book versions.
 
@@ -1018,7 +1018,7 @@ used
 | `0,/not/p` | inefficient equivalent of `/not/q` but works for multiple files |
 | `ADDR,+N` | all lines matching the ADDR and `N` lines after |
 | `i~j` | arithmetic progression with `i` as start and `j` as step |
-| `ADDR,~j` | closest multiple of `j` wrt line matching the ADDR |
+| `ADDR,~j` | closest multiple of `j` w.r.t. line matching the ADDR |
 | pattern space | active data buffer, commands work on this content |
 | `n` | if `-n` option isn't used, pattern space gets printed |
 | | and then pattern space is replaced with the next line of input |
@@ -1345,15 +1345,15 @@ part time
 
 ## Matching the metacharacters
 
-You have seen a few metacharacters and escape sequences that help to compose a regular expression. To match the metacharacters literally, i.e. to remove their special meaning, prefix those characters with a `\` character. To indicate a literal `\` character, use `\\`. Some of the metacharacters, like the line anchors, lose their special meaning when not used in their customary positions. If there are many metacharacters to be escaped, try to work out if the command can be simplified by switching between ERE and BRE.
+You have seen a few metacharacters and escape sequences that help to compose a regular expression. To match the metacharacters literally, i.e. to remove their special meaning, prefix those characters with a `\` character. To indicate a literal `\` character, use `\\`. Some of the metacharacters, like the line anchors, lose their special meaning when not used in their customary positions with BRE syntax. If there are many metacharacters to be escaped, try to work out if the command can be simplified by switching between ERE and BRE.
 
 ```bash
-$ # line anchors aren't special away from customary positions
+$ # line anchors aren't special away from customary positions with BRE
 $ echo 'a^2 + b^2 - C*3' | sed -n '/b^2/p'
 a^2 + b^2 - C*3
 $ echo '$a = $b + $c' | sed -n '/$b/p'
 $a = $b + $c
-$ # escape line anchors to match them literally at customary positions
+$ # escape line anchors to match literally at customary positions, also for ERE
 $ echo '$a = $b + $c' | sed 's/\$//g'
 a = b + c
 
