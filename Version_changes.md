@@ -1,5 +1,13 @@
 <br>
 
+### 1.4
+
+* Clarified BRE vs ERE difference for line anchor escaping
+* Added workaround for **epub** version for iBooks
+* For more detailed view of changes, see the [commit changes for the markdown source file](https://github.com/learnbyexample/learn_gnused/commit/6adddbef8db20674ac72ddec534cde86c430fd30#diff-aa7b5f43cdce36fc0ca603bf4d5fd6fb)
+
+<br>
+
 ### 1.3
 
 * Command version updated to **GNU sed 4.8**
