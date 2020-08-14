@@ -1,0 +1,767 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Exercise Solutions - GNU SED</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Example based guide to mastering GNU SED">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="in-place-file-editing.html"><strong aria-hidden="true">3.</strong> In-place file editing</a></li><li class="chapter-item expanded "><a href="selective-editing.html"><strong aria-hidden="true">4.</strong> Selective editing</a></li><li class="chapter-item expanded "><a href="breere-regular-expressions.html"><strong aria-hidden="true">5.</strong> BRE/ERE Regular Expressions</a></li><li class="chapter-item expanded "><a href="flags.html"><strong aria-hidden="true">6.</strong> Flags</a></li><li class="chapter-item expanded "><a href="shell-substitutions.html"><strong aria-hidden="true">7.</strong> Shell substitutions</a></li><li class="chapter-item expanded "><a href="z-s-and-f-command-line-options.html"><strong aria-hidden="true">8.</strong> z, s and f command line options</a></li><li class="chapter-item expanded "><a href="append-change-insert.html"><strong aria-hidden="true">9.</strong> append, change, insert</a></li><li class="chapter-item expanded "><a href="adding-content-from-file.html"><strong aria-hidden="true">10.</strong> Adding content from file</a></li><li class="chapter-item expanded "><a href="control-structures.html"><strong aria-hidden="true">11.</strong> Control structures</a></li><li class="chapter-item expanded "><a href="processing-lines-bounded-by-distinct-markers.html"><strong aria-hidden="true">12.</strong> Processing lines bounded by distinct markers</a></li><li class="chapter-item expanded "><a href="gotchas-and-tricks.html"><strong aria-hidden="true">13.</strong> Gotchas and Tricks</a></li><li class="chapter-item expanded "><a href="further-reading.html"><strong aria-hidden="true">14.</strong> Further Reading</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html" class="active"><strong aria-hidden="true">15.</strong> Exercise Solutions</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GNU SED</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="https://github.com/learnbyexample/learn_gnused" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#introduction" id="introduction">Introduction</a></h1>
+<p>Exercise related files are available from <a href="https://github.com/learnbyexample/learn_gnused/tree/master/exercises">exercises folder</a></p>
+<p><strong>a)</strong> Replace <code>5</code> with <code>five</code> for the given stdin source.</p>
+<pre><code class="language-bash">$ echo 'They ate 5 apples' | sed 's/5/five/'
+They ate five apples
+</code></pre>
+<p><strong>b)</strong> Replace all occurrences of <code>0xA0</code> with <code>0x50</code> and <code>0xFF</code> with <code>0x7F</code> for the given input file.</p>
+<pre><code class="language-bash">$ cat hex.txt
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+
+$ sed 's/0xA0/0x50/g' hex.txt | sed 's/0xFF/0x7F/g'
+start address: 0x50, func1 address: 0x50
+end address: 0x7F, func2 address: 0xB0
+</code></pre>
+<p><strong>c)</strong> The substitute command searches and replaces sequences of characters. When you need to map one or more characters with another set of corresponding characters, you can use the <code>y</code> command. Quoting from the manual:</p>
+<blockquote>
+<p><strong>y/src/dst/</strong> Transliterate any characters in the pattern space which match any of the source-chars with the corresponding character in dest-chars.</p>
+</blockquote>
+<p>Use the <code>y</code> command to transform the given input string to get the output string as shown below.</p>
+<pre><code class="language-bash">$ echo 'goal new user sit eat dinner' | sed 'y/aeiou/AEIOU/'
+gOAl nEw UsEr sIt EAt dInnEr
+</code></pre>
+<br>
+<h1><a class="header" href="#in-place-file-editing" id="in-place-file-editing">In-place file editing</a></h1>
+<p><strong>a)</strong> For the input file <code>text.txt</code>, replace all occurrences of <code>in</code> with <code>an</code> and write back the changes to <code>text.txt</code> itself. The original contents should get saved to <code>text.txt.orig</code></p>
+<pre><code class="language-bash">$ cat text.txt
+can ran want plant
+tin fin fit mine line
+$ sed -i.orig 's/in/an/g' text.txt
+
+$ cat text.txt
+can ran want plant
+tan fan fit mane lane
+$ cat text.txt.orig
+can ran want plant
+tin fin fit mine line
+</code></pre>
+<p><strong>b)</strong> For the input file <code>text.txt</code>, replace all occurrences of <code>an</code> with <code>in</code> and write back the changes to <code>text.txt</code> itself. Do not create backups for this exercise. Note that you should have solved the previous exercise before starting this one.</p>
+<pre><code class="language-bash">$ cat text.txt
+can ran want plant
+tan fan fit mane lane
+$ sed -i 's/an/in/g' text.txt
+
+$ cat text.txt
+cin rin wint plint
+tin fin fit mine line
+$ diff text.txt text.txt.orig
+1c1
+&lt; cin rin wint plint
+---
+&gt; can ran want plant
+</code></pre>
+<p><strong>c)</strong> For the input file <code>copyright.txt</code>, replace <code>copyright: 2018</code> with <code>copyright: 2019</code> and write back the changes to <code>copyright.txt</code> itself. The original contents should get saved to <code>2018_copyright.txt.bkp</code></p>
+<pre><code class="language-bash">$ cat copyright.txt
+bla bla 2015 bla
+blah 2018 blah
+bla bla bla
+copyright: 2018
+$ sed -i'2018_*.bkp' 's/copyright: 2018/copyright: 2019/' copyright.txt
+
+$ cat copyright.txt
+bla bla 2015 bla
+blah 2018 blah
+bla bla bla
+copyright: 2019
+$ cat 2018_copyright.txt.bkp
+bla bla 2015 bla
+blah 2018 blah
+bla bla bla
+copyright: 2018
+</code></pre>
+<p><strong>d)</strong> In the code sample shown below, two files are created by redirecting output of <code>echo</code> command. Then a <code>sed</code> command is used to edit <code>b1.txt</code> in-place as well as create a backup named <code>bkp.b1.txt</code>. Will the <code>sed</code> command work as expected? If not, why?</p>
+<pre><code class="language-bash">$ echo '2 apples' &gt; b1.txt
+$ echo '5 bananas' &gt; -ibkp.txt
+$ sed -ibkp.* 's/2/two/' b1.txt
+</code></pre>
+<p>Unquoted strings on the command line are subjected to shell interpretation. So, <code>-ibkp.*</code> will get expanded as <code>-ibkp.txt</code> (as there exists a file whose name starts with <code>-ibkp.</code>). This results in back up filename as <code>b1.txtbkp.txt</code> (because <code>bkp.txt</code> will be treated as the suffix to be added to input file <code>b1.txt</code>). The correct usage is <code>sed -i'bkp.*' 's/2/two/' b1.txt</code> to get <code>bkp.b1.txt</code> as the back up filename.</p>
+<br>
+<h1><a class="header" href="#selective-editing" id="selective-editing">Selective editing</a></h1>
+<p><strong>a)</strong> Remove only the third line of given input.</p>
+<pre><code class="language-bash">$ seq 34 37 | sed '3d'
+34
+35
+37
+</code></pre>
+<p><strong>b)</strong> Display only fourth, fifth, sixth and seventh lines for the given input.</p>
+<pre><code class="language-bash">$ seq 65 78 | sed -n '4,7p'
+68
+69
+70
+71
+</code></pre>
+<p><strong>c)</strong> For the input file <code>addr.txt</code>, replace all occurrences of <code>are</code> with <code>are not</code> and <code>is</code> with <code>is not</code> only from line number <strong>4</strong> till end of file. Also, only the lines that were changed should be displayed in the output.</p>
+<pre><code class="language-bash">$ cat addr.txt
+Hello World
+How are you
+This game is good
+Today is sunny
+12345
+You are funny
+
+$ sed -n '4,$ {s/are/are not/gp; s/is/is not/gp}' addr.txt
+Today is not sunny
+You are not funny
+</code></pre>
+<p><strong>d)</strong> Use <code>sed</code> to get the output shown below for the given input. You'll have to first understand the logic behind input to output transformation and then use commands introduced in this chapter to construct a solution.</p>
+<pre><code class="language-bash">$ # or: sed -n '2~5{p; n; n; p}'
+$ seq 15 | sed -n 'n; p; n; n; p; n'
+2
+4
+7
+9
+12
+14
+</code></pre>
+<p><strong>e)</strong> For the input file <code>addr.txt</code>, display all lines from start of the file till the first occurrence of <code>game</code>.</p>
+<pre><code class="language-bash">$ sed '/game/q' addr.txt
+Hello World
+How are you
+This game is good
+</code></pre>
+<p><strong>f)</strong> For the input file <code>addr.txt</code>, display all lines that contain <code>is</code> but not <code>good</code>.</p>
+<pre><code class="language-bash">$ sed -n '/is/{/good/!p}' addr.txt
+Today is sunny
+</code></pre>
+<p><strong>g)</strong> See <a href="./gotchas-and-tricks.html">Gotchas and Tricks</a> chapter and correct the command to get the output as shown below.</p>
+<pre><code class="language-bash">$ # wrong output
+$ seq 11 | sed 'N; N; s/\n/-/g'
+1-2-3
+4-5-6
+7-8-9
+10
+11
+
+$ # expected output
+$ seq 11 | sed 'N; $!N; s/\n/-/g'
+1-2-3
+4-5-6
+7-8-9
+10-11
+</code></pre>
+<p><strong>h)</strong> For the input file <code>addr.txt</code>, add line numbers in the format as shown below.</p>
+<pre><code class="language-bash">$ sed '=' addr.txt
+1
+Hello World
+2
+How are you
+3
+This game is good
+4
+Today is sunny
+5
+12345
+6
+You are funny
+</code></pre>
+<p><strong>i)</strong> For the input file <code>addr.txt</code>, print all lines that contain <code>are</code> and the line that comes after such a line, if any.</p>
+<pre><code class="language-bash">$ sed -n '/are/,+1 p' addr.txt
+How are you
+This game is good
+You are funny
+</code></pre>
+<p><strong>Bonus:</strong> For the above input file, will <code>sed -n '/is/,+1 p' addr.txt</code> produce identical results as <code>grep -A1 'is' addr.txt</code>? If not, why?</p>
+<p>No. <code>sed</code> will not try to match <code>is</code> in the context lines whereas <code>grep</code> will match the search term in the context lines as well.</p>
+<p><strong>j)</strong> Print all lines if their line numbers follow the sequence <code>1, 15, 29, 43, etc</code> but not if the line contains <code>4</code> in it.</p>
+<pre><code class="language-bash">$ seq 32 100 | sed -n '1~14 {/4/!p}'
+32
+60
+88
+</code></pre>
+<br>
+<h1><a class="header" href="#breere-regular-expressions" id="breere-regular-expressions">BRE/ERE Regular Expressions</a></h1>
+<p><strong>a)</strong> For the given input, print all lines that start with <code>den</code> or end with <code>ly</code>.</p>
+<pre><code class="language-bash">$ lines='lovely\n1 dentist\n2 lonely\neden\nfly away\ndent\n'
+$ printf '%b' &quot;$lines&quot; | sed -nE '/^den|ly$/p'
+lovely
+2 lonely
+dent
+</code></pre>
+<p><strong>b)</strong> Replace all occurrences of <code>42</code> with <code>[42]</code> unless it is at the edge of a word. Note that <strong>word</strong> in these exercises have same meaning as defined in regular expressions.</p>
+<pre><code class="language-bash">$ echo 'hi42bye nice421423 bad42 cool_42a 42c' | sed 's/\B42\B/[&amp;]/g'
+hi[42]bye nice[42]1[42]3 bad42 cool_[42]a 42c
+</code></pre>
+<p><strong>c)</strong> Add <code>[]</code> around words starting with <code>s</code> and containing <code>e</code> and <code>t</code> in any order.</p>
+<pre><code class="language-bash">$ words='sequoia subtle exhibit asset sets tests site'
+$ echo &quot;$words&quot; | sed -E 's/\bs\w*(e\w*t|t\w*e)\w*/[&amp;]/g'
+sequoia [subtle] exhibit asset [sets] tests [site]
+</code></pre>
+<p><strong>d)</strong> Replace all whole words with <code>X</code> that start and end with the same word character.</p>
+<pre><code class="language-bash">$ echo 'oreo not a _a2_ roar took 22' | sed -E 's/\b(\w|(\w)\w*\2)\b/X/g'
+X not X X X took X
+</code></pre>
+<p><strong>e)</strong> Replace all occurrences of <code>[4]|*</code> with <code>2</code></p>
+<pre><code class="language-bash">$ echo '2.3/[4]|*6 foo 5.3-[4]|*9' | sed 's/\[4]|\*/2/g'
+2.3/26 foo 5.3-29
+</code></pre>
+<p><strong>f)</strong> <code>sed -nE '/\b[a-z](on|no)[a-z]\b/p'</code> is same as <code>sed -nE '/\b[a-z][on]{2}[a-z]\b/p'</code>. True or False? Sample input shown below might help to understand the differences, if any.</p>
+<p>False. <code>[on]{2}</code> will also match <code>oo</code> and <code>nn</code>.</p>
+<pre><code class="language-bash">$ printf 'known\nmood\nknow\npony\ninns\n'
+known
+mood
+know
+pony
+inns
+</code></pre>
+<p><strong>g)</strong> Print all lines that start with <code>hand</code> and ends with no further character or <code>s</code> or <code>y</code> or <code>le</code>.</p>
+<pre><code class="language-bash">$ lines='handed\nhand\nhandy\nunhand\nhands\nhandle\n'
+$ printf '%b' &quot;$lines&quot; | sed -nE '/^hand([sy]|le)?$/p'
+hand
+handy
+hands
+handle
+</code></pre>
+<p><strong>h)</strong> Replace <code>42//5</code> or <code>42/5</code> with <code>8</code> for the given input.</p>
+<pre><code class="language-bash">$ echo 'a+42//5-c pressure*3+42/5-14256' | sed -E 's#42//?5#8#g'
+a+8-c pressure*3+8-14256
+</code></pre>
+<p><strong>i)</strong> For the given quantifiers, what would be the equivalent form using <code>{m,n}</code> representation?</p>
+<ul>
+<li><code>?</code> is same as <code>{,1}</code></li>
+<li><code>*</code> is same as <code>{0,}</code></li>
+<li><code>+</code> is same as <code>{1,}</code></li>
+</ul>
+<p><strong>j)</strong> True or False? In ERE, <code>(a*|b*)</code> is same as <code>(a|b)*</code> </p>
+<p>False. Because <code>(a*|b*)</code> will match only sequences like <code>a</code>, <code>aaa</code>, <code>bb</code>, <code>bbbbbbbb</code>. But <code>(a|b)*</code> can match a mixed sequence like <code>ababbba</code> too.</p>
+<p><strong>k)</strong> For the given input, construct two different REGEXPs to get the outputs as shown below.</p>
+<pre><code class="language-bash">$ # delete from '(' till next ')'
+$ echo 'a/b(division) + c%d() - (a#(b)2(' | sed 's/([^)]*)//g'
+a/b + c%d - 2(
+
+$ # delete from '(' till next ')' but not if there is '(' in between
+$ echo 'a/b(division) + c%d() - (a#(b)2(' | sed 's/([^()]*)//g'
+a/b + c%d - (a#2(
+</code></pre>
+<p><strong>l)</strong> For the input file <code>anchors.txt</code>, convert <strong>markdown</strong> anchors to corresponding <strong>hyperlinks</strong>.</p>
+<pre><code class="language-bash">$ cat anchors.txt
+# &lt;a name=&quot;regular-expressions&quot;&gt;&lt;/a&gt;Regular Expressions
+## &lt;a name=&quot;subexpression-calls&quot;&gt;&lt;/a&gt;Subexpression calls
+## &lt;a name=&quot;the-dot-meta-character&quot;&gt;&lt;/a&gt;The dot meta character
+
+$ sed -E 's|[^&quot;]+&quot;([^&quot;]+)&quot;&gt;&lt;/a&gt;(.+)|[\2](#\1)|' anchors.txt
+[Regular Expressions](#regular-expressions)
+[Subexpression calls](#subexpression-calls)
+[The dot meta character](#the-dot-meta-character)
+</code></pre>
+<p><strong>m)</strong> Replace the space character that occurs after a word ending with <code>a</code> or <code>r</code> with a newline character.</p>
+<pre><code class="language-bash">$ echo 'area not a _a2_ roar took 22' | sed -E 's/([ar])\b /\1\n/g'
+area
+not a
+_a2_ roar
+took 22
+</code></pre>
+<p><strong>n)</strong> Surround all whole words with <code>()</code>. Additionally, if the whole word is <code>imp</code> or <code>ant</code>, delete them. Can you do it with single substitution?</p>
+<pre><code class="language-bash">$ words='tiger imp goat eagle ant important'
+$ echo &quot;$words&quot; | sed -E 's/\b(imp|ant|(\w+))\b/(\2)/g'
+(tiger) () (goat) (eagle) () (important)
+</code></pre>
+<br>
+<h1><a class="header" href="#flags" id="flags">Flags</a></h1>
+<p><strong>a)</strong> For the input file <code>para.txt</code>, remove all groups of lines marked with a line beginning with <code>start</code> and a line ending with <code>end</code>. Match both these markers case insensitively.</p>
+<pre><code class="language-bash">$ cat para.txt
+good start
+Start working on that
+project you always wanted
+to, do not let it end
+hi there
+start and try to
+finish the End
+bye
+
+$ sed '/^start/I,/end$/I d' para.txt
+good start
+hi there
+bye
+</code></pre>
+<p><strong>b)</strong> The given sample input below starts with one or more <code>#</code> characters followed by one or more whitespace characters and then some words. Convert such strings to corresponding output as shown below.</p>
+<pre><code class="language-bash">$ echo '# Regular Expressions' | sed -E 's/^#+\s+(.+)/\L\1/; y/ /-/'
+regular-expressions
+$ echo '## Compiling regular expressions' | sed -E 's/^#+\s+(.+)/\L\1/; y/ /-/'
+compiling-regular-expressions
+</code></pre>
+<p><strong>c)</strong> Using the input file <code>para.txt</code>, create a file named <code>five.txt</code> with all lines that contain a whole word of length <strong>5</strong> and a file named <code>six.txt</code> with all lines that contain a whole word of length <strong>6</strong>.</p>
+<pre><code class="language-bash">$ sed -nE -e '/\b\w{5}\b/w five.txt' -e '/\b\w{6}\b/w six.txt' para.txt
+
+$ cat five.txt
+good start
+Start working on that
+hi there
+start and try to
+$ cat six.txt
+project you always wanted
+finish the End
+</code></pre>
+<p><strong>d)</strong> Given sample strings have fields separated by <code>,</code> where field values can be empty as well. Use <code>sed</code> to replace the third field with <code>42</code>.</p>
+<pre><code class="language-bash">$ echo 'lion,,ant,road,neon' | sed 's/[^,]*/42/3'
+lion,,42,road,neon
+
+$ echo ',,,' | sed 's/[^,]*/42/3'
+,,42,
+</code></pre>
+<p><strong>e)</strong> Replace all occurrences of <code>e</code> with <code>3</code> except the first two matches.</p>
+<pre><code class="language-bash">$ echo 'asset sets tests site' | sed 's/e/3/3g'
+asset sets t3sts sit3
+
+$ echo 'sample item teem eel' | sed 's/e/3/3g'
+sample item t33m 33l
+</code></pre>
+<p><strong>f)</strong> For the input file <code>addr.txt</code>, replace all input lines with number of characters in those lines. <code>wc -L</code> is one of the ways to get length of a line as shown below.</p>
+<pre><code class="language-bash">$ # note that newline character isn't counted, which is preferable here
+$ echo &quot;Hello World&quot; | wc -L
+11
+
+$ sed 's/.*/echo &quot;&amp;&quot; | wc -L/e' addr.txt
+11
+11
+17
+14
+5
+13
+</code></pre>
+<p><strong>g)</strong> For the input file <code>para.txt</code>, assume that it'll always have lines in multiples of 4. Use <code>sed</code> commands such that there are 4 lines at a time in the pattern space. Then, delete from <code>start</code> till <code>end</code> provided <code>start</code> is matched only at the start of a line. Also, match these two keywords case insensitively.</p>
+<pre><code class="language-bash">$ sed -E 'N;N;N; s/^start(\s|\S)*end//Im' para.txt
+good start
+
+hi there
+
+bye
+</code></pre>
+<p><strong>h)</strong> For the given strings, replace last but third <code>so</code> with <code>X</code>. Only print the lines which are changed by the substitution.</p>
+<pre><code class="language-bash">$ printf 'so and so also sow and soup\n' | sed -nE 's/(.*)so((.*so){3})/\1X\2/p'
+so and X also sow and soup
+
+$ printf 'sososososososo\nso and so\n' | sed -nE 's/(.*)so((.*so){3})/\1X\2/p'
+sososoXsososo
+</code></pre>
+<p><strong>i)</strong> Display all lines that satisfies <strong>both</strong> of these conditions:</p>
+<ul>
+<li><code>professor</code> matched irrespective of case</li>
+<li><code>quip</code> or <code>this</code> matched case sensitively</li>
+</ul>
+<p>Input is a file downloaded from internet as shown below.</p>
+<pre><code class="language-bash">$ wget https://www.gutenberg.org/files/345/345.txt -O dracula.txt
+
+$ sed -nE '/professor/I{/quip|this/p}' dracula.txt
+equipment of a professor of the healing craft. When we were shown in,
+should be. I could see that the Professor had carried out in this room,
+&quot;Not up to this moment, Professor,&quot; she said impulsively, &quot;but up to
+and sprang at us. But by this time the Professor had gained his feet,
+this time the Professor had to ask her questions, and to ask them pretty
+</code></pre>
+<br>
+<h1><a class="header" href="#shell-substitutions" id="shell-substitutions">Shell substitutions</a></h1>
+<p><strong>a)</strong> Replace <code>#expr#</code> with value of <code>usr_ip</code> shell variable. Assume that this variable can only contain the metacharacters as shown in the sample below.</p>
+<pre><code class="language-bash">$ usr_ip='c = (a/b) &amp;&amp; (x-5)'
+$ mod_ip=$(echo &quot;$usr_ip&quot; | sed 's|[/&amp;]|\\&amp;|g')
+$ echo 'Expression: #expr#' | sed 's/#expr#/'&quot;$mod_ip&quot;'/'
+Expression: c = (a/b) &amp;&amp; (x-5)
+</code></pre>
+<p><strong>b)</strong> Repeat previous exercise, but this time with command substitution instead of using temporary variable.</p>
+<pre><code class="language-bash">$ usr_ip='c = (a/b/y) &amp;&amp; (x-5)'
+$ echo 'Expression: #expr#' | sed 's/#expr#/'&quot;$(echo &quot;$usr_ip&quot; | sed 's|[/&amp;]|\\&amp;|g')&quot;'/'
+Expression: c = (a/b/y) &amp;&amp; (x-5)
+</code></pre>
+<br>
+<h1><a class="header" href="#z-s-and-f-command-line-options" id="z-s-and-f-command-line-options">z, s and f command line options</a></h1>
+<p><strong>a)</strong> Replace any character other than word characters and <code>.</code> character with <code>_</code> character for the sample filenames shown below.</p>
+<pre><code class="language-bash">$ mkdir test_dir &amp;&amp; cd $_
+$ touch 'file with spaces.txt' $'weird$ch\nars.txt' '!f@oo.txt'
+$ # &gt; at start of line indicates continuation of multiline shell command
+$ for file in *; do
+&gt;   new_name=$(printf '%s' &quot;$file&quot; | sed -z 's/[^a-z0-9_.]/_/Ig')
+&gt;   mv &quot;$file&quot; &quot;$new_name&quot;
+&gt; done
+
+$ ls
+file_with_spaces.txt  _f_oo.txt  weird_ch_ars.txt
+$ cd .. &amp;&amp; rm -r test_dir
+</code></pre>
+<p><strong>b)</strong> Print only the third line, if any, from these input files: <code>addr.txt</code>, <code>para.txt</code> and <code>copyright.txt</code></p>
+<pre><code class="language-bash">$ sed -sn '3p' addr.txt para.txt copyright.txt
+This game is good
+project you always wanted
+bla bla bla
+</code></pre>
+<p><strong>c)</strong> For the input file <code>hex.txt</code>, use content from <code>replace.txt</code> to perform search and replace operations. Each line in <code>replace.txt</code> starts with the search term, followed by a space and then followed by the replace term. Assume that these terms do not contain any <code>sed</code> metacharacters.</p>
+<pre><code class="language-bash">$ cat hex.txt
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+$ cat replace.txt
+0xA0 0x5000
+0xB0 0x6000
+0xFF 0x7000
+
+$ sed -f &lt;(sed -E 's|(.+) (.+)|s/\1/\2/g|' replace.txt) hex.txt
+start address: 0x5000, func1 address: 0x5000
+end address: 0x7000, func2 address: 0x6000
+</code></pre>
+<br>
+<h1><a class="header" href="#append-change-insert" id="append-change-insert">append, change, insert</a></h1>
+<p><strong>a)</strong> For the input file <code>addr.txt</code>, print only the third line and surround it with <code>-----</code></p>
+<pre><code class="language-bash">$ sed -n -e '3 {i-----' -e 'p; a-----' -e '}' addr.txt
+-----
+This game is good
+-----
+</code></pre>
+<p><strong>b)</strong> For the input file <code>addr.txt</code>, replace all lines starting from a line containing <code>you</code> till end of file with content as shown below.</p>
+<pre><code class="language-bash">$ sed '/you/,$ c\\nHave a nice day' addr.txt
+Hello World
+
+Have a nice day
+</code></pre>
+<p><strong>c)</strong> Replace every even numbered line with <code>---</code></p>
+<pre><code class="language-bash">$ seq 0 5 | sed 'n; c---'
+0
+---
+2
+---
+4
+---
+</code></pre>
+<br>
+<h1><a class="header" href="#adding-content-from-file" id="adding-content-from-file">Adding content from file</a></h1>
+<p><strong>a)</strong> Replace third to fifth lines of input file <code>addr.txt</code> with second to fourth lines from file <code>para.txt</code></p>
+<pre><code class="language-bash">$ sed -n '2,4p' para.txt | sed -e '5r /dev/stdin' -e '3,5d' addr.txt
+Hello World
+How are you
+Start working on that
+project you always wanted
+to, do not let it end
+You are funny
+</code></pre>
+<p><strong>b)</strong> Add one line from <code>hex.txt</code> after every two lines of <code>copyright.txt</code></p>
+<pre><code class="language-bash">$ sed 'n; R hex.txt' copyright.txt
+bla bla 2015 bla
+blah 2018 blah
+start address: 0xA0, func1 address: 0xA0
+bla bla bla
+copyright: 2019
+end address: 0xFF, func2 address: 0xB0
+</code></pre>
+<p><strong>c)</strong> For every line of the input file <code>hex.txt</code>, insert <code>---</code> before the line and add one line from <code>replace.txt</code> after the line as shown below.</p>
+<pre><code class="language-bash">$ sed -e 'R replace.txt' -e 'i---' hex.txt
+---
+start address: 0xA0, func1 address: 0xA0
+0xA0 0x5000
+---
+end address: 0xFF, func2 address: 0xB0
+0xB0 0x6000
+</code></pre>
+<p><strong>d)</strong> Insert the contents of <code>hex.txt</code> file before a line matching <code>0x6000</code> of the input file <code>replace.txt</code>.</p>
+<pre><code class="language-bash">$ sed '/0x6000/e cat hex.txt' replace.txt 
+0xA0 0x5000
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+0xB0 0x6000
+0xFF 0x7000
+</code></pre>
+<br>
+<h1><a class="header" href="#control-structures" id="control-structures">Control structures</a></h1>
+<p><strong>a)</strong> Using the input file <code>para.txt</code>, create a file named <code>markers.txt</code> with all lines that contain <code>start</code> or <code>end</code> (matched case insensitively) and a file named <code>rest.txt</code> with rest of the lines.</p>
+<pre><code class="language-bash">$ sed -nE -e '/start|end/I{w markers.txt' -e 'b}' -e 'w rest.txt' para.txt
+
+$ cat markers.txt 
+good start
+Start working on that
+to, do not let it end
+start and try to
+finish the End
+$ cat rest.txt 
+project you always wanted
+hi there
+bye
+</code></pre>
+<p><strong>b)</strong> For the input file <code>addr.txt</code>:</p>
+<ul>
+<li>if line contains <code>e</code>, surround all consecutive repeated characters with <code>{}</code> as well as uppercase those characters</li>
+<li>if line doesn't contain <code>e</code> but contains <code>u</code>, surround all uppercase letters in that line with <code>[]</code></li>
+</ul>
+<pre><code class="language-bash">$ # note that H in second line and Y in last line isn't modified
+$ sed -E '/e/ {s/(.)\1/{\U&amp;}/g; b}; /u/ s/[A-Z]/[&amp;]/g' addr.txt
+He{LL}o World
+How are you
+This game is g{OO}d
+[T]oday is sunny
+12345
+You are fu{NN}y
+</code></pre>
+<p><strong>c)</strong> The given sample strings below has multiple fields separated by a space. The first field has numbers separated by <code>-</code> character. Surround these numbers in first field with <code>[]</code></p>
+<pre><code class="language-bash">$ echo '123-87-593 42-3 foo' | sed -E ':a s/^((\[[0-9]+\]-)*)?([0-9]+)/\1[\3]/; ta'
+[123]-[87]-[593] 42-3 foo
+
+$ echo '53783-0913 hi 3 4-2' | sed -E ':a s/^((\[[0-9]+\]-)*)?([0-9]+)/\1[\3]/; ta'
+[53783]-[0913] hi 3 4-2
+</code></pre>
+<p><strong>d)</strong> Convert the contents of <code>headers.txt</code> such that it matches the content of <code>anchors.txt</code>. The input file <code>headers.txt</code> contains one header per line, starting with one or more <code>#</code> character followed by a space character and then followed by the heading. You have to convert this heading into anchor tag as shown by the contents of <code>anchors.txt</code>.</p>
+<pre><code class="language-bash">$ cat headers.txt
+# Regular Expressions
+## Subexpression calls
+## The dot meta character
+$ cat anchors.txt
+# &lt;a name=&quot;regular-expressions&quot;&gt;&lt;/a&gt;Regular Expressions
+## &lt;a name=&quot;subexpression-calls&quot;&gt;&lt;/a&gt;Subexpression calls
+## &lt;a name=&quot;the-dot-meta-character&quot;&gt;&lt;/a&gt;The dot meta character
+
+$ sed -E 's|\w.*|&lt;a name=&quot;\L&amp;\E&quot;&gt;&lt;/a&gt;&amp;|; :a s/(&quot;[^&quot;]+) ([^&quot;]+&quot;)/\1-\2/; ta' headers.txt &gt; out.txt
+$ diff -s out.txt anchors.txt
+Files out.txt and anchors.txt are identical
+</code></pre>
+<br>
+<h1><a class="header" href="#processing-lines-bounded-by-distinct-markers" id="processing-lines-bounded-by-distinct-markers">Processing lines bounded by distinct markers</a></h1>
+<p><strong>a)</strong> For the input file <code>broken.txt</code>, print all lines between the markers <code>top</code> and <code>bottom</code>. The first <code>sed</code> command shown below doesn't work because <code>sed</code> will match till end of file if second address isn't found.</p>
+<pre><code class="language-bash">$ cat broken.txt
+top
+3.14
+bottom
+top
+1234567890
+bottom
+top
+Hi there
+Have a nice day
+Good bye
+
+$ # wrong output
+$ sed -n '/top/,/bottom/ {//!p}' broken.txt
+3.14
+1234567890
+Hi there
+Have a nice day
+Good bye
+
+$ # expected output
+$ tac broken.txt | sed -n '/bottom/,/top/ {//!p}' | tac
+3.14
+1234567890
+</code></pre>
+<p><strong>b)</strong> For the input file <code>addr.txt</code>, replace the lines occurring between the markers <code>How</code> and <code>12345</code> with contents of the file <code>hex.txt</code>. </p>
+<pre><code class="language-bash">$ sed -e '/How/r hex.txt' -e '//,/12345/{//!d}' addr.txt
+Hello World
+How are you
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+12345
+You are funny
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="further-reading.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="further-reading.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Control structures - GNU SED</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Example based guide to mastering GNU SED">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="in-place-file-editing.html"><strong aria-hidden="true">3.</strong> In-place file editing</a></li><li class="chapter-item expanded "><a href="selective-editing.html"><strong aria-hidden="true">4.</strong> Selective editing</a></li><li class="chapter-item expanded "><a href="breere-regular-expressions.html"><strong aria-hidden="true">5.</strong> BRE/ERE Regular Expressions</a></li><li class="chapter-item expanded "><a href="flags.html"><strong aria-hidden="true">6.</strong> Flags</a></li><li class="chapter-item expanded "><a href="shell-substitutions.html"><strong aria-hidden="true">7.</strong> Shell substitutions</a></li><li class="chapter-item expanded "><a href="z-s-and-f-command-line-options.html"><strong aria-hidden="true">8.</strong> z, s and f command line options</a></li><li class="chapter-item expanded "><a href="append-change-insert.html"><strong aria-hidden="true">9.</strong> append, change, insert</a></li><li class="chapter-item expanded "><a href="adding-content-from-file.html"><strong aria-hidden="true">10.</strong> Adding content from file</a></li><li class="chapter-item expanded "><a href="control-structures.html" class="active"><strong aria-hidden="true">11.</strong> Control structures</a></li><li class="chapter-item expanded "><a href="processing-lines-bounded-by-distinct-markers.html"><strong aria-hidden="true">12.</strong> Processing lines bounded by distinct markers</a></li><li class="chapter-item expanded "><a href="gotchas-and-tricks.html"><strong aria-hidden="true">13.</strong> Gotchas and Tricks</a></li><li class="chapter-item expanded "><a href="further-reading.html"><strong aria-hidden="true">14.</strong> Further Reading</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html"><strong aria-hidden="true">15.</strong> Exercise Solutions</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GNU SED</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="https://github.com/learnbyexample/learn_gnused" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#control-structures" id="control-structures">Control structures</a></h1>
+<p><code>sed</code> supports two types of branching commands that helps to construct control structures. These commands (and other advanced features not discussed in this book) allow you to emulate a wide range of features that are common in programming languages. This chapter will show basic examples and you'll find some more use cases in a later chapter.</p>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> See also <a href="https://catonmat.net/proof-that-sed-is-turing-complete">catonmat: A proof that Unix utility sed is Turing complete</a></p>
+</blockquote>
+<h2><a class="header" href="#branch-commands" id="branch-commands">Branch commands</a></h2>
+<table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>b label</code></td><td>unconditionally branch to specified <code>label</code></td></tr>
+<tr><td><code>b</code></td><td>skip rest of the commands and start next cycle</td></tr>
+<tr><td><code>t label</code></td><td>branch to specified <code>label</code> on successful substitution</td></tr>
+<tr><td><code>t</code></td><td>on successful substitution, skip rest of the commands and start next cycle</td></tr>
+<tr><td><code>T label</code></td><td>branch to specified <code>label</code> if substitution fails</td></tr>
+<tr><td><code>T</code></td><td>if substitution fails, skip rest of the commands and start next cycle</td></tr>
+</tbody></table>
+<p>A label is specified by prefixing a command with <code>:label</code> where <code>label</code> is the name given to be referenced elsewhere with branching commands. Note that for <code>t</code> command, any successful substitution since the last input line was read or a conditional branch will count. So, you could have few failed substitutions and a single successful substitution in any order and the branch will be taken. Similarly, <code>T</code> command will branch only if there has been no successful substitution since the last input line was read or a conditional branch.</p>
+<h2><a class="header" href="#if-then-else" id="if-then-else">if-then-else</a></h2>
+<p>The branching commands can be used to construct control structures like if-then-else. For example, consider an input file containing numbers in a single column and the task required is to change positive numbers to negative and vice versa. If the line starts with <code>-</code> character, you need to delete it and process next input line. Else, you need to insert <code>-</code> at start of line to convert positive numbers to negative. Both <code>b</code> and <code>t</code> commands can be used here as shown below.</p>
+<pre><code class="language-bash">$ cat nums.txt
+3.14
+-20000
+-51
+4567
+
+$ # empty REGEXP section will reuse last REGEXP match, in this case /^-/
+$ # also note the use of ; after {} command grouping
+$ # 2nd substitute command will execute only if line doesn't start with -
+$ sed '/^-/{s///; b}; s/^/-/' nums.txt
+-3.14
+20000
+51
+-4567
+
+$ # t command will come into play if the 1st substitute command succeeds
+$ # and thus skip the 2nd substitute command
+$ sed '/^-/ s///; t; s/^/-/' nums.txt
+-3.14
+20000
+51
+-4567
+</code></pre>
+<p>The <code>T</code> command will branch only if there has been no successful substitution since the last input was read or conditional branch. Rephrased it another way, the commands after the <code>T</code> branch will be executed only if there has been at least one successful substitution.</p>
+<pre><code class="language-bash">$ # 2nd substitution will work only if 1st one succeeds
+$ # same as: sed '/o/{s//-/g; s/d/*/g}'
+$ printf 'good\nbad\n' | sed 's/o/-/g; T; s/d/*/g'
+g--*
+bad
+
+$ # append will work if any of the substitution succeeds
+$ printf 'good\nbad\nneed\n' | sed 's/o/-/g; s/a/%/g; T; a ----'
+g--d
+----
+b%d
+----
+need
+</code></pre>
+<h2><a class="header" href="#loop" id="loop">loop</a></h2>
+<p>Without labels, branching commands will skip rest of the commands and then start processing the next line from input. By marking a command location with a label, you can branch to that particular location when required. In this case, you'll still be processing the current pattern space.</p>
+<p>The below example replaces all consecutive digit characters from start of line with <code>*</code> character. <code>:a</code> marks the substitute command with label named <code>a</code> and <code>ta</code> would branch to label <code>a</code> if the substitute command succeeds. Effectively, you get a <strong>looping</strong> mechanism to replace the current line as long as the substitute condition is satisfied.</p>
+<pre><code class="language-bash">$ # same as: perl -pe 's/\G\d/*/g'
+$ # first, * is matched 0 times followed by the digit 1
+$ # next, * is matched 1 times followed by the digit 2
+$ # then, * is matched 2 times followed by the digit 3
+$ # and so on until the space character breaks the loop
+$ echo '12345 hello42' | sed -E ':a s/^(\**)[0-9]/\1*/; ta'
+***** hello42
+
+$ # here, the x character breaks the loop
+$ echo '123x45 hello42' | sed -E ':a s/^(\**)[0-9]/\1*/; ta'
+***x45 hello42
+$ # no change as the input didn't start with a number
+$ echo 'hi 12345 hello42' | sed -E ':a s/^(\**)[0-9]/\1*/; ta'
+hi 12345 hello42
+</code></pre>
+<p>For debugging purposes, which also helps beginners to understand this command better, unroll the loop and test the command. For the above example, try <code>sed -E 's/^(\**)[0-9]/\1*/'</code> followed by <code>sed -E 's/^(\**)[0-9]/\1*/; s//\1*/'</code> and so on.</p>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> Space between <code>:</code> and label name is optional. Similarly, space between branch command and target label is optional.</p>
+</blockquote>
+<p>Here's an example for field processing. <code>awk</code> and <code>perl</code> are better suited for field processing, but in some cases <code>sed</code> might be convenient because rest of the text processing is already in <code>sed</code> and so on.</p>
+<pre><code class="language-bash">$ # replace space with underscore only in 2nd column
+$ # [^,]*, captures first column delimited by comma character
+$ # [^ ,]* matches non-space and non-comma characters
+$ # end of line or another comma will break the loop
+$ echo 'he be me,1 2 3 4,nice slice' | sed -E ':b s/^([^,]*,[^ ,]*) /\1_/; tb'
+he be me,1_2_3_4,nice slice
+</code></pre>
+<p>The looping construct also helps to emulate certain advanced regular expression features not available in <code>sed</code> like lookarounds (see <a href="https://stackoverflow.com/questions/22937618/reference-what-does-this-regex-mean">stackoverflow: regex faq</a>).</p>
+<pre><code class="language-bash">$ # replace empty fields with NA
+$ # simple replacement won't work for ,,, case
+$ echo '1,,,two,,3' | sed 's/,,/,NA,/g'
+1,NA,,two,NA,3
+$ # looping to the rescue
+$ echo '1,,,two,,3' | sed -E ':c s/,,/,NA,/g; tc'
+1,NA,NA,two,NA,3
+</code></pre>
+<p>The below example has similar solution to previous example, but the problem statement is different and cannot be solved using lookarounds. Here, the act of performing substitution results in an output string that will again match the search pattern.</p>
+<pre><code class="language-bash">$ # deleting 'fin' results in 'cofing' which can again match 'fin'
+$ echo 'coffining' | sed 's/fin//'
+cofing
+$ # add more s commands if number of times to substitute is known
+$ echo 'coffining' | sed 's/fin//; s///'
+cog
+$ # use loop when it is unknown
+$ echo 'coffining' | sed ':d s/fin//; td'
+cog
+</code></pre>
+<h2><a class="header" href="#cheatsheet-and-summary" id="cheatsheet-and-summary">Cheatsheet and summary</a></h2>
+<table><thead><tr><th>Note</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>b label</code></td><td>unconditionally branch to specified <code>label</code></td></tr>
+<tr><td><code>b</code></td><td>skip rest of the commands and start next cycle</td></tr>
+<tr><td><code>t label</code></td><td>branch to specified <code>label</code> on successful substitution</td></tr>
+<tr><td><code>t</code></td><td>on successful substitution, skip rest of the commands and start next cycle</td></tr>
+<tr><td><code>T label</code></td><td>branch to specified <code>label</code> if substitution fails</td></tr>
+<tr><td><code>T</code></td><td>if substitution fails, skip rest of the commands and start next cycle</td></tr>
+</tbody></table>
+<p>This chapter introduced branching commands that can be used to emulate programming features like if-else and loops. These are handy for certain cases, especially when combined with filtering features of <code>sed</code>. Speaking of filtering features, the next chapter will focus entirely on using address range for various use cases.</p>
+<h2><a class="header" href="#exercises" id="exercises">Exercises</a></h2>
+<p><strong>a)</strong> Using the input file <code>para.txt</code>, create a file named <code>markers.txt</code> with all lines that contain <code>start</code> or <code>end</code> (matched case insensitively) and a file named <code>rest.txt</code> with rest of the lines.</p>
+<pre><code class="language-bash">$ sed ##### add your solution here
+$ cat markers.txt 
+good start
+Start working on that
+to, do not let it end
+start and try to
+finish the End
+$ cat rest.txt 
+project you always wanted
+hi there
+bye
+</code></pre>
+<p><strong>b)</strong> For the input file <code>addr.txt</code>:</p>
+<ul>
+<li>if line contains <code>e</code>, surround all consecutive repeated characters with <code>{}</code> as well as uppercase those characters</li>
+<li>if line doesn't contain <code>e</code> but contains <code>u</code>, surround all uppercase letters in that line with <code>[]</code></li>
+</ul>
+<pre><code class="language-bash">$ # note that H in second line and Y in last line isn't modified
+$ sed ##### add your solution here
+He{LL}o World
+How are you
+This game is g{OO}d
+[T]oday is sunny
+12345
+You are fu{NN}y
+</code></pre>
+<p><strong>c)</strong> The given sample strings below has multiple fields separated by a space. The first field has numbers separated by <code>-</code> character. Surround these numbers in first field with <code>[]</code></p>
+<pre><code class="language-bash">$ echo '123-87-593 42-3 foo' | sed ##### add your solution here
+[123]-[87]-[593] 42-3 foo
+
+$ echo '53783-0913 hi 3 4-2' | sed ##### add your solution here
+[53783]-[0913] hi 3 4-2
+</code></pre>
+<p><strong>d)</strong> Convert the contents of <code>headers.txt</code> such that it matches the content of <code>anchors.txt</code>. The input file <code>headers.txt</code> contains one header per line, starting with one or more <code>#</code> character followed by a space character and then followed by the heading. You have to convert this heading into anchor tag as shown by the contents of <code>anchors.txt</code>.</p>
+<pre><code class="language-bash">$ cat headers.txt
+# Regular Expressions
+## Subexpression calls
+## The dot meta character
+$ cat anchors.txt
+# &lt;a name=&quot;regular-expressions&quot;&gt;&lt;/a&gt;Regular Expressions
+## &lt;a name=&quot;subexpression-calls&quot;&gt;&lt;/a&gt;Subexpression calls
+## &lt;a name=&quot;the-dot-meta-character&quot;&gt;&lt;/a&gt;The dot meta character
+
+$ sed ##### add your solution here headers.txt &gt; out.txt
+$ diff -s out.txt anchors.txt
+Files out.txt and anchors.txt are identical
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="adding-content-from-file.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="processing-lines-bounded-by-distinct-markers.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="adding-content-from-file.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="processing-lines-bounded-by-distinct-markers.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>append, change, insert - GNU SED</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Example based guide to mastering GNU SED">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="in-place-file-editing.html"><strong aria-hidden="true">3.</strong> In-place file editing</a></li><li class="chapter-item expanded "><a href="selective-editing.html"><strong aria-hidden="true">4.</strong> Selective editing</a></li><li class="chapter-item expanded "><a href="breere-regular-expressions.html"><strong aria-hidden="true">5.</strong> BRE/ERE Regular Expressions</a></li><li class="chapter-item expanded "><a href="flags.html"><strong aria-hidden="true">6.</strong> Flags</a></li><li class="chapter-item expanded "><a href="shell-substitutions.html"><strong aria-hidden="true">7.</strong> Shell substitutions</a></li><li class="chapter-item expanded "><a href="z-s-and-f-command-line-options.html"><strong aria-hidden="true">8.</strong> z, s and f command line options</a></li><li class="chapter-item expanded "><a href="append-change-insert.html" class="active"><strong aria-hidden="true">9.</strong> append, change, insert</a></li><li class="chapter-item expanded "><a href="adding-content-from-file.html"><strong aria-hidden="true">10.</strong> Adding content from file</a></li><li class="chapter-item expanded "><a href="control-structures.html"><strong aria-hidden="true">11.</strong> Control structures</a></li><li class="chapter-item expanded "><a href="processing-lines-bounded-by-distinct-markers.html"><strong aria-hidden="true">12.</strong> Processing lines bounded by distinct markers</a></li><li class="chapter-item expanded "><a href="gotchas-and-tricks.html"><strong aria-hidden="true">13.</strong> Gotchas and Tricks</a></li><li class="chapter-item expanded "><a href="further-reading.html"><strong aria-hidden="true">14.</strong> Further Reading</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html"><strong aria-hidden="true">15.</strong> Exercise Solutions</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">GNU SED</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="https://github.com/learnbyexample/learn_gnused" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#append-change-insert" id="append-change-insert">append, change, insert</a></h1>
+<p>These three commands come in handy for specific operations as suggested by their names. The substitute command could handle most of the features offered by these commands. But where applicable, these commands would be easier to use.</p>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> Unless otherwise specified, rules mentioned in following sections will apply similarly for all the three commands.</p>
+</blockquote>
+<h2><a class="header" href="#basic-usage" id="basic-usage">Basic usage</a></h2>
+<p>Just like the substitute command, first letter of these three names represents the command in a <code>sed</code> script.</p>
+<ul>
+<li><code>a</code> appends given string after end of line of each of the matching address</li>
+<li><code>c</code> changes the entire matching address contents to the given string</li>
+<li><code>i</code> inserts given string before start of line of each of the matching address</li>
+</ul>
+<p>The string value for these commands is supplied after the command letter. Any whitespace between the letter and the string value is ignored. First up, some examples with single address as the qualifier.</p>
+<pre><code class="language-bash">$ # same as: sed '2 s/$/\nhello/'
+$ seq 3 | sed '2a hello'
+1
+2
+hello
+3
+
+$ # same as: sed '/[24]/ s/.*/hello/'
+$ seq 5 | sed '/[24]/c hello'
+1
+hello
+3
+hello
+5
+
+$ # same as: sed '2 s/^/hello\n/'
+$ seq 3 | sed '2i hello'
+1
+hello
+2
+3
+</code></pre>
+<p>Next, examples with address ranges.</p>
+<pre><code class="language-bash">$ # append and insert will apply for each matching line of address range
+$ seq 5 | sed '2,4i hi there!'
+1
+hi there!
+2
+hi there!
+3
+hi there!
+4
+5
+
+$ # change will replace entire matching range with given string
+$ seq 5 | sed '2,4c hi there!'
+1
+hi there!
+5
+$ # to change every matching line, use substitute command
+$ seq 5 | sed '2,4 s/.*/hi there!/'
+1
+hi there!
+hi there!
+hi there!
+5
+</code></pre>
+<h2><a class="header" href="#escape-sequences" id="escape-sequences">Escape sequences</a></h2>
+<p>Similar to replacement strings in substitute command, you can use escape sequences like <code>\t</code>, <code>\n</code>, etc and ASCII value formats like <code>\xNN</code>.</p>
+<pre><code class="language-bash">$ seq 3 | sed '2c rat\tdog\nwolf'
+1
+rat     dog
+wolf
+3
+$ seq 3 | sed '2a it\x27s sunny today'
+1
+2
+it's sunny today
+3
+</code></pre>
+<p>As mentioned before, any whitespace between the command and the string is ignored. You can use <code>\</code> after the command letter to prevent that.</p>
+<pre><code class="language-bash">$ seq 3 | sed '2c         hello'
+1
+hello
+3
+
+$ seq 3 | sed '2c\         hello'
+1
+         hello
+3
+</code></pre>
+<p>As <code>\</code> has another meaning when used immediately after command letter, use an additional <code>\</code> if there is a normal escape sequence at start of the string.</p>
+<pre><code class="language-bash">$ seq 3 | sed '2c\nhi'
+1
+nhi
+3
+
+$ seq 3 | sed '2c\\nhi'
+1
+
+hi
+3
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> See also <a href="https://stackoverflow.com/questions/41343062/what-does-this-mean-in-linux-sed-a-a-txt">stackoverflow: add newline character if last line of input doesn't have one</a></p>
+</blockquote>
+<h2><a class="header" href="#multiple-commands" id="multiple-commands">Multiple commands</a></h2>
+<p>All the three commands will treat everything after the command letter as the string argument. Thus, you cannot use <code>;</code> as command separator or <code>#</code> to start a comment. Even command grouping with <code>{}</code> will fail unless you use <code>-e</code> option or literal newline to separate the closing <code>}</code>.</p>
+<pre><code class="language-bash">$ # 'hi ; 3a bye' will treated as single string argument
+$ seq 4 | sed '2c hi ; 3a bye'
+1
+hi ; 3a bye
+3
+4
+$ # } gets treated as part of argument for append command, hence the error
+$ seq 3 | sed '2{s/^/*/; a hi}'
+sed: -e expression #1, char 0: unmatched `{'
+
+$ # use -e or literal newline to separate the commands
+$ seq 4 | sed -e '2c hi' -e '3a bye'
+1
+hi
+3
+bye
+4
+$ seq 3 | sed '2{c hi
+&gt; }'
+1
+hi
+3
+</code></pre>
+<h2><a class="header" href="#shell-substitution" id="shell-substitution">Shell substitution</a></h2>
+<p>This section is included in this chapter to showcase more examples for shell substitutions and to warn about the potential pitfalls.</p>
+<pre><code class="language-bash">$ # variable substitution
+$ text='good\tone\nfood\tpun'
+$ seq 13 15 | sed '2c'&quot;$text&quot;
+13
+good    one
+food    pun
+15
+
+$ # command substitution
+$ seq 13 15 | sed '3i'&quot;$(date +%A)&quot;
+13
+14
+Wednesday
+15
+</code></pre>
+<p>Literal newline in the substituted string may cause an error depending upon content. To avoid the behavior shown below, process the command output as discussed in <a href="./shell-substitutions.html#command-substitution">Command substitution</a> section.</p>
+<pre><code class="language-bash">$ seq 13 15 | sed '3i'&quot;$(printf 'hi\n123')&quot;
+sed: -e expression #1, char 8: missing command
+
+$ # here, the content after newline gets executed as a command
+$ # same as: sed -e '3i hi' -e 's/5/five/'
+$ seq 13 15 | sed '3i'&quot;$(printf 'hi\ns/5/five/')&quot;
+13
+14
+hi
+1five
+</code></pre>
+<h2><a class="header" href="#cheatsheet-and-summary" id="cheatsheet-and-summary">Cheatsheet and summary</a></h2>
+<table><thead><tr><th>Note</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>a</code></td><td>appends given string after end of line of each of the matching address</td></tr>
+<tr><td><code>c</code></td><td>changes the entire matching address contents to the given string</td></tr>
+<tr><td><code>i</code></td><td>inserts given string before start of line of each of the matching address</td></tr>
+<tr><td></td><td>string value for these commands is supplied after the command letter</td></tr>
+<tr><td></td><td>escape sequences like <code>\t</code>, <code>\n</code>, <code>\xNN</code>, etc can be used in the string value</td></tr>
+<tr><td></td><td>any whitespace between command letter and the string value is ignored</td></tr>
+<tr><td></td><td>unless <code>\</code> is used after command letter</td></tr>
+<tr><td></td><td><code>\</code> after command letter is also needed if escape sequence is the first character</td></tr>
+<tr><td></td><td><code>-e</code> or literal newline is needed to separate any further commands</td></tr>
+</tbody></table>
+<p>This chapter covered three more <code>sed</code> commands that work similarly to substitution command for specific use cases. The string argument to these commands allow escape sequences to be used. If you do not wish the text to be interpreted or if you wish to provide text from a file, then use the commands covered in next chapter, which allows you to add text literally.</p>
+<h2><a class="header" href="#exercises" id="exercises">Exercises</a></h2>
+<p><strong>a)</strong> For the input file <code>addr.txt</code>, print only the third line and surround it with <code>-----</code></p>
+<pre><code class="language-bash">$ sed ##### add your solution here
+-----
+This game is good
+-----
+</code></pre>
+<p><strong>b)</strong> For the input file <code>addr.txt</code>, replace all lines starting from a line containing <code>you</code> till end of file with content as shown below.</p>
+<pre><code class="language-bash">$ sed ##### add your solution here
+Hello World
+
+Have a nice day
+</code></pre>
+<p><strong>c)</strong> Replace every even numbered line with <code>---</code></p>
+<pre><code class="language-bash">$ seq 0 5 | sed ##### add your solution here
+0
+---
+2
+---
+4
+---
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="z-s-and-f-command-line-options.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="adding-content-from-file.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="z-s-and-f-command-line-options.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="adding-content-from-file.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
