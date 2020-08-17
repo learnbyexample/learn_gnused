@@ -17,8 +17,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
         <link rel="icon" href="favicon.svg">
+        
+        
         <link rel="shortcut icon" href="favicon.png">
+        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
@@ -295,7 +299,7 @@ b
 <tr><td></td><td>if you don't control the variable contents</td></tr>
 <tr><td><code>sed 's#[\&amp;/]#\\&amp;#g'</code></td><td>escape metacharacters for replacement section</td></tr>
 <tr><td><code>sed '$!s/$/\\/'</code></td><td>escape literal newlines for replacement section</td></tr>
-<tr><td>`sed 's#[{[()^$*?+.\</td><td>/]#\&amp;#g'`</td></tr>
+<tr><td><code>sed 's#[{[()^$*?+.\|/]#\\&amp;#g'</code></td><td>escape metacharacters for search section, ERE</td></tr>
 <tr><td><code>sed 's#[[^$*.\/]#\\&amp;#g'</code></td><td>escape metacharacters for search section, BRE</td></tr>
 <tr><td><code>sed 's/date/'&quot;$(date -I)&quot;'/'</code></td><td>example for command substitution</td></tr>
 <tr><td></td><td>command output's final newline character gets stripped</td></tr>

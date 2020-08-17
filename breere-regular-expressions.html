@@ -17,8 +17,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
         <link rel="icon" href="favicon.svg">
+        
+        
         <link rel="shortcut icon" href="favicon.png">
+        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
@@ -798,12 +802,12 @@ it line with it here it too sit
 <tr><td><code>\B</code></td><td>matches wherever <code>\b</code> doesn't match</td></tr>
 <tr><td><code>\&lt;</code></td><td>start of word anchor</td></tr>
 <tr><td><code>\&gt;</code></td><td>end of word anchor</td></tr>
-<tr><td><code>\|</code></td><td>combine multiple patterns as conditional OR</td></tr>
+<tr><td><code>|</code></td><td>combine multiple patterns as conditional OR</td></tr>
 <tr><td></td><td>each alternative can have independent anchors</td></tr>
 <tr><td></td><td>alternative which matches earliest in the input gets precedence</td></tr>
 <tr><td></td><td>and the leftmost longest portion wins in case of a tie</td></tr>
 <tr><td><code>()</code></td><td>group pattern(s)</td></tr>
-<tr><td><code>a(b\|c)d</code></td><td>same as <code>abd\|acd</code></td></tr>
+<tr><td><code>a(b|c)d</code></td><td>same as <code>abd|acd</code></td></tr>
 <tr><td><code>\</code></td><td>prefix metacharacters with <code>\</code> to match them literally</td></tr>
 <tr><td><code>\\</code></td><td>to match <code>\</code> literally</td></tr>
 <tr><td></td><td>switching between ERE and BRE helps in some cases</td></tr>
@@ -818,7 +822,7 @@ it line with it here it too sit
 <tr><td><code>{,n}</code></td><td>match up to <code>n</code> times (including <code>0</code> times)</td></tr>
 <tr><td><code>{n}</code></td><td>match exactly <code>n</code> times</td></tr>
 <tr><td><code>pat1.*pat2</code></td><td>any number of characters between <code>pat1</code> and <code>pat2</code></td></tr>
-<tr><td><code>pat1.*pat2\|pat2.*pat1</code></td><td>match both <code>pat1</code> and <code>pat2</code> in any order</td></tr>
+<tr><td><code>pat1.*pat2|pat2.*pat1</code></td><td>match both <code>pat1</code> and <code>pat2</code> in any order</td></tr>
 <tr><td><code>[ae;o]</code></td><td>match any of these characters once</td></tr>
 <tr><td></td><td>quantifiers are applicable to character classes too</td></tr>
 <tr><td><code>[3-7]</code></td><td>range of characters from <code>3</code> to <code>7</code></td></tr>
