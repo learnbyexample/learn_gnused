@@ -1,5 +1,13 @@
 <br>
 
+### 1.5
+
+* Clarified use of `/dev/stdin` with the `r` command
+* Updated timing data for speed comparison examples
+* Corrected various typos, improved descriptions, comments, external links, etc
+
+<br>
+
 ### 1.4
 
 * Clarified BRE vs ERE difference for line anchor escaping

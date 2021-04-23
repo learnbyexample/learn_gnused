@@ -1,6 +1,8 @@
 # Exercises
 
-Exercise related files are available from [exercises folder](https://github.com/learnbyexample/learn_gnused/tree/master/exercises)
+>![info](../images/info.svg) Exercise related files are available from [exercises folder](https://github.com/learnbyexample/learn_gnused/tree/master/exercises).
+
+>![info](../images/info.svg) For solutions, see [Exercise_solutions.md](https://github.com/learnbyexample/learn_gnused/blob/master/exercises/Exercise_solutions.md).
 
 <br>
 
@@ -464,7 +466,7 @@ sososoXsososo
 Input is a file downloaded from internet as shown below.
 
 ```bash
-$ wget https://www.gutenberg.org/files/345/345.txt -O dracula.txt
+$ wget https://www.gutenberg.org/files/345/old/345.txt -O dracula.txt
 
 $ sed ##### add your solution here
 equipment of a professor of the healing craft. When we were shown in,
