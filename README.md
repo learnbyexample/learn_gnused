@@ -38,6 +38,14 @@ For web version of the book, visit https://learnbyexample.github.io/learn_gnused
 
 <br>
 
+# Testimonials
+
+>Thank you for choosing to write and share your knowledge. I read your books on CLI and sed - I think they are very comprehensive and very well explained. Keep up the great work
+>
+> — [feedback on twitter](https://twitter.com/le_anh_phuong/status/1628149732760604672)
+
+<br>
+
 # Feedback
 
 [Open an issue](https://github.com/learnbyexample/learn_gnused/issues) if you spot any typo/errors.
