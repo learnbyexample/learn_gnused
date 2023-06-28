@@ -1,10 +1,10 @@
-## r for entire file
+## Append entire file using r
 
 cat ip.txt
 
-cat fav_colors.txt
+cat fav_color.txt
 
-sed '/red/r ip.txt' fav_colors.txt
+sed '/red/r ip.txt' fav_color.txt
 
 text='good\tone\nfood\tpun'
 
@@ -14,23 +14,21 @@ seq 2 | sed '2r /dev/stdin' ip.txt
 
 printf '123' | sed '1r /dev/stdin' ip.txt
 
+sed '0r ip.txt' greeting.txt
+
 items='    * blue\n    * green\n'
 
 printf '%b' "$items" | sed -e '2 {r /dev/stdin' -e 'd}' ip.txt
 
-sed -e '/^red/r ip.txt' -e '/yellow/,//d' fav_colors.txt
+sed -e '/yellow/r ip.txt' -e '//,/^red/d' fav_color.txt
 
-## Using e and cat command
+## Insert file using e and cat
 
-sed '/red/e cat ip.txt' fav_colors.txt
+sed '/red/e cat ip.txt' fav_color.txt
 
-text='good\tone\nfood\tpun'
+## Append line by line using R
 
-echo "$text" | sed '1e cat /dev/stdin' ip.txt
+sed '/red/R ip.txt' fav_color.txt
 
-## R for line by line
-
-sed '/red/R ip.txt' fav_colors.txt
-
-seq 4 | sed 'R /dev/stdin' fav_colors.txt
+seq 4 | sed 'R /dev/stdin' fav_color.txt
 

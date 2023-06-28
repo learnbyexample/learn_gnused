@@ -1,8 +1,10 @@
 ## Line Anchors
 
-printf 'spared no one\npar\nspar\n' | sed -n '/^sp/p'
+cat anchors.txt
 
-printf 'spared no one\npar\nspar\n' | sed -n '/ar$/p'
+sed -n '/^s/p' anchors.txt
+
+sed -n '/rt$/p' anchors.txt
 
 printf 'spared no one\npar\nspar\n' | sed 's/^par$/PAR/'
 
@@ -12,19 +14,21 @@ printf 'spared no one\npar\nspar\n' | sed '/ /! s/$/./'
 
 ## Word Anchors
 
-cat word_anchors.txt
+cat anchors.txt
 
-sed -n '/\bpar/p' word_anchors.txt
+sed -n '/\bpar/p' anchors.txt
 
-sed -n '/par\b/p' word_anchors.txt
+sed -n '/par\b/p' anchors.txt
 
-sed -n 's/\bpar\b/***/p' word_anchors.txt
+sed -n 's/\bpar\b/***/p' anchors.txt
 
-sed -n '/\Bpar\B/p' word_anchors.txt
+## Opposite Word Anchor
 
-sed -n '/\Bpar/p' word_anchors.txt
+sed -n '/\Bpar\B/p' anchors.txt
 
-sed -n '/par\B/p' word_anchors.txt
+sed -n '/\Bpar/p' anchors.txt
+
+sed -n '/par\B/p' anchors.txt
 
 echo 'copper' | sed 's/\b/:/g'
 
@@ -32,13 +36,15 @@ echo 'copper' | sed 's/\B/:/g'
 
 ## Alternation
 
-sed -n '/two\|sub/p' word_anchors.txt
+sed -n '/two\|sub/p' anchors.txt
 
-sed -nE '/two|sub/p' word_anchors.txt
+sed -nE '/two|sub/p' anchors.txt
 
 echo 'cats dog bee parrot foxed' | sed -E 's/cat|dog|fox/--/g'
 
-sed -nE '/\bpar\b|s$/p' word_anchors.txt
+sed -nE '/\bpar\b|s$/p' anchors.txt
+
+## Alternation precedence
 
 echo 'cats dog bee parrot foxed' | sed -E 's/bee|parrot|at/--/'
 
@@ -52,21 +58,21 @@ echo 'spared party parent' | perl -pe 's/spa|spared/**/'
 
 ## Grouping
 
-printf 'red\nreform\nread\narrest\n' | sed -nE '/reform|rest/p'
+printf 'red\nreform\nread\ncrest\n' | sed -nE '/reform|rest/p'
 
-printf 'red\nreform\nread\narrest\n' | sed -nE '/re(form|st)/p'
+printf 'red\nreform\nread\ncrest\n' | sed -nE '/re(form|st)/p'
 
-printf 'sub par\nspare\npart time\n' | sed -nE '/\bpar\b|\bpart\b/p'
+sed -nE '/\bpar\b|\bpart\b/p' anchors.txt
 
-printf 'sub par\nspare\npart time\n' | sed -nE '/\b(par|part)\b/p'
+sed -nE '/\b(par|part)\b/p' anchors.txt
 
-printf 'sub par\nspare\npart time\n' | sed -nE '/\bpar(|t)\b/p'
+sed -nE '/\bpar(|t)\b/p' anchors.txt
 
 ## Matching the metacharacters
 
-echo 'a^2 + b^2 - C*3' | sed -n '/b^2/p'
+printf 'a^2 + b^2 - C*3\nd = c^2' | sed -n '/b^2/p'
 
-echo '$a = $b + $c' | sed -n '/$b/p'
+printf '$a = $b + $c\n$x = 4' | sed -n '/$b/p'
 
 echo '$a = $b + $c' | sed 's/\$//g'
 
@@ -84,15 +90,15 @@ echo 'a/b/c/d' | sed 'y/a\/d/1-4/'
 
 echo 'a/b/c/d' | sed 'y,a/d,1-4,'
 
-printf '/foo/bar/1\n/foo/baz/1\n'
+printf '/home/joe/1\n/home/john/1\n'
 
-printf '/foo/bar/1\n/foo/baz/1\n' | sed -n '\;/foo/bar/;p'
+printf '/home/joe/1\n/home/john/1\n' | sed -n '\;/home/joe/;p'
 
 ## The dot meta character
 
 echo 'tac tin cot abc:tyz excited' | sed 's/c.t/-/g'
 
-printf '42\t35\n' | sed 's/.3.//'
+printf '42\t3500\n' | sed 's/.3.//'
 
 printf 'abc\nxyz\n' | sed 'N; s/c.x/ /'
 
@@ -100,21 +106,19 @@ printf 'abc\nxyz\n' | sed 'N; s/c.x/ /'
 
 echo 'fed fold fe:d feeder' | sed -E 's/\bfe.?d\b/X/g'
 
-printf 'sub par\nspare\npart time\n' | sed -nE '/\bpart?\b/p'
+sed -nE '/\bpart?\b/p' anchors.txt
 
 echo 'par part parrot parent' | sed -E 's/par(ro)?t/X/g'
 
 echo 'par part parrot parent' | sed -E 's/par(en|ro)?t/X/g'
 
-echo 'blah \< foo bar < blah baz <' | sed -E 's/\\?</\\</g'
+echo 'apple \< fig ice < apple cream <' | sed -E 's/\\?</\\</g'
 
 echo 'fd fed fod fe:d feeeeder' | sed 's/fe*d/X/g'
 
 echo '3111111111125111142' | sed 's/1*2/-/g'
 
 echo 'fd fed fod fe:d feeeeder' | sed -E 's/fe+d/X/g'
-
-echo 'fd fed fod fe:d feeeeder' | sed -E 's/f(e|o|:)+d/X/g'
 
 echo '3111111111125111142' | sed -E 's/1+4?2/-/g'
 
@@ -125,6 +129,14 @@ echo 'ac abc abbc abbbc abbbbbbbbc' | sed -E 's/ab{3,}c/X/g'
 echo 'ac abc abbc abbbc abbbbbbbbc' | sed -E 's/ab{,2}c/X/g'
 
 echo 'ac abc abbc abbbc abbbbbbbbc' | sed -E 's/ab{3}c/X/g'
+
+echo 'a{5} = 10' | sed -E 's/a\{5}/x/'
+
+echo 'report_{a,b}.txt' | sed -E 's/_{a,b}/_c/'
+
+echo 'report_{a,b}.txt' | sed -E 's/_\{a,b}/_c/'
+
+## Conditional AND
 
 echo 'Error: not a valid input' | sed -n '/Error.*valid/p'
 
@@ -138,11 +150,11 @@ echo 'foot' | sed -E 's/f.?o/X/'
 
 echo 'car bat cod map scat dot abacus' | sed 's/.*/X/'
 
-echo 'foo123312baz' | sed -E 's/o(1|2|3)+(12baz)?/X/'
+echo 'fig123312apple' | sed -E 's/g(1|2|3)+(12apple)?/X/'
 
-echo 'foo123312baz' | perl -pe 's/o(1|2|3)+(12baz)?/X/'
+echo 'fig123312apple' | perl -pe 's/g(1|2|3)+(12apple)?/X/'
 
-echo 'car bat cod map scat dot abacus' | sed 's/.*m/-/'
+echo 'car bat cod map scat dot abacus' | sed 's/.*b/-/'
 
 echo 'car bat cod map scat dot abacus' | sed 's/b.*t/-/'
 
@@ -154,11 +166,13 @@ echo 'car bat cod map scat dot abacus' | sed 's/a.*m*/-/'
 
 printf 'cute\ncat\ncot\ncoat\ncost\nscuttle\n' | sed -n '/c[ou]t/p'
 
-printf 'meeting\ncute\nboat\nat\nfoot\n' | sed -nE '/.[aeo]+t/p'
+printf 'meeting\ncute\nboat\nat\nfoot\n' | sed -n '/.[aeo]t/p'
 
-echo 'no so in to do on' | sed -E 's/\b[sot][on]\b/X/g'
+echo 'no so in to do on' | sed 's/\b[sot][on]\b/X/g'
 
 sed -nE '/^[on]{2,}$/p' words.txt
+
+## Character class metacharacters
 
 echo 'Sample123string42with777numbers' | sed -E 's/[0-9]+/-/g'
 
@@ -172,11 +186,13 @@ echo '0501 035 154 12 26 98234' | sed -E 's/\b0*[1-9][0-9]{2,}\b/X/g'
 
 echo 'Sample123string42with777numbers' | sed -E 's/[^0-9]+/-/g'
 
-echo 'foo:123:bar:baz' | sed -E 's/(:[^:]+){2}$//'
+echo 'apple:123:banana:cherry' | sed -E 's/(:[^:]+){2}$//'
 
 echo 'I like "mango" and "guava"' | sed -E 's/"[^"]+"/X/g'
 
 printf 'tryst\nfun\nglyph\npity\nwhy\n' | sed '/[aeiou]/d'
+
+## Escape sequence sets
 
 echo 'load;err_msg--\nant,r2..not' | sed -E 's/\W+/-/g'
 
@@ -184,19 +200,29 @@ printf 'hi  \v\f  there.\thave   \ra nice\t\tday\n' | sed -E 's/\s+/ /g'
 
 echo 'w=y\x+9*3' | sed 's/[\w=]//g'
 
-echo 'err_msg xerox ant m_2 P2 load1 eel' | sed -E 's/\b[[:lower:]]+\b/X/g'
+echo '42\d123' | sed -E 's/\d+/-/g'
 
-echo 'err_msg xerox ant m_2 P2 load1 eel' | sed -E 's/\b[[:lower:]_]+\b/X/g'
+echo '42\d123' | perl -pe 's/\d+/-/g'
 
-echo 'err_msg xerox ant m_2 P2 load1 eel' | sed -E 's/\b[[:alnum:]]+\b/X/g'
+## Named character sets
+
+s='err_msg xerox ant m_2 P2 load1 eel'
+
+echo "$s" | sed -E 's/\b[[:lower:]]+\b/X/g'
+
+echo "$s" | sed -E 's/\b[[:lower:]_]+\b/X/g'
+
+echo "$s" | sed -E 's/\b[[:alnum:]]+\b/X/g'
 
 echo ',pie tie#ink-eat_42' | sed -E 's/[^[:punct:]]+//g'
 
+## Matching character class metacharacters literally
+
 echo 'ab-cd gh-c 12-423' | sed -E 's/[a-z-]{2,}/X/g'
 
-printf 'int a[5]\nfoo\n1+1=2\n' | sed -n '/[=]]/p'
+printf 'int a[5]\nfig\n1+1=2\n' | sed -n '/[=]]/p'
 
-printf 'int a[5]\nfoo\n1+1=2\n' | sed -n '/[]=]/p'
+printf 'int a[5]\nfig\n1+1=2\n' | sed -n '/[]=]/p'
 
 echo 'int a[5]' | sed -n '/[x[.y]/p'
 
@@ -206,7 +232,7 @@ echo 'f*(a^b) - 3*(a+b)/(a-b)' | sed 's/a[+^]b/c/g'
 
 ## Escape sequences
 
-printf 'foo\tbar\tbaz\n' | sed 's/\t/ /g'
+printf 'apple\tbanana\tcherry\n' | sed 's/\t/ /g'
 
 echo 'a b c' | sed 's/ /\t/g'
 
@@ -238,7 +264,7 @@ echo 'hello world' | sed 's/.*/"&"/'
 
 echo 'hello world' | sed 's/.*/Hi. &. Have a nice day/'
 
-echo 'one,2,3.14,42' | sed -E 's/^(([^,]+,){2})([^,]+)/\1"\3"/'
+echo 'one,2,3.14,42' | sed -E 's/^(([^,]+,){2})([^,]+)/\u\1"\3"/'
 
 s='tryst,fun,glyph,pity,why,group'
 
@@ -246,11 +272,11 @@ echo "$s" | sed -E 's/\b\w+\b|(\b[gp]\w*y\w*\b)/\1/g'
 
 echo "$s" | sed -E 's/(\b[gp]\w*y\w*\b)|\b\w+\b/\1/g'
 
-echo 'foo and bar' | sed 's/and/[&]/'
+echo 'apple and fig' | sed 's/and/[&]/'
 
-echo 'foo and bar' | sed 's/and/[\&]/'
+echo 'apple and fig' | sed 's/and/[\&]/'
 
-echo 'foo and bar' | sed 's/and/\\/'
+echo 'apple and fig' | sed 's/and/\\/'
 
 ## Known Bugs
 

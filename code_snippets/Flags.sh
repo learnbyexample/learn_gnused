@@ -6,19 +6,19 @@ printf 'Cat\ncOnCaT\nscatter\ncot\n' | sed -n '/cat/Ip'
 
 printf 'Cat\ncOnCaT\nscatter\ncot\n' | sed 's/cat/dog/I'
 
-## Changing case in replacement section
+## Changing case in the replacement section
 
 echo 'hello there. how are you?' | sed 's/\b\w/\u&/g'
 
 echo 'HELLO THERE. HOW ARE YOU?' | sed 's/\b\w/\l&/g'
 
-echo '_foo aug_price next_line' | sed -E 's/([a-z])_([a-z])/\1\u\2/g'
+echo '_fig aug_price next_line' | sed -E 's/([a-z])_([a-z])/\1\u\2/g'
 
 echo 'HaVE a nICe dAy' | sed 's/.*/\L&/'
 
 echo 'HaVE a nICe dAy' | sed 's/.*/\U&/'
 
-echo '_foo aug_price next_line' | sed -E 's/([a-z]+)(_[a-z]+)/\U\1\E\2/g'
+echo 'fig_ aug_price next_line' | sed -E 's/([a-z]+)(_[a-z]+)/\U\1\E\2/g'
 
 echo 'HeLLo:bYe gOoD:beTTEr' | sed -E 's/([a-z]+)(:[a-z]+)/\L\1\U\2/Ig'
 
@@ -34,33 +34,35 @@ printf '1,2,3,4\na,b,c,d\n' | sed 's/,/-/g'
 
 ## Replace specific occurrences
 
-echo 'foo:123:bar:baz' | sed 's/:/-/'
+s='apple:banana:cherry:fig:mango'
 
-echo 'foo:123:bar:baz' | sed -E 's/[^:]+/"&"/'
+echo "$s" | sed 's/:/---/2'
 
-echo 'foo:123:bar:baz' | sed 's/:/-/2'
+echo "$s" | sed -E 's/[^:]+/"&"/2'
 
-echo 'foo:123:bar:baz' | sed -E 's/[^:]+/"&"/2'
+echo "$s" | sed 's/:/---/3'
 
-echo 'foo:123:bar:baz' | sed 's/:/-/3'
+echo "$s" | sed -E 's/[^:]+/"&"/3'
 
-echo 'foo:123:bar:baz' | sed -E 's/[^:]+/"&"/3'
+s='car,art,pot,tap,urn,ray,ear'
 
-echo '456:foo:123:bar:789:baz' | sed -E 's/(.*):/\1[]/'
+echo "$s" | sed -E 's/(.*),/\1[]/'
 
-echo '456:foo:123:bar:789:baz' | sed -E 's/(.*):(.*:)/\1[]\2/'
+echo "$s" | sed -E 's/(.*),(.*,)/\1[]\2/'
 
-echo '456:foo:123:bar:789:baz' | sed -E 's/(.*):((.*:){2})/\1[]\2/'
+echo "$s" | sed -E 's/(.*),((.*,){3})/\1[]\2/'
 
-echo '456:foo:123:bar:789:baz' | sed -E 's/:/[]/2g'
+s='apple:banana:cherry:fig:mango'
 
-echo '456:foo:123:bar:789:baz' | sed -E 's/:/[]/4g'
+echo "$s" | sed -E 's/:/---/2g'
 
-echo '456:foo:123:bar:789:baz' | sed 's/:/[]/2; s/:/[]/2'
+echo "$s" | sed -E 's/:/---/4g'
 
-echo '456:foo:123:bar:789:baz' | sed 's/:/[]/3; s/:/[]/2'
+s='car,art,pot,tap,urn,ray,ear'
 
-echo '456:foo:123:bar:789:baz' | sed 's/:/[]/5; s/:/[]/3; s/:/[]/2'
+echo "$s" | sed 's/,/[]/3; s/,/[]/2'
+
+echo "$s" | sed 's/,/[]/5; s/,/[]/3; s/,/[]/2'
 
 ## Print flag
 

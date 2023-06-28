@@ -1,5 +1,19 @@
 <br>
 
+### 2.0
+
+* Command version updated to **GNU sed 4.9**
+* Many more exercises added, and you can practice some of them using this [interactive TUI app](https://github.com/learnbyexample/TUI-apps/blob/main/SedExercises)
+* Long sections split into smaller ones
+* In general, many of the examples, exercises, solutions, descriptions and external links were updated/corrected
+* Updated Acknowledgements section
+* Code snippets related to info/warning sections will now appear as a single block
+* Book title changed to **CLI text processing with GNU sed**
+* New cover image
+* Images centered for EPUB format
+
+<br>
+
 ### 1.5
 
 * Clarified use of `/dev/stdin` with the `r` command

@@ -8,7 +8,7 @@ sed '/^-/ s///; t; s/^/-/' nums.txt
 
 printf 'good\nbad\n' | sed 's/o/-/g; T; s/d/*/g'
 
-printf 'good\nbad\nneed\n' | sed 's/o/-/g; s/a/%/g; T; a ----'
+printf 'fig\ngood\nbad\nspeed\n' | sed 's/o/-/g; s/a/%/g; T; a ----'
 
 ## loop
 

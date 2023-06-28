@@ -16,7 +16,7 @@ seq 5 | sed '2,4 s/.*/hi there!/'
 
 seq 3 | sed '2c rat\tdog\nwolf'
 
-seq 3 | sed '2a it\x27s sunny today'
+seq 3 | sed '2a fruit: \x27mango\x27'
 
 seq 3 | sed '2c         hello'
 
@@ -34,7 +34,7 @@ seq 3 | sed '2{s/^/*/; a hi}'
 
 seq 4 | sed -e '2c hi' -e '3a bye'
 
-seq 3 | sed '2{c hi
+seq 3 | sed '2{s/^/*/; a hi
 }'
 
 ## Shell substitution

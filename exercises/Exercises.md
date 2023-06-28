@@ -1,21 +1,26 @@
 # Exercises
 
->![info](../images/info.svg) Exercise related files are available from [exercises folder](https://github.com/learnbyexample/learn_gnused/tree/master/exercises).
-
 >![info](../images/info.svg) For solutions, see [Exercise_solutions.md](https://github.com/learnbyexample/learn_gnused/blob/master/exercises/Exercise_solutions.md).
 
 <br>
 
 # Introduction
 
-**a)** Replace `5` with `five` for the given stdin source.
+**1)** Replace only the first occurrence of `5` with `five` for the given stdin source.
 
 ```bash
-$ echo 'They ate 5 apples' | sed ##### add your solution here
-They ate five apples
+$ echo 'They ate 5 apples and 5 mangoes' | sed ##### add your solution here
+They ate five apples and 5 mangoes
 ```
 
-**b)** Replace all occurrences of `0xA0` with `0x50` and `0xFF` with `0x7F` for the given input file.
+**2)** Replace all occurrences of `5` with `five`.
+
+```bash
+$ echo 'They ate 5 apples and 5 mangoes' | sed ##### add your solution here
+They ate five apples and five mangoes
+```
+
+**3)** Replace all occurrences of `0xA0` with `0x50` and `0xFF` with `0x7F` for the given input file.
 
 ```bash
 $ cat hex.txt
@@ -27,7 +32,7 @@ start address: 0x50, func1 address: 0x50
 end address: 0x7F, func2 address: 0xB0
 ```
 
-**c)** The substitute command searches and replaces sequences of characters. When you need to map one or more characters with another set of corresponding characters, you can use the `y` command. Quoting from the manual:
+**4)** The substitute command searches and replaces sequences of characters. When you need to map one or more characters with another set of corresponding characters, you can use the `y` command. Quoting from the manual:
 
 >**y/src/dst/** Transliterate any characters in the pattern space which match any of the source-chars with the corresponding character in dest-chars.
 
@@ -38,11 +43,22 @@ $ echo 'goal new user sit eat dinner' | sed ##### add your solution here
 gOAl nEw UsEr sIt EAt dInnEr
 ```
 
+**5)** Why does the following command produce an error? How'd you fix it?
+
+```bash
+$ echo 'a sunny day' | sed s/sunny day/cloudy day/
+sed: -e expression #1, char 7: unterminated `s' command
+
+# expected output
+$ echo 'a sunny day' | sed ##### add your solution here
+a cloudy day
+```
+
 <br>
 
 # In-place file editing
 
-**a)** For the input file `text.txt`, replace all occurrences of `in` with `an` and write back the changes to `text.txt` itself. The original contents should get saved to `text.txt.orig`
+**1)** For the input file `text.txt`, replace all occurrences of `in` with `an` and write back the changes to `text.txt` itself. The original contents should get saved to `text.txt.orig`
 
 ```bash
 $ cat text.txt
@@ -58,7 +74,7 @@ can ran want plant
 tin fin fit mine line
 ```
 
-**b)** For the input file `text.txt`, replace all occurrences of `an` with `in` and write back the changes to `text.txt` itself. Do not create backups for this exercise. Note that you should have solved the previous exercise before starting this one.
+**2)** For the input file `text.txt`, replace all occurrences of `an` with `in` and write back the changes to `text.txt` itself. Do not create backups for this exercise. Note that you should have solved the previous exercise before starting this one.
 
 ```bash
 $ cat text.txt
@@ -76,7 +92,7 @@ $ diff text.txt text.txt.orig
 > can ran want plant
 ```
 
-**c)** For the input file `copyright.txt`, replace `copyright: 2018` with `copyright: 2019` and write back the changes to `copyright.txt` itself. The original contents should get saved to `2018_copyright.txt.bkp`
+**3)** For the input file `copyright.txt`, replace `copyright: 2018` with `copyright: 2019` and write back the changes to `copyright.txt` itself. The original contents should get saved to `2018_copyright.txt.bkp`
 
 ```bash
 $ cat copyright.txt
@@ -98,7 +114,7 @@ bla bla bla
 copyright: 2018
 ```
 
-**d)** In the code sample shown below, two files are created by redirecting output of `echo` command. Then a `sed` command is used to edit `b1.txt` in-place as well as create a backup named `bkp.b1.txt`. Will the `sed` command work as expected? If not, why?
+**4)** In the code sample shown below, two files are created by redirecting the output of the `echo` command. Then a `sed` command is used to edit `b1.txt` in-place as well as create a backup named `bkp.b1.txt`. Will the `sed` command work as expected? If not, why?
 
 ```bash
 $ echo '2 apples' > b1.txt
@@ -106,11 +122,31 @@ $ echo '5 bananas' > -ibkp.txt
 $ sed -ibkp.* 's/2/two/' b1.txt
 ```
 
+**5)** For the input file `pets.txt`, remove the first occurrence of `I like ` from each line and write back the changes to `pets.txt` itself. The original contents should get saved with the same filename inside the `bkp` directory. Assume that you do not know whether `bkp` exists or not in the current working directory.
+
+```bash
+$ cat pets.txt
+I like cats
+I like parrots
+I like dogs
+
+##### add your solution here
+
+$ cat pets.txt
+cats
+parrots
+dogs
+$ cat bkp/pets.txt
+I like cats
+I like parrots
+I like dogs
+```
+
 <br>
 
 # Selective editing
 
-**a)** Remove only the third line of given input.
+**1)** For the given input, display except the third line.
 
 ```bash
 $ seq 34 37 | sed ##### add your solution here
@@ -119,7 +155,7 @@ $ seq 34 37 | sed ##### add your solution here
 37
 ```
 
-**b)** Display only fourth, fifth, sixth and seventh lines for the given input.
+**2)** Display only the fourth, fifth, sixth and seventh lines for the given input.
 
 ```bash
 $ seq 65 78 | sed ##### add your solution here
@@ -129,7 +165,7 @@ $ seq 65 78 | sed ##### add your solution here
 71
 ```
 
-**c)** For the input file `addr.txt`, replace all occurrences of `are` with `are not` and `is` with `is not` only from line number **4** till end of file. Also, only the lines that were changed should be displayed in the output.
+**3)** For the input file `addr.txt`, replace all occurrences of `are` with `are not` and `is` with `is not` only from line number **4** till the end of file. Also, only the lines that were changed should be displayed in the output.
 
 ```bash
 $ cat addr.txt
@@ -145,7 +181,7 @@ Today is not sunny
 You are not funny
 ```
 
-**d)** Use `sed` to get the output shown below for the given input. You'll have to first understand the logic behind input to output transformation and then use commands introduced in this chapter to construct a solution.
+**4)** Use `sed` to get the output shown below for the given input. You'll have to first understand the input to output transformation logic and then use commands introduced in this chapter to construct a solution.
 
 ```bash
 $ seq 15 | sed ##### add your solution here
@@ -157,7 +193,7 @@ $ seq 15 | sed ##### add your solution here
 14
 ```
 
-**e)** For the input file `addr.txt`, display all lines from start of the file till the first occurrence of `game`.
+**5)** For the input file `addr.txt`, display all lines from the start of the file till the first occurrence of `is`.
 
 ```bash
 $ sed ##### add your solution here
@@ -166,17 +202,17 @@ How are you
 This game is good
 ```
 
-**f)** For the input file `addr.txt`, display all lines that contain `is` but not `good`.
+**6)** For the input file `addr.txt`, display all lines that contain `is` but not `good`.
 
 ```bash
 $ sed ##### add your solution here
 Today is sunny
 ```
 
-**g)** See [Gotchas and Tricks](../gnu_sed.md#gotchas-and-tricks) chapter and correct the command to get the output as shown below.
+**7)** `n` and `N` commands will not execute further commands if there are no more input lines to fetch. Correct the command shown below to get the expected output.
 
 ```bash
-$ # wrong output
+# wrong output
 $ seq 11 | sed 'N; N; s/\n/-/g'
 1-2-3
 4-5-6
@@ -184,7 +220,7 @@ $ seq 11 | sed 'N; N; s/\n/-/g'
 10
 11
 
-$ # expected output
+# expected output
 $ seq 11 | sed ##### add your solution here
 1-2-3
 4-5-6
@@ -192,7 +228,7 @@ $ seq 11 | sed ##### add your solution here
 10-11
 ```
 
-**h)** For the input file `addr.txt`, add line numbers in the format as shown below.
+**8)** For the input file `addr.txt`, add line numbers in the format as shown below.
 
 ```bash
 $ sed ##### add your solution here
@@ -210,7 +246,7 @@ Today is sunny
 You are funny
 ```
 
-**i)** For the input file `addr.txt`, print all lines that contain `are` and the line that comes after such a line, if any.
+**9)** For the input file `addr.txt`, print all lines that contain `are` and the line that comes after, if any.
 
 ```bash
 $ sed ##### add your solution here
@@ -221,7 +257,7 @@ You are funny
 
 **Bonus:** For the above input file, will `sed -n '/is/,+1 p' addr.txt` produce identical results as `grep -A1 'is' addr.txt`? If not, why?
 
-**j)** Print all lines if their line numbers follow the sequence `1, 15, 29, 43, etc` but not if the line contains `4` in it.
+**10)** Print all lines if their line numbers follow the sequence 1, 15, 29, 43, etc but not if the line contains `4` in it.
 
 ```bash
 $ seq 32 100 | sed ##### add your solution here
@@ -230,50 +266,120 @@ $ seq 32 100 | sed ##### add your solution here
 88
 ```
 
+**11)** For the input file `sample.txt`, display from the start of the file till the first occurrence of `are`, excluding the matching line.
+
+```bash
+$ cat sample.txt
+Hello World
+
+Hi there
+How are you
+
+Just do-it
+Believe it
+
+banana
+papaya
+mango
+
+Much ado about nothing
+He he he
+Adios amigo
+
+$ sed ##### add your solution here
+Hello World
+
+Hi there
+```
+
+**12)** For the input file `sample.txt`, display from the last occurrence of `do` till the end of the file.
+
+```bash
+##### add your solution here
+Much ado about nothing
+He he he
+Adios amigo
+```
+
+**13)** For the input file `sample.txt`, display from the 9th line till a line containing `go`.
+
+```bash
+$ sed ##### add your solution here
+banana
+papaya
+mango
+```
+
+**14)** For the input file `sample.txt`, display from a line containing `it` till the next line number that is divisible by 3.
+
+```bash
+$ sed ##### add your solution here
+Just do-it
+Believe it
+
+banana
+```
+
+**15)** Display only the odd numbered lines from `addr.txt`.
+
+```bash
+$ sed ##### add your solution here
+Hello World
+This game is good
+12345
+```
+
 <br>
 
 # BRE/ERE Regular Expressions
 
-**a)** For the given input, print all lines that start with `den` or end with `ly`.
+**1)** For the input file `patterns.txt`, display all lines that start with `den` or end with `ly`.
 
 ```bash
-$ lines='lovely\n1 dentist\n2 lonely\neden\nfly away\ndent\n'
-$ printf '%b' "$lines" | sed ##### add your solution here
-lovely
+$ sed ##### add your solution here
 2 lonely
 dent
+lovely
 ```
 
-**b)** Replace all occurrences of `42` with `[42]` unless it is at the edge of a word. Note that **word** in these exercises have same meaning as defined in regular expressions.
+**2)** For the input file `patterns.txt`, replace all occurrences of `42` with `[42]` unless it is at the edge of a word. Display only the modified lines.
 
 ```bash
-$ echo 'hi42bye nice421423 bad42 cool_42a 42c' | sed ##### add your solution here
-hi[42]bye nice[42]1[42]3 bad42 cool_[42]a 42c
+$ sed ##### add your solution here
+Hi[42]Bye nice1[42]3 bad42
+eqn2 = pressure*3+42/5-1[42]56
+cool_[42]a 42fake
+_[42]_
 ```
 
-**c)** Add `[]` around words starting with `s` and containing `e` and `t` in any order.
+**3)** For the input file `patterns.txt`, add `[]` around words starting with `s` and containing `e` and `t` in any order. Display only the modified lines.
 
 ```bash
-$ words='sequoia subtle exhibit asset sets tests site'
-$ echo "$words" | sed ##### add your solution here
-sequoia [subtle] exhibit asset [sets] tests [site]
+$ sed ##### add your solution here
+[sets] tests Sauerkraut
+[site] cite kite bite [store_2]
+[subtle] sequoia
+a [set]
 ```
 
-**d)** Replace all whole words with `X` that start and end with the same word character.
+**4)** From the input file `patterns.txt`, display lines having the same first and last word character.
 
 ```bash
-$ echo 'oreo not a _a2_ roar took 22' | sed ##### add your solution here
-X not X X X took X
+$ sed ##### add your solution here
+Not a pip DOWN
+y
+1 dentist 1
+_42_
 ```
 
-**e)** Replace all occurrences of `[4]|*` with `2`
+**5)** For the input file `patterns.txt`, display lines containing `*[5]` literally.
 
 ```bash
-$ echo '2.3/[4]|*6 foo 5.3-[4]|*9' | sed ##### add your solution here
-2.3/26 foo 5.3-29
+$ sed ##### add your solution here
+(9-2)*[5]
 ```
 
-**f)** `sed -nE '/\b[a-z](on|no)[a-z]\b/p'` is same as `sed -nE '/\b[a-z][on]{2}[a-z]\b/p'`. True or False? Sample input shown below might help to understand the differences, if any.
+**6)** `sed -nE '/\b[a-z](on|no)[a-z]\b/p'` is same as `sed -nE '/\b[a-z][on]{2}[a-z]\b/p'`. True or False? Sample input shown below might help to understand the differences, if any.
 
 ```bash
 $ printf 'known\nmood\nknow\npony\ninns\n'
@@ -284,45 +390,54 @@ pony
 inns
 ```
 
-**g)** Print all lines that start with `hand` and ends with no further character or `s` or `y` or `le`.
+**7)** For the input file `patterns.txt`, display all lines starting with `hand` and ending immediately with `s` or `y` or `le` or no further characters.
 
 ```bash
-$ lines='handed\nhand\nhandy\nunhand\nhands\nhandle\n'
-$ printf '%b' "$lines" | sed ##### add your solution here
-hand
+$ sed ##### add your solution here
+handle
 handy
 hands
-handle
+hand
 ```
 
-**h)** Replace `42//5` or `42/5` with `8` for the given input.
+**8)** For the input file `patterns.txt`, replace `42//5` or `42/5` with `8`. Display only the modified lines.
 
 ```bash
-$ echo 'a+42//5-c pressure*3+42/5-14256' | sed ##### add your solution here
-a+8-c pressure*3+8-14256
+$ sed ##### add your solution here
+eqn3 = r*42-5/3+42///5-83+a
+eqn1 = a+8-c
+eqn2 = pressure*3+8-14256
 ```
 
-**i)** For the given quantifiers, what would be the equivalent form using `{m,n}` representation?
+**9)** For the given quantifiers, what would be the equivalent form using the `{m,n}` representation?
 
 * `?` is same as
 * `*` is same as
 * `+` is same as
 
-**j)** True or False? In ERE, `(a*|b*)` is same as `(a|b)*` 
+**10)** True or False? In ERE, `(a*|b*)` is same as `(a|b)*`.
 
-**k)** For the given input, construct two different REGEXPs to get the outputs as shown below.
+**11)** For the input file `patterns.txt`, construct two different REGEXPs to get the outputs as shown below. Display only the modified lines.
 
 ```bash
-$ # delete from '(' till next ')'
-$ echo 'a/b(division) + c%d() - (a#(b)2(' | sed ##### add your solution here
-a/b + c%d - 2(
+# delete from '(' till next ')'
+$ sed ##### add your solution here
+a/b + c%d
+*[5]
+def factorial
+12- *4)
+Hi there. Nice day
 
-$ # delete from '(' till next ')' but not if there is '(' in between
-$ echo 'a/b(division) + c%d() - (a#(b)2(' | sed ##### add your solution here
-a/b + c%d - (a#2(
+# delete from '(' till next ')' but not if there is '(' in between
+$ sed ##### add your solution here
+a/b + c%d
+*[5]
+def factorial
+12- (e+*4)
+Hi there. Nice day(a
 ```
 
-**l)** For the input file `anchors.txt`, convert **markdown** anchors to corresponding **hyperlinks**.
+**12)** For the input file `anchors.txt`, convert markdown anchors to corresponding hyperlinks as shown below.
 
 ```bash
 $ cat anchors.txt
@@ -336,17 +451,20 @@ $ sed ##### add your solution here
 [The dot meta character](#the-dot-meta-character)
 ```
 
-**m)** Replace the space character that occurs after a word ending with `a` or `r` with a newline character.
+**13)** For the input file `patterns.txt`, replace the space character that occurs after a word ending with `a` or `r` with a newline character, only if the line also contains an uppercase letter. Display only the modified lines.
 
 ```bash
-$ echo 'area not a _a2_ roar took 22' | sed ##### add your solution here
-area
-not a
-_a2_ roar
-took 22
+$ sed ##### add your solution here
+par
+car
+tar
+far
+Cart
+Not a
+pip DOWN
 ```
 
-**n)** Surround all whole words with `()`. Additionally, if the whole word is `imp` or `ant`, delete them. Can you do it with single substitution?
+**14)** Surround all whole words with `()`. Additionally, if the whole word is `imp` or `ant`, delete them. Can you do it with a single substitution?
 
 ```bash
 $ words='tiger imp goat eagle ant important'
@@ -354,11 +472,97 @@ $ echo "$words" | sed ##### add your solution here
 (tiger) () (goat) (eagle) () (important)
 ```
 
+**15)** For the input file `patterns.txt`, display lines containing `car` but not as a whole word.
+
+```bash
+$ sed ##### add your solution here
+scar
+care
+a huge discarded pile of books
+scare
+part cart mart
+```
+
+**16)** Will the ERE pattern `^a\w+([0-9]+:fig)?` match the same characters for the input `apple42:banana314` and `apple42:fig100`? If not, why not?
+
+**17)** For the input file `patterns.txt`, display lines starting with `4` or `-` or `u` or `sub` or `care`.
+
+```bash
+$ sed ##### add your solution here
+care
+4*5]
+-handy
+subtle sequoia
+unhand
+```
+
+**18)** For the given input string, replace all occurrences of digit sequences with only the unique non-repeating sequence. For example, `232323` should be changed to `23` and `897897` should be changed to `897`. If there are no repeats (for example `1234`) or if the repeats end prematurely (for example `12121`), it should not be changed.
+
+```bash
+$ s='1234 2323 453545354535 9339 11 60260260'
+$ echo "$s" | sed ##### add your solution here
+1234 23 4535 9339 1 60260260
+```
+
+**19)** Replace sequences made up of words separated by `:` or `.` by the first word of the sequence. Such sequences will end when `:` or `.` is not followed by a word character.
+
+```bash
+$ ip='wow:Good:2_two.five: hi-2 bye kite.777:water.'
+$ echo "$ip" | sed ##### add your solution here
+wow hi-2 bye kite
+```
+
+**20)** Replace sequences made up of words separated by `:` or `.` by the last word of the sequence. Such sequences will end when `:` or `.` is not followed by a word character.
+
+```bash
+$ ip='wow:Good:2_two.five: hi-2 bye kite.777:water.'
+$ echo "$ip" | sed ##### add your solution here
+five hi-2 bye water
+```
+
+**21)** Replace all whole words with `X` unless it is preceded by a `(` character.
+
+```bash
+$ s='guava (apple) berry) apple (mango) (grape'
+$ echo "$s" | sed ##### add your solution here
+X (apple) X) X (mango) (grape
+```
+
+**22)** Surround whole words with `[]` only if they are followed by `:` or `,` or `-`.
+
+```bash
+$ ip='Poke,on=-=so_good:ink.to/is(vast)ever2-sit'
+$ echo "$ip" | sed ##### add your solution here
+[Poke],on=-=[so_good]:ink.to/is(vast)[ever2]-sit
+```
+
+**23)** The `fields.txt` file has fields separated by the `:` character. Delete `:` and the last field if there is a digit character anywhere before the last field.
+
+```bash
+$ cat fields.txt
+42:cat
+twelve:a2b
+we:be:he:0:a:b:bother
+apple:banana-42:cherry:
+dragon:unicorn:centaur
+
+$ sed ##### add your solution here
+42
+twelve:a2b
+we:be:he:0:a:b
+apple:banana-42:cherry
+dragon:unicorn:centaur
+```
+
+**24)** Are the commands `sed -n '/a^b/p'` and `sed -nE '/a^b/p'` equivalent?
+
+**25)** What characters can be used as REGEXP delimiters?
+
 <br>
 
 # Flags
 
-**a)** For the input file `para.txt`, remove all groups of lines marked with a line beginning with `start` and a line ending with `end`. Match both these markers case insensitively.
+**1)** For the input file `para.txt`, remove all groups of lines marked with a line beginning with `start` and a line ending with `end`. Match both these markers case insensitively.
 
 ```bash
 $ cat para.txt
@@ -377,16 +581,21 @@ hi there
 bye
 ```
 
-**b)** The given sample input below starts with one or more `#` characters followed by one or more whitespace characters and then some words. Convert such strings to corresponding output as shown below.
+**2)** The `headers.txt` file contains one header per line, starting with one or more `#` characters followed by one or more whitespace characters and then some words. Convert such lines to the corresponding output as shown below.
 
 ```bash
-$ echo '# Regular Expressions' | sed ##### add your solution here
+$ cat headers.txt
+# Regular Expressions
+## Subexpression calls
+## The dot meta character
+
+$ sed ##### add your solution here
 regular-expressions
-$ echo '## Compiling regular expressions' | sed ##### add your solution here
-compiling-regular-expressions
+subexpression-calls
+the-dot-meta-character
 ```
 
-**c)** Using the input file `para.txt`, create a file named `five.txt` with all lines that contain a whole word of length **5** and a file named `six.txt` with all lines that contain a whole word of length **6**.
+**3)** Using `para.txt`, create a file named `five.txt` with lines that contain a whole word of length **5** and a file named `seven.txt` with lines that contain a whole word of length **7**.
 
 ```bash
 $ sed ##### add your solution here
@@ -396,12 +605,13 @@ good start
 Start working on that
 hi there
 start and try to
-$ cat six.txt
+
+$ cat seven.txt
+Start working on that
 project you always wanted
-finish the End
 ```
 
-**d)** Given sample strings have fields separated by `,` where field values can be empty as well. Use `sed` to replace the third field with `42`.
+**4)** Given sample strings have fields separated by `,` where field values can be empty as well. Use `sed` to replace the third field with `42`.
 
 ```bash
 $ echo 'lion,,ant,road,neon' | sed ##### add your solution here
@@ -411,7 +621,7 @@ $ echo ',,,' | sed ##### add your solution here
 ,,42,
 ```
 
-**e)** Replace all occurrences of `e` with `3` except the first two matches.
+**5)** Replace all occurrences of `e` with `3` except the first two matches.
 
 ```bash
 $ echo 'asset sets tests site' | sed ##### add your solution here
@@ -421,10 +631,10 @@ $ echo 'sample item teem eel' | sed ##### add your solution here
 sample item t33m 33l
 ```
 
-**f)** For the input file `addr.txt`, replace all input lines with number of characters in those lines. `wc -L` is one of the ways to get length of a line as shown below.
+**6)** For the input file `addr.txt`, replace all input lines with the number of characters in those lines. `wc -L` is one of the ways to get the length of a line as shown below. Assume that the input file doesn't have single or double quote characters.
 
 ```bash
-$ # note that newline character isn't counted, which is preferable here
+# note that newline character isn't counted, which is preferable here
 $ echo "Hello World" | wc -L
 11
 
@@ -437,7 +647,7 @@ $ sed ##### add your solution here
 13
 ```
 
-**g)** For the input file `para.txt`, assume that it'll always have lines in multiples of 4. Use `sed` commands such that there are 4 lines at a time in the pattern space. Then, delete from `start` till `end` provided `start` is matched only at the start of a line. Also, match these two keywords case insensitively.
+**7)** For the input file `para.txt`, assume that it'll always have lines in multiples of 4. Use `sed` commands such that there are 4 lines at a time in the pattern space. Then, delete from `start` till `end` provided `start` is matched only at the start of a line. Also, match these two keywords case insensitively.
 
 ```bash
 $ sed ##### add your solution here
@@ -448,39 +658,40 @@ hi there
 bye
 ```
 
-**h)** For the given strings, replace last but third `so` with `X`. Only print the lines which are changed by the substitution.
+**8)** For the input file `patterns.txt`, replace the last but second `ar` with `X`. Display only the modified lines.
 
 ```bash
-$ printf 'so and so also sow and soup\n' | sed ##### add your solution here
-so and X also sow and soup
-
-$ printf 'sososososososo\nso and so\n' | sed ##### add your solution here
-sososoXsososo
+$ sed ##### add your solution here
+par car tX far Cart
+pXt cart mart
 ```
 
-**i)** Display all lines that satisfies **both** of these conditions:
+**9)** Display lines from `sample.txt` that satisfy both of these conditions:
 
-* `professor` matched irrespective of case
-* `quip` or `this` matched case sensitively
-
-Input is a file downloaded from internet as shown below.
+* `he` matched irrespective of case
+* either `World` or `Hi` matched case sensitively
 
 ```bash
-$ wget https://www.gutenberg.org/files/345/old/345.txt -O dracula.txt
-
 $ sed ##### add your solution here
-equipment of a professor of the healing craft. When we were shown in,
-should be. I could see that the Professor had carried out in this room,
-"Not up to this moment, Professor," she said impulsively, "but up to
-and sprang at us. But by this time the Professor had gained his feet,
-this time the Professor had to ask her questions, and to ask them pretty
+Hello World
+Hi there
+```
+
+**10)** For the input file `patterns.txt`, surround all hexadecimal sequences with a minimum of four characters with `[]`. Match `0x` as an optional prefix, but shouldn't be counted for determining the length. Match the characters case insensitively, and the sequences shouldn't be surrounded by other word characters. Display only the modified lines.
+
+```bash
+$ sed ##### add your solution here
+"should not match [0XdeadBEEF]"
+Hi42Bye nice1423 [bad42]
+took 0xbad 22 [0x0ff1ce]
+eqn2 = pressure*3+42/5-[14256]
 ```
 
 <br>
 
 # Shell substitutions
 
-**a)** Replace `#expr#` with value of `usr_ip` shell variable. Assume that this variable can only contain the metacharacters as shown in the sample below.
+**1)** Replace `#expr#` with the value of the `usr_ip` shell variable. Assume that this variable can only contain the metacharacters as shown in the sample below.
 
 ```bash
 $ usr_ip='c = (a/b) && (x-5)'
@@ -489,7 +700,7 @@ $ echo 'Expression: #expr#' | sed ##### add your solution here
 Expression: c = (a/b) && (x-5)
 ```
 
-**b)** Repeat previous exercise, but this time with command substitution instead of using temporary variable.
+**2)** Repeat the previous exercise, but this time with command substitution instead of using a temporary variable.
 
 ```bash
 $ usr_ip='c = (a/b/y) && (x-5)'
@@ -501,12 +712,12 @@ Expression: c = (a/b/y) && (x-5)
 
 # z, s and f command line options
 
-**a)** Replace any character other than word characters and `.` character with `_` character for the sample filenames shown below.
+**1)** Replace any character other than word and `.` characters with the `_` character for the sample filenames shown below.
 
 ```bash
 $ mkdir test_dir && cd $_
 $ touch 'file with spaces.txt' $'weird$ch\nars.txt' '!f@oo.txt'
-$ # > at start of line indicates continuation of multiline shell command
+# > at start of line indicates continuation of multiline shell command
 $ for file in *; do
 >   new_name=$(printf '%s' "$file" | sed ##### add your solution here)
 >   mv "$file" "$new_name"
@@ -517,7 +728,7 @@ file_with_spaces.txt  _f_oo.txt  weird_ch_ars.txt
 $ cd .. && rm -r test_dir
 ```
 
-**b)** Print only the third line, if any, from these input files: `addr.txt`, `para.txt` and `copyright.txt`
+**2)** Print only the third line, if any, from these input files: `addr.txt`, `para.txt` and `copyright.txt`
 
 ```bash
 $ sed ##### add your solution here
@@ -526,7 +737,7 @@ project you always wanted
 bla bla bla
 ```
 
-**c)** For the input file `hex.txt`, use content from `replace.txt` to perform search and replace operations. Each line in `replace.txt` starts with the search term, followed by a space and then followed by the replace term. Assume that these terms do not contain any `sed` metacharacters.
+**3)** For the input file `hex.txt`, use content from `replace.txt` to perform search and replace operations. Each line in `replace.txt` starts with the search term, followed by a space and then followed by the replace term. Assume that these terms do not contain any `sed` metacharacters.
 
 ```bash
 $ cat hex.txt
@@ -537,16 +748,34 @@ $ cat replace.txt
 0xB0 0x6000
 0xFF 0x7000
 
-$ sed -f <(sed ##### add your solution here) hex.txt
+##### add your solution here
 start address: 0x5000, func1 address: 0x5000
 end address: 0x7000, func2 address: 0x6000
+```
+
+**4)** For the input file `nul_separated`, use the ASCII NUL character as the *line* separator and display lines containing `fig`. Also, change NUL characters in the output to the newline character.
+
+```bash
+$ sed ##### add your solution here
+apple
+fig
+mango
+icecream
+```
+
+**5)** For the input file `addr.txt`, change a newline character that comes before an uppercase letter to `.` followed by a space character. Assume that the input file doesn't have ASCII NUL characters.
+
+```bash
+$ sed ##### add your solution here
+Hello World. How are you. This game is good. Today is sunny
+12345. You are funny
 ```
 
 <br>
 
 # append, change, insert
 
-**a)** For the input file `addr.txt`, print only the third line and surround it with `-----`
+**1)** For the input file `addr.txt`, display the third line surrounded by `-----`.
 
 ```bash
 $ sed ##### add your solution here
@@ -555,7 +784,7 @@ This game is good
 -----
 ```
 
-**b)** For the input file `addr.txt`, replace all lines starting from a line containing `you` till end of file with content as shown below.
+**2)** For the input file `addr.txt`, replace all lines starting from a line containing `you` till the end of file with a blank line followed by `Have a nice day`.
 
 ```bash
 $ sed ##### add your solution here
@@ -564,15 +793,15 @@ Hello World
 Have a nice day
 ```
 
-**c)** Replace every even numbered line with `---`
+**3)** For the input file `addr.txt`, replace even numbered lines with `---`.
 
 ```bash
-$ seq 0 5 | sed ##### add your solution here
-0
+$ sed ##### add your solution here
+Hello World
 ---
-2
+This game is good
 ---
-4
+12345
 ---
 ```
 
@@ -580,7 +809,7 @@ $ seq 0 5 | sed ##### add your solution here
 
 # Adding content from file
 
-**a)** Replace third to fifth lines of input file `addr.txt` with second to fourth lines from file `para.txt`
+**1)** For the input file `addr.txt`, replace from the third to fifth lines with the second to fourth lines from `para.txt`.
 
 ```bash
 $ sed ##### add your solution here
@@ -592,7 +821,7 @@ to, do not let it end
 You are funny
 ```
 
-**b)** Add one line from `hex.txt` after every two lines of `copyright.txt`
+**2)** Add one line from `hex.txt` after every two lines of `copyright.txt`.
 
 ```bash
 $ sed ##### add your solution here
@@ -604,7 +833,7 @@ copyright: 2019
 end address: 0xFF, func2 address: 0xB0
 ```
 
-**c)** For every line of the input file `hex.txt`, insert `---` before the line and add one line from `replace.txt` after the line as shown below.
+**3)** For every line of the input file `hex.txt`, insert `---` before the line and append one line from `replace.txt` as shown below.
 
 ```bash
 $ sed ##### add your solution here
@@ -616,7 +845,7 @@ end address: 0xFF, func2 address: 0xB0
 0xB0 0x6000
 ```
 
-**d)** Insert the contents of `hex.txt` file before a line matching `0x6000` of the input file `replace.txt`.
+**4)** Insert the contents of `hex.txt` before a line matching `0x6000` of the input file `replace.txt`.
 
 ```bash
 $ sed ##### add your solution here
@@ -627,33 +856,59 @@ end address: 0xFF, func2 address: 0xB0
 0xFF 0x7000
 ```
 
+**5)** For the input file `addr.txt`, replace lines containing `are` with contents of `hex.txt`.
+
+```bash
+$ sed ##### add your solution here
+Hello World
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+This game is good
+Today is sunny
+12345
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+```
+
+**6)** The two commands shown below are equivalent. True or False?
+
+```bash
+sed '/are/r pets.txt' addr.txt
+
+cat pets.txt | sed '/are/r /dev/stdin' addr.txt
+```
+
+**7)** What do the commands `sed '0r file1' file2` and `sed '0R file1' file2` do?
+
 <br>
 
 # Control structures
 
-**a)** Using the input file `para.txt`, create a file named `markers.txt` with all lines that contain `start` or `end` (matched case insensitively) and a file named `rest.txt` with rest of the lines.
+**1)** Using the input file `para.txt`, create a file named `markers.txt` with all lines that contain `start` or `end` (matched case insensitively) and a file named `rest.txt` with the remaining lines.
 
 ```bash
 $ sed ##### add your solution here
-$ cat markers.txt 
+
+$ cat markers.txt
 good start
 Start working on that
 to, do not let it end
 start and try to
 finish the End
-$ cat rest.txt 
+
+$ cat rest.txt
 project you always wanted
 hi there
 bye
 ```
 
-**b)** For the input file `addr.txt`:
+**2)** For the input file `addr.txt`:
 
-* if line contains `e`, surround all consecutive repeated characters with `{}` as well as uppercase those characters
-* if line doesn't contain `e` but contains `u`, surround all uppercase letters in that line with `[]`
+* if a line contains `e`, surround all consecutive repeated characters with `{}` as well as uppercase those characters
+* else, if a line contains `u`, surround all uppercase letters in that line with `[]`
 
 ```bash
-$ # note that H in second line and Y in last line isn't modified
+# note that H in the second line and Y in the last line aren't modified
 $ sed ##### add your solution here
 He{LL}o World
 How are you
@@ -663,17 +918,23 @@ This game is g{OO}d
 You are fu{NN}y
 ```
 
-**c)** The given sample strings below has multiple fields separated by a space. The first field has numbers separated by `-` character. Surround these numbers in first field with `[]`
+**3)** The `nums.txt` file uses a space character as the field separator. The first field of some lines has one or more numbers separated by the `-` character. Surround such numbers in the first field with `[]` as shown below.
 
 ```bash
-$ echo '123-87-593 42-3 foo' | sed ##### add your solution here
-[123]-[87]-[593] 42-3 foo
+$ cat nums.txt
+123-87-593 42-3 fig
+apple 42-42-42 1000 banana 4-3
+53783-0913 hi 3 4-2
+1000 guava mango
 
-$ echo '53783-0913 hi 3 4-2' | sed ##### add your solution here
+$ sed ##### add your solution here
+[123]-[87]-[593] 42-3 fig
+apple 42-42-42 1000 banana 4-3
 [53783]-[0913] hi 3 4-2
+[1000] guava mango
 ```
 
-**d)** Convert the contents of `headers.txt` such that it matches the content of `anchors.txt`. The input file `headers.txt` contains one header per line, starting with one or more `#` character followed by a space character and then followed by the heading. You have to convert this heading into anchor tag as shown by the contents of `anchors.txt`.
+**4)** Convert the contents of `headers.txt` such that it matches the content of `anchors.txt`. The input file `headers.txt` contains one header per line, starting with one or more `#` characters followed by a space character and then followed by the heading. You have to convert such headings into anchor tags as shown by the contents of `anchors.txt`. Save the output in `out.txt`.
 
 ```bash
 $ cat headers.txt
@@ -685,31 +946,95 @@ $ cat anchors.txt
 ## <a name="subexpression-calls"></a>Subexpression calls
 ## <a name="the-dot-meta-character"></a>The dot meta character
 
-$ sed ##### add your solution here headers.txt > out.txt
+$ sed ##### add your solution here
 $ diff -s out.txt anchors.txt
 Files out.txt and anchors.txt are identical
+```
+
+**5)** What is the difference between `t` and `T` commands?
+
+**6)** The `blocks.txt` file uses `%=%=` to separate group of lines. Display the first such group.
+
+```bash
+$ cat blocks.txt
+%=%=
+apple
+banana
+%=%=
+3.14
+42
+1000
+%=%=
+brown
+green
+%=%=
+hi
+hello there
+bye
+
+$ sed ##### add your solution here
+%=%=
+apple
+banana
 ```
 
 <br>
 
 # Processing lines bounded by distinct markers
 
-**a)** For the input file `broken.txt`, print all lines between the markers `top` and `bottom`. The first `sed` command shown below doesn't work because `sed` will match till end of file if second address isn't found.
+**1)** The `blocks.txt` file uses `%=%=` to separate group of lines. Display the last such group.
+
+```bash
+##### add your solution here
+%=%=
+hi
+hello there
+bye
+```
+
+**2)** The `code.txt` file has code snippets that are surrounded by whole lines containing `%%Code: python%%` and `%%end%%`. The end of such snippets is always followed by an empty line. Assume that there will always be at least one line of code between the markers. Delete all such code snippets as well as the empty line that follows.
+
+```bash
+$ sed ##### add your solution here
+H1: Introduction
+
+REPL is a good way to learn Python for beginners.
+
+H2: String methods
+
+Python comes loaded with awesome methods.
+Enjoy learning Python.
+
+```
+
+**3)** The `code.txt` file has code snippets that are surrounded by whole lines containing `%%Code: python%%` and `%%end%%`. Display the lines between such markers only for the first block.
+
+```bash
+$ sed ##### add your solution here
+>>> 3 + 7
+10
+>>> 22 / 7
+3.142857142857143
+>>> 22 // 7
+3
+```
+
+**4)** For the input file `broken.txt`, display lines between the markers `top` and `bottom`. The first `sed` command shown below doesn't work because lines till the end of file are printed when the second address isn't found.
 
 ```bash
 $ cat broken.txt
-top
+--top--
 3.14
-bottom
-top
+[bottom]
+--top--
 1234567890
-bottom
-top
+[bottom]
+--top--
 Hi there
 Have a nice day
 Good bye
 
-$ # wrong output
+# wrong output
 $ sed -n '/top/,/bottom/ {//!p}' broken.txt
 3.14
 1234567890
@@ -717,13 +1042,13 @@ Hi there
 Have a nice day
 Good bye
 
-$ # expected output
-$ ##### add your solution here
+# expected output
+##### add your solution here
 3.14
 1234567890
 ```
 
-**b)** For the input file `addr.txt`, replace the lines occurring between the markers `How` and `12345` with contents of the file `hex.txt`. 
+**5)** For the input file `addr.txt`, replace the lines occurring between the markers `How` and `12345` with the contents of the file `hex.txt`.
 
 ```bash
 $ sed ##### add your solution here

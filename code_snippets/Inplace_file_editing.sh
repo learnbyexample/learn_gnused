@@ -38,7 +38,7 @@ sed -i'bkp.*' 's/green/yellow/' colors.txt
 
 ls *colors*
 
-## Place backups in different directory
+## Place backups in a different directory
 
 mkdir backups
 

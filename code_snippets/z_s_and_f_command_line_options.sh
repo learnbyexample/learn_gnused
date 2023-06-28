@@ -10,11 +10,11 @@ printf 'cater\ndog\ncoat\ncutter\nmat\n' | sed -z 's/\nc/;&/g'
 
 ## Separate files
 
-sed '1F' cols.txt 5.txt
+sed '1F' greeting.txt ip.txt
 
-sed -s '1F' cols.txt 5.txt
+sed -s '1F' greeting.txt ip.txt
 
-## File as source of sed commands
+## File as the source of sed commands
 
 cat sample.txt
 

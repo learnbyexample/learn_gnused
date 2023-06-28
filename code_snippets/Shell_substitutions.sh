@@ -1,12 +1,12 @@
 ## Variable substitution
 
-start=5; step=1
+start=6; step=1
 
-sed -n "${start},+${step}p" programming_quotes.txt
+sed -n "${start},+${step}p" rhymes.txt
 
-step=4
+step=3
 
-sed -n "${start},+${step}p" programming_quotes.txt
+sed -n "${start},+${step}p" rhymes.txt
 
 word='at'
 
@@ -26,11 +26,11 @@ echo 'home path is:' | sed 's/$/ '"${home}"'/'
 
 c='&'
 
-echo 'a and b and c' | sed 's/and/'"${c}"'/g'
+echo 'a and b and c' | sed 's/and/['"${c}"']/g'
 
 c1=${c//&/\\&}
 
-echo 'a and b and c' | sed 's/and/'"${c1}"'/g'
+echo 'a and b and c' | sed 's/and/['"${c1}"']/g'
 
 r='a/b&c\d'
 

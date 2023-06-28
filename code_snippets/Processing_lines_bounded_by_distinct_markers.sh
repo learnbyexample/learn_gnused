@@ -18,7 +18,7 @@ sed '/start/,/end/{/start/!d}' uniform.txt
 
 sed '/start/,/end/{/end/!d}' uniform.txt
 
-## Extracting first or last group
+## Extracting the first or last group
 
 sed -n '/start/,/end/{p; /end/q}' uniform.txt
 
