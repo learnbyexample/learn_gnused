@@ -1,8 +1,5 @@
-<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Adding content from file - GNU SED</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide to mastering GNU SED"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script><script>
-            try {
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Adding content from file - CLI text processing with GNU sed</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Example based guide to mastering GNU sed"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="CLI text processing with GNU sed"property=og:title><meta content=website property=og:type><meta content="Example based guide to mastering GNU sed"property=og:description><meta content=https://learnbyexample.github.io/learn_gnused/ property=og:url><meta content=https://raw.githubusercontent.com/learnbyexample/learn_gnused/master/images/sed_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
 
@@ -13,43 +10,36 @@
                 if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
-            } catch (e) { }
-        </script><script>
-            var theme;
+            } catch (e) { }</script><script>var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
             html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
-        </script><script>
-            var html = document.querySelector('html');
+            html.classList.add('js');</script><script>var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>2.</strong> Introduction</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>3.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=selective-editing.html><strong aria-hidden=true>4.</strong> Selective editing</a><li class="chapter-item expanded"><a href=breere-regular-expressions.html><strong aria-hidden=true>5.</strong> BRE/ERE Regular Expressions</a><li class="chapter-item expanded"><a href=flags.html><strong aria-hidden=true>6.</strong> Flags</a><li class="chapter-item expanded"><a href=shell-substitutions.html><strong aria-hidden=true>7.</strong> Shell substitutions</a><li class="chapter-item expanded"><a href=z-s-and-f-command-line-options.html><strong aria-hidden=true>8.</strong> z, s and f command line options</a><li class="chapter-item expanded"><a href=append-change-insert.html><strong aria-hidden=true>9.</strong> append, change, insert</a><li class="chapter-item expanded"><a href=adding-content-from-file.html class=active><strong aria-hidden=true>10.</strong> Adding content from file</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>11.</strong> Control structures</a><li class="chapter-item expanded"><a href=processing-lines-bounded-by-distinct-markers.html><strong aria-hidden=true>12.</strong> Processing lines bounded by distinct markers</a><li class="chapter-item expanded"><a href=gotchas-and-tricks.html><strong aria-hidden=true>13.</strong> Gotchas and Tricks</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>14.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>15.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/learn_gnused>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>GNU SED</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/learn_gnused title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>2.</strong> Introduction</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>3.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=selective-editing.html><strong aria-hidden=true>4.</strong> Selective editing</a><li class="chapter-item expanded"><a href=breere-regular-expressions.html><strong aria-hidden=true>5.</strong> BRE/ERE Regular Expressions</a><li class="chapter-item expanded"><a href=flags.html><strong aria-hidden=true>6.</strong> Flags</a><li class="chapter-item expanded"><a href=shell-substitutions.html><strong aria-hidden=true>7.</strong> Shell substitutions</a><li class="chapter-item expanded"><a href=z-s-and-f-command-line-options.html><strong aria-hidden=true>8.</strong> z, s and f command line options</a><li class="chapter-item expanded"><a href=append-change-insert.html><strong aria-hidden=true>9.</strong> append, change, insert</a><li class="chapter-item expanded"><a class=active href=adding-content-from-file.html><strong aria-hidden=true>10.</strong> Adding content from file</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>11.</strong> Control structures</a><li class="chapter-item expanded"><a href=processing-lines-bounded-by-distinct-markers.html><strong aria-hidden=true>12.</strong> Processing lines bounded by distinct markers</a><li class="chapter-item expanded"><a href=gotchas-and-tricks.html><strong aria-hidden=true>13.</strong> Gotchas and Tricks</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>14.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>15.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/learn_gnused>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>CLI text processing with GNU sed</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/learn_gnused> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=adding-content-from-file><a class=header href=#adding-content-from-file>Adding content from file</a></h1><p>The previous chapter discussed how to use <code>a</code>, <code>c</code> and <code>i</code> commands to append, change or insert the given string for matching address. Any <code>\</code> in the string argument is treated according to <code>sed</code> escape sequence rules and it cannot contain literal newline character. The <code>r</code> and <code>R</code> commands allow to use file contents as the source string which is always treated literally and can contain newline characters. Thus, these two commands provide a robust way to add multiline text literally.<p>However, <code>r</code> and <code>R</code> provide only <em>append</em> functionality for matching address. Other <code>sed</code> features will be used to show examples for <code>c</code> and <code>i</code> variations.<h2 id=r-for-entire-file><a class=header href=#r-for-entire-file>r for entire file</a></h2><p>The <code>r</code> command accepts a filename as argument and when the address is satisfied, entire contents of the given file is added after the matching line.<blockquote><p><img src=images/warning.svg alt=warning> If the given filename doesn't exist, <code>sed</code> will silently ignore it and proceed as if the file was empty. Exit status will be <code>0</code> unless something else goes wrong with the <code>sed</code> command used.</blockquote><pre><code class=language-bash>$ cat ip.txt
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=adding-content-from-file><a class=header href=#adding-content-from-file>Adding content from file</a></h1><p>The previous chapter discussed how to use <code>a</code>, <code>c</code> and <code>i</code> commands to append, change or insert the given string for matching addresses. Any <code>\</code> in the string argument is treated according to <code>sed</code> escape sequence rules and literal newline characters are not allowed.<p>The <code>r</code> and <code>R</code> commands use file content as the source string, which is always treated literally and can contain newline characters. Thus, these two commands provide a robust way to add text literally. However, these commands provide only the <em>append</em> functionality. Other <code>sed</code> features will be used to construct <em>change</em> and <em>insert</em> variations.<blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnused/tree/master/example_files>example_files</a> directory has all the files used in the examples.</blockquote><h2 id=append-entire-file-using-r><a class=header href=#append-entire-file-using-r>Append entire file using r</a></h2><p>The <code>r</code> command accepts a filename argument and the entire content of the given file is added after each of the matching lines.<pre><code class=language-bash>$ cat ip.txt
     * sky
     * apple
-$ cat fav_colors.txt
+$ cat fav_color.txt
 deep red
 yellow
 reddish
 brown
 
-$ # space between r and filename is optional
-$ # adds entire contents of 'ip.txt' after each line containing 'red'
-$ sed '/red/r ip.txt' fav_colors.txt
+# space between r and filename is optional
+# add entire content of 'ip.txt' after each line containing 'red'
+$ sed '/red/r ip.txt' fav_color.txt
 deep red
     * sky
     * apple
@@ -58,42 +48,48 @@ reddish
     * sky
     * apple
 brown
-</code></pre><p>To use a command output as the input file source, you can use <code>/dev/stdin</code> as the filename. However, once the content of <code>/dev/stdin</code> is exhausted, you won't get any more data. So, using <code>/dev/stdin</code> is not always functionally equivalent to providing a filename. As an example, compare the output for <code>cat ip.txt | sed '/red/r /dev/stdin' fav_colors.txt</code> to <code>sed '/red/r ip.txt' fav_colors.txt</code>. So, if you have multiple matches, save the command output to a file first and then use that filename with <code>r</code> instead of <code>/dev/stdin</code>.<pre><code class=language-bash>$ text='good\tone\nfood\tpun'
+</code></pre><blockquote><p><img alt=warning src=images/warning.svg> If the given filename doesn't exist, <code>sed</code> will silently ignore it and proceed as if the file was empty. Exit status will be <code>0</code> unless something else goes wrong with the <code>sed</code> command used.</blockquote><p>To use a command output as the input file source, you can use <code>/dev/stdin</code> as the filename. However, once the content of <code>/dev/stdin</code> is exhausted, you won't get any more data. So, using <code>/dev/stdin</code> is not always functionally equivalent to providing a filename. As an example, compare the output for <code>cat ip.txt | sed '/red/r /dev/stdin' fav_color.txt</code> to <code>sed '/red/r ip.txt' fav_color.txt</code>. So, if you have multiple matches, save the command output to a file first and then use that filename with <code>r</code> instead of <code>/dev/stdin</code>.<pre><code class=language-bash>$ text='good\tone\nfood\tpun'
 $ echo "$text" | sed '1r /dev/stdin' ip.txt
     * sky
 good\tone\nfood\tpun
     * apple
 
-$ # example for adding multiline command output
+# example for adding multiline command output
 $ seq 2 | sed '2r /dev/stdin' ip.txt
     * sky
     * apple
 1
 2
 
-$ # note that newline won't be added to file contents being read
+# note that newline won't be added to the file content being read
 $ printf '123' | sed '1r /dev/stdin' ip.txt
     * sky
 123    * apple
-</code></pre><p>Here's some examples to emulate <code>c</code> command functionality with <code>r</code> command. Similar to <code>a</code>, <code>c</code> and <code>i</code> commands, everything after <code>r</code> and <code>R</code> commands is treated as filename. So, use <code>-e</code> or literal newlines when multiple commands are needed.<blockquote><p><img src=images/info.svg alt=info> See also <a href=https://unix.stackexchange.com/q/396445/109046>unix.stackexchange: Various ways to replace line M in file1 with line N in file2</a></blockquote><pre><code class=language-bash>$ # replacing only the 2nd line
-$ # order is important, first 'r' and then 'd'
-$ # note the use of command grouping to avoid repeating the address
+</code></pre><blockquote><p><img alt=info src=images/info.svg> You can use <code>0</code> as the address to insert file contents before the first line. This feature was added in <code>GNU sed 4.9</code> to the <code>r</code> command.<pre><code class=language-bash>$ sed '0r ip.txt' greeting.txt
+    * sky
+    * apple
+Hi there
+Have a nice day
+</code></pre></blockquote><p>Here are some examples to emulate the <em>change</em> command functionality. As seen in the previous chapter, use the <code>-e</code> option or literal newlines when multiple commands are needed. See also <a href=https://unix.stackexchange.com/q/396445/109046>unix.stackexchange: Various ways to replace line M in file1 with line N in file2</a>.<pre><code class=language-bash># replace only the 2nd line
+# order is important, first 'r' and then 'd'
+# note the use of command grouping to avoid repeating the address
 $ items='    * blue\n    * green\n'
 $ printf '%b' "$items" | sed -e '2 {r /dev/stdin' -e 'd}' ip.txt
     * sky
     * blue
     * green
 
-$ # replacing range of lines
-$ # using grouping here will add file contents for each matching line
-$ # so, use 'r' only for second address
-$ # and then delete the range, // here avoids duplicating second address
-$ sed -e '/^red/r ip.txt' -e '/yellow/,//d' fav_colors.txt
+# replace range of lines
+# command grouping will add file contents for each matching line
+# so, use 'r' only for one of the addresses and then delete the range
+# // here avoids address duplication
+# same as: sed -e '/^red/r ip.txt' -e '/yellow/,//d' fav_color.txt
+$ sed -e '/yellow/r ip.txt' -e '//,/^red/d' fav_color.txt
 deep red
     * sky
     * apple
 brown
-</code></pre><p>Quoting from manual:<blockquote><p>The empty regular expression ‘//’ repeats the last regular expression match (the same holds if the empty regular expression is passed to the s command). Note that modifiers to regular expressions are evaluated when the regular expression is compiled, thus it is invalid to specify them together with the empty regular expression</blockquote><p>Emulating <code>i</code> command functionality with <code>r</code> command requires advanced usage of <code>sed</code> and well beyond the scope of this book. See <a href=https://unix.stackexchange.com/q/32908/109046>unix.stackexchange: insert file contents before matching line</a> for examples. Instead of <code>r</code> command, the next section will show how to use the <code>e</code> flag seen earlier for this purpose.<h2 id=using-e-and-cat-command><a class=header href=#using-e-and-cat-command>Using e and cat command</a></h2><p>The manual has this handy note for the <code>e</code> flag:<blockquote><p>Note that, unlike the r command, the output of the command will be printed immediately; the r command instead delays the output to the end of the current cycle.</blockquote><p>This makes the <code>e</code> flag the easiest way to insert file contents before the matching lines. Similar to <code>r</code> command, the output of external command is inserted literally. But one difference from <code>r</code> command is that if the filename passed to the external <code>cat</code> command doesn't exist, then you will see its error message inserted.<pre><code class=language-bash>$ sed '/red/e cat ip.txt' fav_colors.txt
+</code></pre><p>Quoting from the manual:<blockquote><p>The empty regular expression <code>//</code> repeats the last regular expression match (the same holds if the empty regular expression is passed to the <code>s</code> command). Note that modifiers to regular expressions are evaluated when the regular expression is compiled, thus it is invalid to specify them together with the empty regular expression</blockquote><p>Emulating <em>insert</em> command functionality with the <code>r</code> command requires advanced usage of <code>sed</code>, which is beyond the scope of this book. See <a href=https://unix.stackexchange.com/q/32908/109046>unix.stackexchange: insert file contents before matching line</a> for examples. Instead, the next section will show how to use the <code>e</code> flag for this purpose.<h2 id=insert-file-using-e-and-cat><a class=header href=#insert-file-using-e-and-cat>Insert file using e and cat</a></h2><p>The manual has this handy note for the <code>e</code> flag:<blockquote><p>Note that, unlike the <code>r</code> command, the output of the command will be printed immediately; the <code>r</code> command instead delays the output to the end of the current cycle.</blockquote><p>This makes the <code>e</code> flag the easiest way to insert file content before the matching lines. Similar to the <code>r</code> command, the output of an external command is inserted literally. But one difference from <code>r</code> command is that if the filename passed to the external <code>cat</code> command doesn't exist, then you will see its error message inserted.<pre><code class=language-bash>$ sed '/red/e cat ip.txt' fav_color.txt
     * sky
     * apple
 deep red
@@ -102,13 +98,7 @@ yellow
     * apple
 reddish
 brown
-
-$ text='good\tone\nfood\tpun'
-$ echo "$text" | sed '1e cat /dev/stdin' ip.txt
-good\tone\nfood\tpun
-    * sky
-    * apple
-</code></pre><h2 id=r-for-line-by-line><a class=header href=#r-for-line-by-line>R for line by line</a></h2><p>The <code>R</code> command is very similar to <code>r</code> with respect to most of the rules seen in previous section. But instead of reading entire file contents, <code>R</code> will read one line at a time from the source file when the given address matches. If entire file has already been read and another address matches, <code>sed</code> will proceed as if the line was empty.<pre><code class=language-bash>$ sed '/red/R ip.txt' fav_colors.txt
+</code></pre><h2 id=append-line-by-line-using-r><a class=header href=#append-line-by-line-using-r>Append line by line using R</a></h2><p>The <code>R</code> command is very similar to the <code>r</code> command. But instead of reading the entire file content, <code>R</code> will read one line at a time from the source file when the address matches. If the entire file has already been consumed and another match is found, <code>sed</code> will proceed as if the next line to read was empty.<pre><code class=language-bash>$ sed '/red/R ip.txt' fav_color.txt
 deep red
     * sky
 yellow
@@ -116,8 +106,8 @@ reddish
     * apple
 brown
 
-$ # interleave contents of two files
-$ seq 4 | sed 'R /dev/stdin' fav_colors.txt
+# interleave contents of two files
+$ seq 4 | sed 'R /dev/stdin' fav_color.txt
 deep red
 1
 yellow
@@ -126,33 +116,43 @@ reddish
 3
 brown
 4
-</code></pre><blockquote><p><img src=images/info.svg alt=info> See also <a href=https://stackoverflow.com/q/48382204/4082052>stackoverflow: Replace first few lines with first few lines from other file</a></blockquote><h2 id=cheatsheet-and-summary><a class=header href=#cheatsheet-and-summary>Cheatsheet and summary</a></h2><table><thead><tr><th>Note<th>Description<tbody><tr><td><code>r filename</code><td>entire contents of file is added after each matching line<tr><td><code>e cat filename</code><td>entire contents of file is added before each matching line<tr><td><code>R filename</code><td>add one line at a time from file after each matching line<tr><td><td>space between command and filename is optional<tr><td><td>use <code>/dev/stdin</code> as filename to use stdin as file source<tr><td><td>file contents are added literally, no escape sequence interpretation</table><p>This chapter covered powerful and robust solutions for adding text literally from a file or command output. These are particularly useful for templating solutions where a line containing a keyword gets replaced with text from elsewhere. In the next chapter, you'll learn how to implement control structures using branch commands.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><p><strong>a)</strong> Replace third to fifth lines of input file <code>addr.txt</code> with second to fourth lines from file <code>para.txt</code><pre><code class=language-bash>$ sed ##### add your solution here
+</code></pre><blockquote><p><img alt=info src=images/info.svg> See also <a href=https://stackoverflow.com/q/48382204/4082052>stackoverflow: Replace first few lines with first few lines from other file</a>.</blockquote><h2 id=cheatsheet-and-summary><a class=header href=#cheatsheet-and-summary>Cheatsheet and summary</a></h2><div class=table-wrapper><table><thead><tr><th>Note<th>Description<tbody><tr><td><code>r filename</code><td>entire file content is added after each matching line<tr><td><code>e cat filename</code><td>entire file content is added before each matching line<tr><td><code>R filename</code><td>add one line at a time after each matching line<tr><td><td>space between the command and the filename is optional<tr><td><td><code>/dev/stdin</code> as the filename will use stdin data<tr><td><td>content is added literally, unlike <code>a</code>, <code>c</code> and <code>i</code> commands</table></div><p>This chapter showed robust solutions for adding text literally from a file or command output. These are particularly useful for templating solutions where a line containing a keyword gets replaced with text from elsewhere. In the next chapter, you'll learn how to implement control structures using branch commands.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnused/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> For the input file <code>addr.txt</code>, replace from the third to fifth lines with the second to fourth lines from <code>para.txt</code>.<pre><code class=language-bash>$ sed ##### add your solution here
 Hello World
 How are you
 Start working on that
 project you always wanted
 to, do not let it end
 You are funny
-</code></pre><p><strong>b)</strong> Add one line from <code>hex.txt</code> after every two lines of <code>copyright.txt</code><pre><code class=language-bash>$ sed ##### add your solution here
+</code></pre><p><strong>2)</strong> Add one line from <code>hex.txt</code> after every two lines of <code>copyright.txt</code>.<pre><code class=language-bash>$ sed ##### add your solution here
 bla bla 2015 bla
 blah 2018 blah
 start address: 0xA0, func1 address: 0xA0
 bla bla bla
 copyright: 2019
 end address: 0xFF, func2 address: 0xB0
-</code></pre><p><strong>c)</strong> For every line of the input file <code>hex.txt</code>, insert <code>---</code> before the line and add one line from <code>replace.txt</code> after the line as shown below.<pre><code class=language-bash>$ sed ##### add your solution here
+</code></pre><p><strong>3)</strong> For every line of the input file <code>hex.txt</code>, insert <code>---</code> before the line and append one line from <code>replace.txt</code> as shown below.<pre><code class=language-bash>$ sed ##### add your solution here
 ---
 start address: 0xA0, func1 address: 0xA0
 0xA0 0x5000
 ---
 end address: 0xFF, func2 address: 0xB0
 0xB0 0x6000
-</code></pre><p><strong>d)</strong> Insert the contents of <code>hex.txt</code> file before a line matching <code>0x6000</code> of the input file <code>replace.txt</code>.<pre><code class=language-bash>$ sed ##### add your solution here
+</code></pre><p><strong>4)</strong> Insert the contents of <code>hex.txt</code> before a line matching <code>0x6000</code> of the input file <code>replace.txt</code>.<pre><code class=language-bash>$ sed ##### add your solution here
 0xA0 0x5000
 start address: 0xA0, func1 address: 0xA0
 end address: 0xFF, func2 address: 0xB0
 0xB0 0x6000
 0xFF 0x7000
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=append-change-insert.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=control-structures.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=append-change-insert.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=control-structures.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
-            window.playground_copyable = true;
-        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
+</code></pre><p><strong>5)</strong> For the input file <code>addr.txt</code>, replace lines containing <code>are</code> with contents of <code>hex.txt</code>.<pre><code class=language-bash>$ sed ##### add your solution here
+Hello World
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+This game is good
+Today is sunny
+12345
+start address: 0xA0, func1 address: 0xA0
+end address: 0xFF, func2 address: 0xB0
+</code></pre><p><strong>6)</strong> The two commands shown below are equivalent. True or False?<pre><code class=language-bash>sed '/are/r pets.txt' addr.txt
+
+cat pets.txt | sed '/are/r /dev/stdin' addr.txt
+</code></pre><p><strong>7)</strong> What do the commands <code>sed '0r file1' file2</code> and <code>sed '0R file1' file2</code> do?</main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=append-change-insert.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="mobile-nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=control-structures.html rel=next> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=append-change-insert.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=control-structures.html rel=next> <i class="fa fa-angle-right"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>

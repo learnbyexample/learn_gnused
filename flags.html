@@ -1,8 +1,5 @@
-<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Flags - GNU SED</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide to mastering GNU SED"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script><script>
-            try {
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Flags - CLI text processing with GNU sed</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Example based guide to mastering GNU sed"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="CLI text processing with GNU sed"property=og:title><meta content=website property=og:type><meta content="Example based guide to mastering GNU sed"property=og:description><meta content=https://learnbyexample.github.io/learn_gnused/ property=og:url><meta content=https://raw.githubusercontent.com/learnbyexample/learn_gnused/master/images/sed_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
 
@@ -13,221 +10,211 @@
                 if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
-            } catch (e) { }
-        </script><script>
-            var theme;
+            } catch (e) { }</script><script>var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
             html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
-        </script><script>
-            var html = document.querySelector('html');
+            html.classList.add('js');</script><script>var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>2.</strong> Introduction</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>3.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=selective-editing.html><strong aria-hidden=true>4.</strong> Selective editing</a><li class="chapter-item expanded"><a href=breere-regular-expressions.html><strong aria-hidden=true>5.</strong> BRE/ERE Regular Expressions</a><li class="chapter-item expanded"><a href=flags.html class=active><strong aria-hidden=true>6.</strong> Flags</a><li class="chapter-item expanded"><a href=shell-substitutions.html><strong aria-hidden=true>7.</strong> Shell substitutions</a><li class="chapter-item expanded"><a href=z-s-and-f-command-line-options.html><strong aria-hidden=true>8.</strong> z, s and f command line options</a><li class="chapter-item expanded"><a href=append-change-insert.html><strong aria-hidden=true>9.</strong> append, change, insert</a><li class="chapter-item expanded"><a href=adding-content-from-file.html><strong aria-hidden=true>10.</strong> Adding content from file</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>11.</strong> Control structures</a><li class="chapter-item expanded"><a href=processing-lines-bounded-by-distinct-markers.html><strong aria-hidden=true>12.</strong> Processing lines bounded by distinct markers</a><li class="chapter-item expanded"><a href=gotchas-and-tricks.html><strong aria-hidden=true>13.</strong> Gotchas and Tricks</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>14.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>15.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/learn_gnused>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>GNU SED</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/learn_gnused title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>2.</strong> Introduction</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>3.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=selective-editing.html><strong aria-hidden=true>4.</strong> Selective editing</a><li class="chapter-item expanded"><a href=breere-regular-expressions.html><strong aria-hidden=true>5.</strong> BRE/ERE Regular Expressions</a><li class="chapter-item expanded"><a class=active href=flags.html><strong aria-hidden=true>6.</strong> Flags</a><li class="chapter-item expanded"><a href=shell-substitutions.html><strong aria-hidden=true>7.</strong> Shell substitutions</a><li class="chapter-item expanded"><a href=z-s-and-f-command-line-options.html><strong aria-hidden=true>8.</strong> z, s and f command line options</a><li class="chapter-item expanded"><a href=append-change-insert.html><strong aria-hidden=true>9.</strong> append, change, insert</a><li class="chapter-item expanded"><a href=adding-content-from-file.html><strong aria-hidden=true>10.</strong> Adding content from file</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>11.</strong> Control structures</a><li class="chapter-item expanded"><a href=processing-lines-bounded-by-distinct-markers.html><strong aria-hidden=true>12.</strong> Processing lines bounded by distinct markers</a><li class="chapter-item expanded"><a href=gotchas-and-tricks.html><strong aria-hidden=true>13.</strong> Gotchas and Tricks</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>14.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>15.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/learn_gnused>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>CLI text processing with GNU sed</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/learn_gnused> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=flags><a class=header href=#flags>Flags</a></h1><p>Just like options change the default behavior of shell commands, flags are used to change aspects of regular expressions. Some of the flags like <code>g</code> and <code>p</code> have been already discussed. For completeness, they will be discussed again in this chapter. In regular expression parlance, flags are also known as <strong>modifiers</strong>.<h2 id=case-insensitive-matching><a class=header href=#case-insensitive-matching>Case insensitive matching</a></h2><p>The <code>I</code> flag allows to match a pattern case insensitively.<pre><code class=language-bash>$ # match 'cat' case sensitively
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=flags><a class=header href=#flags>Flags</a></h1><p>Just like options change the default behavior of shell commands, flags are used to change aspects of regular expressions. Some of the flags like <code>g</code> and <code>p</code> have been already discussed. For completeness sake, they will be discussed again in this chapter. In regular expression parlance, flags are also known as <strong>modifiers</strong>.<blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnused/tree/master/example_files>example_files</a> directory has all the files used in the examples.</blockquote><h2 id=case-insensitive-matching><a class=header href=#case-insensitive-matching>Case insensitive matching</a></h2><p>The <code>I</code> flag allows to match a pattern case insensitively.<pre><code class=language-bash># match 'cat' case sensitively
 $ printf 'Cat\ncOnCaT\nscatter\ncot\n' | sed -n '/cat/p'
 scatter
 
-$ # match 'cat' case insensitively
-$ # note that command p cannot be used before flag I
+# match 'cat' case insensitively
+# note that a command (ex: p) cannot be used before flags
 $ printf 'Cat\ncOnCaT\nscatter\ncot\n' | sed -n '/cat/Ip'
 Cat
 cOnCaT
 scatter
 
-$ # match 'cat' case insensitively and replace it with 'dog'
+# match 'cat' case insensitively and replace it with 'dog'
 $ printf 'Cat\ncOnCaT\nscatter\ncot\n' | sed 's/cat/dog/I'
 dog
 cOndog
 sdogter
 cot
-</code></pre><blockquote><p><img src=images/info.svg alt=info> Usually <code>i</code> is used for such purposes, <code>grep -i</code> for example. But <code>i</code> is a command (discussed in <a href=./append-change-insert.html#append-change-insert>append, change, insert</a> chapter) in <code>sed</code>, so <code>/REGEXP/i</code> cannot be used. The substitute command does allow both <code>i</code> and <code>I</code> to be used, but <code>I</code> is recommended for consistency.</blockquote><h2 id=changing-case-in-replacement-section><a class=header href=#changing-case-in-replacement-section>Changing case in replacement section</a></h2><p>This section isn't actually about flags, but presented in this chapter to complement the <code>I</code> flag. <code>sed</code> provides escape sequences to change the case of replacement strings, which might include backreferences, shell variables, etc.<table><thead><tr><th>Escape Sequence<th>Description<tbody><tr><td><code>\E</code><td>indicates end of case conversion<tr><td><code>\l</code><td>convert next character to lowercase<tr><td><code>\u</code><td>convert next character to uppercase<tr><td><code>\L</code><td>convert following characters to lowercase, unless <code>\U</code> or <code>\E</code> is used<tr><td><code>\U</code><td>convert following characters to uppercase, unless <code>\L</code> or <code>\E</code> is used</table><p>First up, changing case of only the immediate next character after the escape sequence.<pre><code class=language-bash>$ # match only first character of word using word boundary
-$ # use & to backreference the matched character
-$ # \u would then change it to uppercase
+</code></pre><blockquote><p><img alt=info src=images/info.svg> Usually <code>i</code> is used for such purposes, <code>grep -i</code> for example. But <code>i</code> is a command (discussed in the <a href=./append-change-insert.html#append-change-insert>append, change, insert</a> chapter), so <code>/REGEXP/i</code> cannot be used. The substitute command allows both <code>i</code> and <code>I</code>, but <code>I</code> is recommended for consistency.</blockquote><h2 id=changing-case-in-the-replacement-section><a class=header href=#changing-case-in-the-replacement-section>Changing case in the replacement section</a></h2><p>This section is presented in this chapter to complement the <code>I</code> flag. <code>sed</code> provides escape sequences to change the case of replacement strings, which might include backreferences, shell variables, etc.<div class=table-wrapper><table><thead><tr><th>Sequence<th>Description<tbody><tr><td><code>\E</code><td>indicates the end of case conversion<tr><td><code>\l</code><td>convert the next character to lowercase<tr><td><code>\u</code><td>convert the next character to uppercase<tr><td><code>\L</code><td>convert the following characters to lowercase (overridden by <code>\U</code> or <code>\E</code>)<tr><td><code>\U</code><td>convert the following characters to uppercase (overridden by <code>\L</code> or <code>\E</code>)</table></div><p>First up, changing case of only the immediate next character after the escape sequence.<pre><code class=language-bash># match only the first character of a word
+# use & to backreference the matched character
+# \u would then change it to uppercase
 $ echo 'hello there. how are you?' | sed 's/\b\w/\u&/g'
 Hello There. How Are You?
 
-$ # change first character of word to lowercase
+# change the first character of a word to lowercase
 $ echo 'HELLO THERE. HOW ARE YOU?' | sed 's/\b\w/\l&/g'
 hELLO tHERE. hOW aRE yOU?
 
-$ # match lowercase followed by underscore followed by lowercase
-$ # delete underscore and convert 2nd lowercase to uppercase
-$ echo '_foo aug_price next_line' | sed -E 's/([a-z])_([a-z])/\1\u\2/g'
-_foo augPrice nextLine
-</code></pre><p>Next, changing case of multiple characters at a time.<pre><code class=language-bash>$ # change all alphabets to lowercase
+# match lowercase followed by underscore followed by lowercase
+# delete the underscore and convert the 2nd lowercase to uppercase
+$ echo '_fig aug_price next_line' | sed -E 's/([a-z])_([a-z])/\1\u\2/g'
+_fig augPrice nextLine
+</code></pre><p>Next, changing case of multiple characters at a time.<pre><code class=language-bash># change all alphabets to lowercase
 $ echo 'HaVE a nICe dAy' | sed 's/.*/\L&/'
 have a nice day
-$ # change all alphabets to uppercase
+# change all alphabets to uppercase
 $ echo 'HaVE a nICe dAy' | sed 's/.*/\U&/'
 HAVE A NICE DAY
 
-$ # \E will stop further conversion
-$ echo '_foo aug_price next_line' | sed -E 's/([a-z]+)(_[a-z]+)/\U\1\E\2/g'
-_foo AUG_price NEXT_line
-$ # \L or \U will override any existing conversion
+# \E will stop further conversion
+$ echo 'fig_ aug_price next_line' | sed -E 's/([a-z]+)(_[a-z]+)/\U\1\E\2/g'
+fig_ AUG_price NEXT_line
+# \L or \U will override any existing conversion
 $ echo 'HeLLo:bYe gOoD:beTTEr' | sed -E 's/([a-z]+)(:[a-z]+)/\L\1\U\2/Ig'
 hello:BYE good:BETTER
-</code></pre><p>Finally, examples where escapes can be used next to each other.<pre><code class=language-bash>$ # uppercase first character of a word
-$ # and lowercase rest of the word characters
-$ # note the order of escapes used, \u\L won't work
+</code></pre><p>Finally, examples where escapes are used next to each other.<pre><code class=language-bash># uppercase first character of a word
+# and lowercase rest of the word characters
+# note the order of escapes used, \u\L won't work
 $ echo 'HeLLo:bYe gOoD:beTTEr' | sed -E 's/[a-z]+/\L\u&/Ig'
 Hello:Bye Good:Better
 
-$ # lowercase first character of a word
-$ # and uppercase rest of the word characters
+# lowercase first character of a word
+# and uppercase rest of the word characters
 $ echo 'HeLLo:bYe gOoD:beTTEr' | sed -E 's/[a-z]+/\U\l&/Ig'
 hELLO:bYE gOOD:bETTER
-</code></pre><h2 id=global-replace><a class=header href=#global-replace>Global replace</a></h2><p>As seen earlier, by default substitute command will replace only the first occurrence of search pattern. Use <code>g</code> flag to replace all the matches.<pre><code class=language-bash>$ # change only first ',' to '-'
+</code></pre><h2 id=global-replace><a class=header href=#global-replace>Global replace</a></h2><p>By default, the substitute command will replace only the first occurrence of matching portions. Use the <code>g</code> flag to replace all the matches.<pre><code class=language-bash># for each input line, change only the first ',' to '-'
 $ printf '1,2,3,4\na,b,c,d\n' | sed 's/,/-/'
 1-2,3,4
 a-b,c,d
 
-$ # change all matches by adding 'g' flag
+# change all matches by adding the 'g' flag
 $ printf '1,2,3,4\na,b,c,d\n' | sed 's/,/-/g'
 1-2-3-4
 a-b-c-d
-</code></pre><h2 id=replace-specific-occurrences><a class=header href=#replace-specific-occurrences>Replace specific occurrences</a></h2><p>A number provided as a flag will cause only the <em>N</em>th match to be replaced.<pre><code class=language-bash>$ # default substitution replaces first occurrence
-$ echo 'foo:123:bar:baz' | sed 's/:/-/'
-foo-123:bar:baz
-$ echo 'foo:123:bar:baz' | sed -E 's/[^:]+/"&"/'
-"foo":123:bar:baz
+</code></pre><h2 id=replace-specific-occurrences><a class=header href=#replace-specific-occurrences>Replace specific occurrences</a></h2><p>A number provided as a flag will cause only the <em>N</em>th match to be replaced.<pre><code class=language-bash>$ s='apple:banana:cherry:fig:mango'
 
-$ # replace second occurrence
-$ echo 'foo:123:bar:baz' | sed 's/:/-/2'
-foo:123-bar:baz
-$ echo 'foo:123:bar:baz' | sed -E 's/[^:]+/"&"/2'
-foo:"123":bar:baz
+# replace only the second occurrence
+$ echo "$s" | sed 's/:/---/2'
+apple:banana---cherry:fig:mango
+$ echo "$s" | sed -E 's/[^:]+/"&"/2'
+apple:"banana":cherry:fig:mango
 
-$ # replace third occurrence and so on
-$ echo 'foo:123:bar:baz' | sed 's/:/-/3'
-foo:123:bar-baz
-$ echo 'foo:123:bar:baz' | sed -E 's/[^:]+/"&"/3'
-foo:123:"bar":baz
-</code></pre><p>Quantifiers can be used to replace <em>N</em>th match from the end of line.<pre><code class=language-bash>$ # replacing last occurrence
-$ # can also use sed -E 's/:([^:]*)$/[]\1/'
-$ echo '456:foo:123:bar:789:baz' | sed -E 's/(.*):/\1[]/'
-456:foo:123:bar:789[]baz
+# replace only the third occurrence, and so on
+$ echo "$s" | sed 's/:/---/3'
+apple:banana:cherry---fig:mango
+$ echo "$s" | sed -E 's/[^:]+/"&"/3'
+apple:banana:"cherry":fig:mango
+</code></pre><p>Use a combination of capture groups and quantifiers to replace <em>N</em>th match from the end of the line.<pre><code class=language-bash>$ s='car,art,pot,tap,urn,ray,ear'
 
-$ # replacing last but one
-$ echo '456:foo:123:bar:789:baz' | sed -E 's/(.*):(.*:)/\1[]\2/'
-456:foo:123:bar[]789:baz
+# replace the last occurrence
+# can also use sed -E 's/,([^,]*)$/[]\1/'
+$ echo "$s" | sed -E 's/(.*),/\1[]/'
+car,art,pot,tap,urn,ray[]ear
 
-$ # generic version, where {N} refers to last but N
-$ echo '456:foo:123:bar:789:baz' | sed -E 's/(.*):((.*:){2})/\1[]\2/'
-456:foo:123[]bar:789:baz
-</code></pre><blockquote><p><img src=images/warning.svg alt=warning> See <a href=https://unix.stackexchange.com/q/579889/109046>unix.stackexchange: Why doesn't this sed command replace the 3rd-to-last "and"?</a> for a bug related to use of word boundaries in the <code>((pat){N})</code> generic case.</blockquote><p>A combination of number and <code>g</code> flag will replace all matches except the first <em>N-1</em> occurrences. In other words, all matches starting from the <em>N</em>th occurrence will be replaced.<pre><code class=language-bash>$ # replace all except the first occurrence
-$ echo '456:foo:123:bar:789:baz' | sed -E 's/:/[]/2g'
-456:foo[]123[]bar[]789[]baz
+# replace last but one
+$ echo "$s" | sed -E 's/(.*),(.*,)/\1[]\2/'
+car,art,pot,tap,urn[]ray,ear
 
-$ # replace all except the first three occurrences
-$ echo '456:foo:123:bar:789:baz' | sed -E 's/:/[]/4g'
-456:foo:123:bar[]789[]baz
-</code></pre><p>If multiple <em>N</em>th occurrences are to be replaced, use descending order for readability.<pre><code class=language-bash>$ # replace second and third occurrences
-$ # note the numbers used
-$ echo '456:foo:123:bar:789:baz' | sed 's/:/[]/2; s/:/[]/2'
-456:foo[]123[]bar:789:baz
+# generic version, where {N} refers to last but N
+$ echo "$s" | sed -E 's/(.*),((.*,){3})/\1[]\2/'
+car,art,pot[]tap,urn,ray,ear
+</code></pre><blockquote><p><img alt=warning src=images/warning.svg> See <a href=https://unix.stackexchange.com/q/579889/109046>unix.stackexchange: Why doesn't this sed command replace the 3rd-to-last "and"?</a> for a bug related to the use of word boundaries in the <code>((pat){N})</code> generic case.</blockquote><p>Combination of a number and the <code>g</code> flag will replace all matches except the first <em>N-1</em> occurrences. In other words, all matches starting from the <em>N</em>th occurrence will be replaced.<pre><code class=language-bash>$ s='apple:banana:cherry:fig:mango'
 
-$ # better way is to use descending order
-$ echo '456:foo:123:bar:789:baz' | sed 's/:/[]/3; s/:/[]/2'
-456:foo[]123[]bar:789:baz
+# replace all matches except the first occurrence
+$ echo "$s" | sed -E 's/:/---/2g'
+apple:banana---cherry---fig---mango
 
-$ # replace second, third and fifth occurrences
-$ echo '456:foo:123:bar:789:baz' | sed 's/:/[]/5; s/:/[]/3; s/:/[]/2'
-456:foo[]123[]bar:789[]baz
-</code></pre><h2 id=print-flag><a class=header href=#print-flag>Print flag</a></h2><p>This flag was already introduced in <a href=./selective-editing.html#selective-editing>Selective editing</a> chapter.<pre><code class=language-bash>$ # no output if no substitution
+# replace all matches except the first three occurrences
+$ echo "$s" | sed -E 's/:/---/4g'
+apple:banana:cherry:fig---mango
+</code></pre><p>If multiple <em>N</em>th occurrences are to be replaced, use descending order for readability.<pre><code class=language-bash>$ s='car,art,pot,tap,urn,ray,ear'
+
+# replace the second and third occurrences
+# same as: sed 's/,/[]/2; s/,/[]/2'
+$ echo "$s" | sed 's/,/[]/3; s/,/[]/2'
+car,art[]pot[]tap,urn,ray,ear
+
+# replace the second, third and fifth occurrences
+$ echo "$s" | sed 's/,/[]/5; s/,/[]/3; s/,/[]/2'
+car,art[]pot[]tap,urn[]ray,ear
+</code></pre><h2 id=print-flag><a class=header href=#print-flag>Print flag</a></h2><p>This flag was already introduced in the <a href=./selective-editing.html#selective-editing>Selective editing</a> chapter.<pre><code class=language-bash># no output if no substitution
 $ echo 'hi there. have a nice day' | sed -n 's/xyz/XYZ/p'
 
-$ # modified line is displayed if substitution succeeds
+# modified line is printed when the substitution succeeds
 $ echo 'hi there. have a nice day' | sed -n 's/\bh/H/pg'
 Hi there. Have a nice day
-</code></pre><h2 id=write-to-a-file><a class=header href=#write-to-a-file>Write to a file</a></h2><p>The <code>w</code> flag allows to redirect contents to a specified filename instead of default <strong>stdout</strong>. This flag applies to both filtering and substitution command. You might wonder why not simply use shell redirection? As <code>sed</code> allows multiple commands, the <code>w</code> flag can be used selectively, allow writes to multiple files and so on.<pre><code class=language-bash>$ # space between w and filename is optional
-$ # same as: sed -n 's/3/three/p' > 3.txt
+</code></pre><h2 id=write-to-a-file><a class=header href=#write-to-a-file>Write to a file</a></h2><p>The <code>w</code> flag helps to redirect contents to a specified filename. This flag applies to both the filtering and substitution commands. You might wonder why not simply use shell redirection? As <code>sed</code> allows multiple commands, the <code>w</code> flag can be used selectively, allow writes to multiple files and so on.<pre><code class=language-bash># space between w and the filename is optional
+# same as: sed -n 's/3/three/p' > 3.txt
 $ seq 20 | sed -n 's/3/three/w 3.txt'
 $ cat 3.txt
 three
 1three
 
-$ # do not use -n if output should be displayed as well as written to file
+# do not use -n if output should be displayed as well as written to a file
 $ printf '1,2,3,4\na,b,c,d\n' | sed 's/,/:/gw cols.txt'
 1:2:3:4
 a:b:c:d
 $ cat cols.txt
 1:2:3:4
 a:b:c:d
-</code></pre><p>For multiple output files, use <code>-e</code> for each file. Don't use <code>;</code> between commands as that will be interpreted as part of the filename!<pre><code class=language-bash>$ seq 20 | sed -n -e 's/5/five/w 5.txt' -e 's/7/seven/w 7.txt'
+</code></pre><p>For multiple output files, use <code>-e</code> to separate the commands. Don't use <code>;</code> between the commands as it will be interpreted as part of the filename!<pre><code class=language-bash>$ seq 20 | sed -n -e 's/5/five/w 5.txt' -e 's/7/seven/w 7.txt'
 $ cat 5.txt
 five
 1five
 $ cat 7.txt
 seven
 1seven
-</code></pre><p>There are two predefined filenames:<ul><li><code>/dev/stdout</code> to write to <strong>stdout</strong><li><code>/dev/stderr</code> to write to <strong>stderr</strong></ul><pre><code class=language-bash>$ # in-place editing as well as display changes on stdout
+</code></pre><p>There are two predefined filenames:<ul><li><code>/dev/stdout</code> to represent the <strong>stdout</strong> stream<li><code>/dev/stderr</code> to represent the <strong>stderr</strong> stream</ul><pre><code class=language-bash># in-place editing as well as display changes on stdout
+# 3.txt was created at the start of this section
 $ sed -i 's/three/3/w /dev/stdout' 3.txt
 3
 13
 $ cat 3.txt
 3
 13
-</code></pre><h2 id=executing-external-commands><a class=header href=#executing-external-commands>Executing external commands</a></h2><p>The <code>e</code> flag allows to use output of a shell command. The external command can be based on the pattern space contents or provided as an argument. Quoting from the manual:<blockquote><p>This command allows one to pipe input from a shell command into pattern space. Without parameters, the e command executes the command that is found in pattern space and replaces the pattern space with the output; a trailing newline is suppressed.</blockquote><blockquote><p>If a parameter is specified, instead, the e command interprets it as a command and sends its output to the output stream. The command can run across multiple lines, all but the last ending with a back-slash.</blockquote><blockquote><p>In both cases, the results are undefined if the command to be executed contains a NUL character.</blockquote><p>First, examples with substitution command.<pre><code class=language-bash>$ # sample input
+</code></pre><h2 id=executing-external-commands><a class=header href=#executing-external-commands>Executing external commands</a></h2><p>The <code>e</code> flag helps you to use the output of a shell command. The external command can be based on the pattern space contents or provided as an argument. Quoting from the manual:<blockquote><p>This command allows one to pipe input from a shell command into pattern space. Without parameters, the e command executes the command that is found in pattern space and replaces the pattern space with the output; a trailing newline is suppressed.</blockquote><blockquote><p>If a parameter is specified, instead, the e command interprets it as a command and sends its output to the output stream. The command can run across multiple lines, all but the last ending with a back-slash.</blockquote><blockquote><p>In both cases, the results are undefined if the command to be executed contains a NUL character.</blockquote><p>First, examples with the substitution command.<pre><code class=language-bash># sample input
 $ printf 'Date:\nreplace this line\n'
 Date:
 replace this line
 
-$ # replacing entire line with output of shell command
+# replace entire line with the output of a shell command
 $ printf 'Date:\nreplace this line\n' | sed 's/^replace.*/date/e'
 Date:
-Wed Aug 14 11:39:39 IST 2019
+Monday 29 May 2023 04:09:24 PM IST
 </code></pre><p>If the <code>p</code> flag is used as well, order is important. Quoting from the manual:<blockquote><p>when both the p and e options are specified, the relative ordering of the two produces very different results. In general, ep (evaluate then print) is what you want, but operating the other way round can be useful for debugging. For this reason, the current version of GNU sed interprets specially the presence of p options both before and after e, printing the pattern space before and after evaluation, while in general flags for the s command show their effect just once. This behavior, although documented, might change in future versions.</blockquote><pre><code class=language-bash>$ printf 'Date:\nreplace this line\n' | sed -n 's/^replace.*/date/ep'
-Wed Aug 14 11:42:48 IST 2019
+Monday 29 May 2023 04:10:20 PM IST
 
 $ printf 'Date:\nreplace this line\n' | sed -n 's/^replace.*/date/pe'
 date
-</code></pre><p>If only a portion of the line is replaced, complete modified line after substitution will get executed as a shell command.<pre><code class=language-bash>$ # after substitution, the command that gets executed is 'seq 5'
+</code></pre><p>If only a portion of the line is replaced, the complete modified line after the substitution will get executed as a shell command.<pre><code class=language-bash># after substitution, the command that gets executed is 'seq 5'
 $ echo 'xyz 5' | sed 's/xyz/seq/e'
 1
 2
 3
 4
 5
-</code></pre><p>Next, examples with filtering alone.<pre><code class=language-bash>$ # execute entire matching line as a shell command
-$ # replaces the matching line with output of the command
+</code></pre><p>Next, examples with filtering alone.<pre><code class=language-bash># execute entire matching line as a shell command
+# replaces the matching line with the output of the command
 $ printf 'date\ndate -I\n' | sed '/date/e'
-Wed Aug 14 11:51:06 IST 2019
-2019-08-14
+Monday 29 May 2023 04:12:01 PM IST
+2023-05-29
 $ printf 'date\ndate -I\n' | sed '2e'
 date
-2019-08-14
-
-$ # command provided as argument, output is inserted before matching line
-$ printf 'show\nexample\n' | sed '/am/e seq 2'
+2023-05-29
+</code></pre><p>Here's an example where the command is provided as an argument. In such cases, the command's output is inserted before the matching line.<pre><code class=language-bash>$ printf 'show\nexample\n' | sed '/am/e seq 2'
 show
 1
 2
 example
-</code></pre><h2 id=multiline-mode><a class=header href=#multiline-mode>Multiline mode</a></h2><p>The <code>m</code> (or <code>M</code>) flag will change the behavior of <code>^</code>, <code>$</code> and <code>.</code> metacharacters. This comes into play only if there are multiple lines in the pattern space to operate with, for example when the <code>N</code> command is used.<p>If <code>m</code> flag is used, the <code>.</code> metacharacter will not match the newline character.<pre><code class=language-bash>$ # without 'm' flag . will match newline character
+</code></pre><h2 id=multiline-mode><a class=header href=#multiline-mode>Multiline mode</a></h2><p>The <code>m</code> (or <code>M</code>) flag will change the behavior of <code>^</code>, <code>$</code> and <code>.</code> metacharacters. This comes into play only if there are multiple lines in the pattern space to operate with, for example when the <code>N</code> command is used.<p>When the <code>m</code> flag is used, the <code>.</code> metacharacter will not match the newline character.<pre><code class=language-bash># without 'm' flag . will match the newline character
 $ printf 'Hi there\nHave a Nice Day\n' | sed 'N; s/H.*e/X/'
 X Day
 
-$ # with 'm' flag . will not match across lines
+# with 'm' flag . will not match across lines
 $ printf 'Hi there\nHave a Nice Day\n' | sed 'N; s/H.*e/X/gm'
 X
 X Day
-</code></pre><p>The <code>^</code> and <code>$</code> anchors will match every line's start and end locations when <code>m</code> flag is used.<pre><code class=language-bash>$ # without 'm' flag line anchors will match once for whole string
+</code></pre><p>The <code>^</code> and <code>$</code> anchors will match every line's start and end locations when the <code>m</code> flag is used.<pre><code class=language-bash># without 'm' flag line anchors will match once for the whole string
 $ printf 'Hi there\nHave a Nice Day\n' | sed 'N; s/^/* /g'
 * Hi there
 Have a Nice Day
@@ -235,33 +222,33 @@ $ printf 'Hi there\nHave a Nice Day\n' | sed 'N; s/$/./g'
 Hi there
 Have a Nice Day.
 
-$ # with 'm' flag line anchors will work for every line
+# with 'm' flag line anchors will work for every line
 $ printf 'Hi there\nHave a Nice Day\n' | sed 'N; s/^/* /gm'
 * Hi there
 * Have a Nice Day
 $ printf 'Hi there\nHave a Nice Day\n' | sed 'N; s/$/./gm'
 Hi there.
 Have a Nice Day.
-</code></pre><p>The <code>\`</code> and <code>\'</code> anchors will always match the start and end of entire string, irrespective of single or multiline mode.<pre><code class=language-bash>$ # similar to \A start of string anchor found in other implementations
+</code></pre><p>The <code>\`</code> and <code>\'</code> anchors will always match the start and end of the entire string, irrespective of single or multiline mode.<pre><code class=language-bash># similar to \A start of string anchor found in other regexp flavors
 $ printf 'Hi there\nHave a Nice Day\n' | sed 'N; s/\`/* /gm'
 * Hi there
 Have a Nice Day
 
-$ # similar to \Z end of string anchor found in other implementations
-$ # note the use of double quotes
-$ # with single quotes, it will be: sed 'N; s/\'\''/./gm'
+# similar to \Z end of string anchor found in other regexp flavors
+# note the use of double quotes
+# with single quotes, it will be: sed 'N; s/\'\''/./gm'
 $ printf 'Hi there\nHave a Nice Day\n' | sed "N; s/\'/./gm"
 Hi there
 Have a Nice Day.
-</code></pre><p>Usually, regular expression implementations have separate flags to control the behavior of <code>.</code> metacharacter and line anchors. Having a single flag restricts flexibility. As an example, you cannot make <code>.</code> to match across lines if <code>m</code> flag is used in <code>sed</code>. You'll have to resort to some creative alternatives in such cases as shown below.<pre><code class=language-bash>$ # \w|\W or .|\n can also be used
-$ # recall that sed doesn't allow character set sequences inside []
+</code></pre><p>Usually, regular expression implementations have separate flags to control the behavior of <code>.</code> metacharacter and line anchors. Having a single flag restricts flexibility. As an example, you cannot make <code>.</code> to match across lines if the <code>m</code> flag is active. You'll have to resort to some creative alternatives in such cases as shown below.<pre><code class=language-bash># \w|\W or .|\n can also be used
+# recall that sed doesn't allow character set sequences inside []
 $ printf 'Hi there\nHave a Nice Day\n' | sed -E 'N; s/H(\s|\S)*e/X/m'
 X Day
 
-$ # this one doesn't use alternation
+# this one doesn't use alternation
 $ printf 'Hi there\nHave a Nice Day\n' | sed -E 'N; s/H(.*\n.*)*e/X/m'
 X Day
-</code></pre><h2 id=cheatsheet-and-summary><a class=header href=#cheatsheet-and-summary>Cheatsheet and summary</a></h2><table><thead><tr><th>Note<th>Description<tbody><tr><td>flag<td>changes default behavior of REGEXP<tr><td><code>I</code><td>match case insensitively for REGEXP address<tr><td><code>i</code> or <code>I</code><td>match case insensitively for substitution command<tr><td><code>\E</code><td>indicates end of case conversion in replacement section<tr><td><code>\l</code><td>convert next character to lowercase<tr><td><code>\u</code><td>convert next character to uppercase<tr><td><code>\L</code><td>convert following characters to lowercase, unless <code>\U</code> or <code>\E</code> is used<tr><td><code>\U</code><td>convert following characters to uppercase, unless <code>\L</code> or <code>\E</code> is used<tr><td><code>g</code><td>replace all occurrences instead of just the first match<tr><td><code>N</code><td>a number will cause only the <em>N</em>th match to be replaced<tr><td><code>p</code><td>prints line only if substitution succeeds (assuming <code>-n</code> is active)<tr><td><code>w filename</code><td>write contents of pattern space to given filename<tr><td><td>whenever the REGEXP address matches or substitution succeeds<tr><td><code>e</code><td>executes contents of pattern space as shell command<tr><td><td>and replaces the pattern space with command output<tr><td><td>if argument is passed, executes that external command<tr><td><td>and inserts output before matching lines<tr><td><code>m</code> or <code>M</code><td>multiline mode flag<tr><td><td><code>.</code> will not match the newline character<tr><td><td><code>^</code> and <code>$</code> will match every line's start and end locations<tr><td><code>\`</code><td>always match the start of string irrespective of <code>m</code> flag<tr><td><code>\'</code><td>always match the end of string irrespective of <code>m</code> flag</table><p>This chapter showed how flags can be used for extra functionality. Some of the flags interact with the shell as well. In the next chapter, you'll learn how to incorporate shell variables and command outputs to dynamically construct a <code>sed</code> command.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><p><strong>a)</strong> For the input file <code>para.txt</code>, remove all groups of lines marked with a line beginning with <code>start</code> and a line ending with <code>end</code>. Match both these markers case insensitively.<pre><code class=language-bash>$ cat para.txt
+</code></pre><h2 id=cheatsheet-and-summary><a class=header href=#cheatsheet-and-summary>Cheatsheet and summary</a></h2><div class=table-wrapper><table><thead><tr><th>Note<th>Description<tbody><tr><td>flag<td>changes default behavior of filtering and substitution commands<tr><td><code>I</code><td>match case insensitively for REGEXP address<tr><td><code>i</code> or <code>I</code><td>match case insensitively for the substitution command<tr><td><code>\E</code><td>indicates end of case conversion in the replacement section<tr><td><code>\l</code><td>convert the next character to lowercase<tr><td><code>\u</code><td>convert the next character to uppercase<tr><td><code>\L</code><td>convert the following characters to lowercase (overridden by <code>\U</code> or <code>\E</code>)<tr><td><code>\U</code><td>convert the following characters to uppercase (overridden by <code>\L</code> or <code>\E</code>)<tr><td><code>g</code><td>replace all occurrences instead of just the first match<tr><td><code>N</code><td>a number will cause only the <em>N</em>th match to be replaced<tr><td><code>p</code><td>print only if the substitution succeeds (assuming <code>-n</code> is active)<tr><td><code>w filename</code><td>write contents of the pattern space to the given filename<tr><td><td>whenever the REGEXP address matches or substitution succeeds<tr><td><code>e</code><td>executes contents of the pattern space as a shell command<tr><td><td>and replaces the pattern space with the command output<tr><td><td>if argument is passed, executes that external command<tr><td><td>and inserts the output before matching lines<tr><td><code>m</code> or <code>M</code><td>multiline mode flag<tr><td><td><code>.</code> will not match the newline character<tr><td><td><code>^</code> and <code>$</code> will match every line's start and end locations<tr><td><code>\`</code><td>always match the start of string irrespective of the multiline flag<tr><td><code>\'</code><td>always match the end of string irrespective of the multiline flag</table></div><p>This chapter showed how flags can be used for extra functionality. Some of the flags interact with the shell as well. In the next chapter, you'll learn how to incorporate shell variables and command outputs when you need to dynamically construct a <code>sed</code> command.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnused/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> For the input file <code>para.txt</code>, remove all groups of lines marked with a line beginning with <code>start</code> and a line ending with <code>end</code>. Match both these markers case insensitively.<pre><code class=language-bash>$ cat para.txt
 good start
 Start working on that
 project you always wanted
@@ -275,31 +262,37 @@ $ sed ##### add your solution here
 good start
 hi there
 bye
-</code></pre><p><strong>b)</strong> The given sample input below starts with one or more <code>#</code> characters followed by one or more whitespace characters and then some words. Convert such strings to corresponding output as shown below.<pre><code class=language-bash>$ echo '# Regular Expressions' | sed ##### add your solution here
+</code></pre><p><strong>2)</strong> The <code>headers.txt</code> file contains one header per line, starting with one or more <code>#</code> characters followed by one or more whitespace characters and then some words. Convert such lines to the corresponding output as shown below.<pre><code class=language-bash>$ cat headers.txt
+# Regular Expressions
+## Subexpression calls
+## The dot meta character
+
+$ sed ##### add your solution here
 regular-expressions
-$ echo '## Compiling regular expressions' | sed ##### add your solution here
-compiling-regular-expressions
-</code></pre><p><strong>c)</strong> Using the input file <code>para.txt</code>, create a file named <code>five.txt</code> with all lines that contain a whole word of length <strong>5</strong> and a file named <code>six.txt</code> with all lines that contain a whole word of length <strong>6</strong>.<pre><code class=language-bash>$ sed ##### add your solution here
+subexpression-calls
+the-dot-meta-character
+</code></pre><p><strong>3)</strong> Using <code>para.txt</code>, create a file named <code>five.txt</code> with lines that contain a whole word of length <strong>5</strong> and a file named <code>seven.txt</code> with lines that contain a whole word of length <strong>7</strong>.<pre><code class=language-bash>$ sed ##### add your solution here
 
 $ cat five.txt
 good start
 Start working on that
 hi there
 start and try to
-$ cat six.txt
+
+$ cat seven.txt
+Start working on that
 project you always wanted
-finish the End
-</code></pre><p><strong>d)</strong> Given sample strings have fields separated by <code>,</code> where field values can be empty as well. Use <code>sed</code> to replace the third field with <code>42</code>.<pre><code class=language-bash>$ echo 'lion,,ant,road,neon' | sed ##### add your solution here
+</code></pre><p><strong>4)</strong> Given sample strings have fields separated by <code>,</code> where field values can be empty as well. Use <code>sed</code> to replace the third field with <code>42</code>.<pre><code class=language-bash>$ echo 'lion,,ant,road,neon' | sed ##### add your solution here
 lion,,42,road,neon
 
 $ echo ',,,' | sed ##### add your solution here
 ,,42,
-</code></pre><p><strong>e)</strong> Replace all occurrences of <code>e</code> with <code>3</code> except the first two matches.<pre><code class=language-bash>$ echo 'asset sets tests site' | sed ##### add your solution here
+</code></pre><p><strong>5)</strong> Replace all occurrences of <code>e</code> with <code>3</code> except the first two matches.<pre><code class=language-bash>$ echo 'asset sets tests site' | sed ##### add your solution here
 asset sets t3sts sit3
 
 $ echo 'sample item teem eel' | sed ##### add your solution here
 sample item t33m 33l
-</code></pre><p><strong>f)</strong> For the input file <code>addr.txt</code>, replace all input lines with number of characters in those lines. <code>wc -L</code> is one of the ways to get length of a line as shown below.<pre><code class=language-bash>$ # note that newline character isn't counted, which is preferable here
+</code></pre><p><strong>6)</strong> For the input file <code>addr.txt</code>, replace all input lines with the number of characters in those lines. <code>wc -L</code> is one of the ways to get the length of a line as shown below. Assume that the input file doesn't have single or double quote characters.<pre><code class=language-bash># note that newline character isn't counted, which is preferable here
 $ echo "Hello World" | wc -L
 11
 
@@ -310,25 +303,21 @@ $ sed ##### add your solution here
 14
 5
 13
-</code></pre><p><strong>g)</strong> For the input file <code>para.txt</code>, assume that it'll always have lines in multiples of 4. Use <code>sed</code> commands such that there are 4 lines at a time in the pattern space. Then, delete from <code>start</code> till <code>end</code> provided <code>start</code> is matched only at the start of a line. Also, match these two keywords case insensitively.<pre><code class=language-bash>$ sed ##### add your solution here
+</code></pre><p><strong>7)</strong> For the input file <code>para.txt</code>, assume that it'll always have lines in multiples of 4. Use <code>sed</code> commands such that there are 4 lines at a time in the pattern space. Then, delete from <code>start</code> till <code>end</code> provided <code>start</code> is matched only at the start of a line. Also, match these two keywords case insensitively.<pre><code class=language-bash>$ sed ##### add your solution here
 good start
 
 hi there
 
 bye
-</code></pre><p><strong>h)</strong> For the given strings, replace last but third <code>so</code> with <code>X</code>. Only print the lines which are changed by the substitution.<pre><code class=language-bash>$ printf 'so and so also sow and soup\n' | sed ##### add your solution here
-so and X also sow and soup
-
-$ printf 'sososososososo\nso and so\n' | sed ##### add your solution here
-sososoXsososo
-</code></pre><p><strong>i)</strong> Display all lines that satisfies <strong>both</strong> of these conditions:<ul><li><code>professor</code> matched irrespective of case<li><code>quip</code> or <code>this</code> matched case sensitively</ul><p>Input is a file downloaded from internet as shown below.<pre><code class=language-bash>$ wget https://www.gutenberg.org/files/345/old/345.txt -O dracula.txt
-
-$ sed ##### add your solution here
-equipment of a professor of the healing craft. When we were shown in,
-should be. I could see that the Professor had carried out in this room,
-"Not up to this moment, Professor," she said impulsively, "but up to
-and sprang at us. But by this time the Professor had gained his feet,
-this time the Professor had to ask her questions, and to ask them pretty
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=breere-regular-expressions.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-substitutions.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=breere-regular-expressions.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=shell-substitutions.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
-            window.playground_copyable = true;
-        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
+</code></pre><p><strong>8)</strong> For the input file <code>patterns.txt</code>, replace the last but second <code>ar</code> with <code>X</code>. Display only the modified lines.<pre><code class=language-bash>$ sed ##### add your solution here
+par car tX far Cart
+pXt cart mart
+</code></pre><p><strong>9)</strong> Display lines from <code>sample.txt</code> that satisfy both of these conditions:<ul><li><code>he</code> matched irrespective of case<li>either <code>World</code> or <code>Hi</code> matched case sensitively</ul><pre><code class=language-bash>$ sed ##### add your solution here
+Hello World
+Hi there
+</code></pre><p><strong>10)</strong> For the input file <code>patterns.txt</code>, surround all hexadecimal sequences with a minimum of four characters with <code>[]</code>. Match <code>0x</code> as an optional prefix, but shouldn't be counted for determining the length. Match the characters case insensitively, and the sequences shouldn't be surrounded by other word characters. Display only the modified lines.<pre><code class=language-bash>$ sed ##### add your solution here
+"should not match [0XdeadBEEF]"
+Hi42Bye nice1423 [bad42]
+took 0xbad 22 [0x0ff1ce]
+eqn2 = pressure*3+42/5-[14256]
+</code></pre></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=breere-regular-expressions.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="mobile-nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=shell-substitutions.html rel=next> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=breere-regular-expressions.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=shell-substitutions.html rel=next> <i class="fa fa-angle-right"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>

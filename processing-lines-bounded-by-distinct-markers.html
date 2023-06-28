@@ -1,8 +1,5 @@
-<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Processing lines bounded by distinct markers - GNU SED</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide to mastering GNU SED"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script><script>
-            try {
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Processing lines bounded by distinct markers - CLI text processing with GNU sed</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Example based guide to mastering GNU sed"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="CLI text processing with GNU sed"property=og:title><meta content=website property=og:type><meta content="Example based guide to mastering GNU sed"property=og:description><meta content=https://learnbyexample.github.io/learn_gnused/ property=og:url><meta content=https://raw.githubusercontent.com/learnbyexample/learn_gnused/master/images/sed_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
 
@@ -13,32 +10,25 @@
                 if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
-            } catch (e) { }
-        </script><script>
-            var theme;
+            } catch (e) { }</script><script>var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
             html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
-        </script><script>
-            var html = document.querySelector('html');
+            html.classList.add('js');</script><script>var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>2.</strong> Introduction</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>3.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=selective-editing.html><strong aria-hidden=true>4.</strong> Selective editing</a><li class="chapter-item expanded"><a href=breere-regular-expressions.html><strong aria-hidden=true>5.</strong> BRE/ERE Regular Expressions</a><li class="chapter-item expanded"><a href=flags.html><strong aria-hidden=true>6.</strong> Flags</a><li class="chapter-item expanded"><a href=shell-substitutions.html><strong aria-hidden=true>7.</strong> Shell substitutions</a><li class="chapter-item expanded"><a href=z-s-and-f-command-line-options.html><strong aria-hidden=true>8.</strong> z, s and f command line options</a><li class="chapter-item expanded"><a href=append-change-insert.html><strong aria-hidden=true>9.</strong> append, change, insert</a><li class="chapter-item expanded"><a href=adding-content-from-file.html><strong aria-hidden=true>10.</strong> Adding content from file</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>11.</strong> Control structures</a><li class="chapter-item expanded"><a href=processing-lines-bounded-by-distinct-markers.html class=active><strong aria-hidden=true>12.</strong> Processing lines bounded by distinct markers</a><li class="chapter-item expanded"><a href=gotchas-and-tricks.html><strong aria-hidden=true>13.</strong> Gotchas and Tricks</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>14.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>15.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/learn_gnused>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>GNU SED</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/learn_gnused title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>2.</strong> Introduction</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>3.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=selective-editing.html><strong aria-hidden=true>4.</strong> Selective editing</a><li class="chapter-item expanded"><a href=breere-regular-expressions.html><strong aria-hidden=true>5.</strong> BRE/ERE Regular Expressions</a><li class="chapter-item expanded"><a href=flags.html><strong aria-hidden=true>6.</strong> Flags</a><li class="chapter-item expanded"><a href=shell-substitutions.html><strong aria-hidden=true>7.</strong> Shell substitutions</a><li class="chapter-item expanded"><a href=z-s-and-f-command-line-options.html><strong aria-hidden=true>8.</strong> z, s and f command line options</a><li class="chapter-item expanded"><a href=append-change-insert.html><strong aria-hidden=true>9.</strong> append, change, insert</a><li class="chapter-item expanded"><a href=adding-content-from-file.html><strong aria-hidden=true>10.</strong> Adding content from file</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>11.</strong> Control structures</a><li class="chapter-item expanded"><a class=active href=processing-lines-bounded-by-distinct-markers.html><strong aria-hidden=true>12.</strong> Processing lines bounded by distinct markers</a><li class="chapter-item expanded"><a href=gotchas-and-tricks.html><strong aria-hidden=true>13.</strong> Gotchas and Tricks</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>14.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>15.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/learn_gnused>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>CLI text processing with GNU sed</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/learn_gnused> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=processing-lines-bounded-by-distinct-markers><a class=header href=#processing-lines-bounded-by-distinct-markers>Processing lines bounded by distinct markers</a></h1><p><a href=./selective-editing.html#address-range>Address range</a> was already introduced in an earlier chapter. This chapter will cover a wide variety of use cases where you need to process a group of lines defined by a starting and a ending pattern. For some examples, other text processing commands will also be used to construct a simpler one-liner compared to a complex <code>sed</code> only solution.<h2 id=uniform-markers><a class=header href=#uniform-markers>Uniform markers</a></h2><p>This section will cover cases where the input file will always contain the same number of starting and ending patterns and arranged in alternating fashion. For example, there cannot be two starting patterns appearing without an ending pattern between them and vice versa. Lines of text inside and between such groups are optional.<p>The sample file shown below will be used to illustrate examples in this section. For simplicity, assume that the starting pattern is marked by <code>start</code> and the ending pattern by <code>end</code>. They have also been given group numbers to make it easier to visualize the transformation between input and output for the commands discussed in this section.<pre><code class=language-bash>$ cat uniform.txt
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=processing-lines-bounded-by-distinct-markers><a class=header href=#processing-lines-bounded-by-distinct-markers>Processing lines bounded by distinct markers</a></h1><p><a href=./selective-editing.html#address-range>Address range</a> was already introduced in an earlier chapter. This chapter will cover a wide variety of use cases where you need to process a group of lines defined by a starting and an ending pattern. For some examples, other text processing commands will also be used to construct a simpler one-liner compared to a complex <code>sed</code> only solution.<blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnused/tree/master/example_files>example_files</a> directory has all the files used in the examples.</blockquote><h2 id=uniform-markers><a class=header href=#uniform-markers>Uniform markers</a></h2><p>This section will cover cases where the input file will always contain the same number of starting and ending patterns and arranged in an alternating fashion. For example, there cannot be two starting patterns appearing without an ending pattern between them and vice versa. Lines of text inside and between such groups are optional.<p>The sample file shown below will be used to illustrate examples in this section. For simplicity, assume that the starting pattern is marked by <code>start</code> and the ending pattern by <code>end</code>. They have also been given group numbers to make it easier to analyze the output.<pre><code class=language-bash>$ cat uniform.txt
 mango
 icecream
 --start 1--
@@ -53,7 +43,7 @@ b
 c
 **end 2**
 par,far,mar,tar
-</code></pre><p><strong>Case 1:</strong> Processing all the group of lines based on the distinct markers, including the lines matched by markers themselves. For simplicity, the below command will just print all such lines. This use case was already covered in <a href=./selective-editing.html#address-range>Address range</a> section as well.<pre><code class=language-bash>$ sed -n '/start/,/end/p' uniform.txt
+</code></pre><p><strong>Case 1:</strong> Processing all the group of lines based on the distinct markers, including the lines matched by markers themselves. For simplicity, the below command will just print all such lines. This use case was already covered in the <a href=./selective-editing.html#address-range>Address range</a> section as well.<pre><code class=language-bash>$ sed -n '/start/,/end/p' uniform.txt
 --start 1--
 1234
 6789
@@ -63,7 +53,7 @@ a
 b
 c
 **end 2**
-</code></pre><p><strong>Case 2:</strong> Processing all the group of lines but excluding the lines matched by markers themselves.<pre><code class=language-bash>$ # recall that empty REGEXP will reuse last matched REGEXP
+</code></pre><p><strong>Case 2:</strong> Processing all the group of lines but excluding the lines matched by markers themselves.<pre><code class=language-bash># recall that // represents the last REGEXP that was matched
 $ sed -n '/start/,/end/{//! s/^/* /p}' uniform.txt
 * 1234
 * 6789
@@ -118,13 +108,13 @@ how are you
 have a nice day
 **end 2**
 par,far,mar,tar
-</code></pre><h2 id=extracting-first-or-last-group><a class=header href=#extracting-first-or-last-group>Extracting first or last group</a></h2><p>The same sample input file from the previous section will be used for this section's examples as well. The task is to extract only the first or the very last group of lines defined by the markers.<p>To get the first block, simply apply <code>q</code> command when the ending mark is matched.<pre><code class=language-bash>$ sed -n '/start/,/end/{p; /end/q}' uniform.txt
+</code></pre><h2 id=extracting-the-first-or-last-group><a class=header href=#extracting-the-first-or-last-group>Extracting the first or last group</a></h2><p>The same sample input file from the previous section will be used for this section's examples as well. The task is to extract only the first or the very last group of lines defined by the markers.<p>To get the first block, simply apply the <code>q</code> command when the ending mark is matched.<pre><code class=language-bash>$ sed -n '/start/,/end/{p; /end/q}' uniform.txt
 --start 1--
 1234
 6789
 **end 1**
 
-$ # use other tricks discussed in previous section as needed
+# use other tricks discussed in previous section as needed
 $ sed -n '/start/,/end/{//!p; /end/q}' uniform.txt
 1234
 6789
@@ -159,19 +149,41 @@ $ tac log.txt | sed -n '/error/,/warning/p' | tac
 --> warning 3
 4,3,1
 ==> error 1
-</code></pre><blockquote><p><img src=images/info.svg alt=info> If both the starting and ending markers can occur multiple times, then <a href=https://learnbyexample.github.io/learn_gnuawk/processing-multiple-records.html#broken-blocks>learn_gnuawk: broken blocks</a> or <a href=https://learnbyexample.github.io/learn_perl_oneliners/processing-multiple-records.html#broken-blocks>learnbyexample perl: broken blocks</a> would suit better than trying to solve with <code>sed</code></blockquote><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter didn't introduce any new feature, but rather dealt with a variety of use cases that need the address range filter. Some of them required using other commands to make the solution simpler. The next chapter will discuss various gotchas that you may encounter while using <code>sed</code> and a few tricks to get better performance. After that, there's another chapter with resource links for further reading. Hope you found <code>sed</code> as an interesting and useful tool to learn. Happy coding!<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><p><strong>a)</strong> For the input file <code>broken.txt</code>, print all lines between the markers <code>top</code> and <code>bottom</code>. The first <code>sed</code> command shown below doesn't work because <code>sed</code> will match till end of file if second address isn't found.<pre><code class=language-bash>$ cat broken.txt
-top
+</code></pre><blockquote><p><img alt=info src=images/info.svg> If both the starting and ending markers can occur multiple times, then <a href=https://learnbyexample.github.io/learn_gnuawk/processing-multiple-records.html#broken-blocks>awk</a> or <a href=https://learnbyexample.github.io/learn_perl_oneliners/processing-multiple-records.html#broken-blocks>perl</a> would be better suited.</blockquote><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter didn't introduce any new feature, but rather dealt with a variety of use cases that need the address range filter. Some of them required using other commands to make the solution simpler. The next chapter will discuss various gotchas that you may encounter while using <code>sed</code> and a few tricks to get better performance. After that, there's another chapter with resource links for further reading. Hope you found <code>sed</code> as an interesting and useful tool to learn. Happy coding!<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnused/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> The <code>blocks.txt</code> file uses <code>%=%=</code> to separate group of lines. Display the last such group.<pre><code class=language-bash>##### add your solution here
+%=%=
+hi
+hello there
+bye
+</code></pre><p><strong>2)</strong> The <code>code.txt</code> file has code snippets that are surrounded by whole lines containing <code>%%Code: python%%</code> and <code>%%end%%</code>. The end of such snippets is always followed by an empty line. Assume that there will always be at least one line of code between the markers. Delete all such code snippets as well as the empty line that follows.<pre><code class=language-bash>$ sed ##### add your solution here
+H1: Introduction
+
+REPL is a good way to learn Python for beginners.
+
+H2: String methods
+
+Python comes loaded with awesome methods.
+Enjoy learning Python.
+
+</code></pre><p><strong>3)</strong> The <code>code.txt</code> file has code snippets that are surrounded by whole lines containing <code>%%Code: python%%</code> and <code>%%end%%</code>. Display the lines between such markers only for the first block.<pre><code class=language-bash>$ sed ##### add your solution here
+>>> 3 + 7
+10
+>>> 22 / 7
+3.142857142857143
+>>> 22 // 7
+3
+</code></pre><p><strong>4)</strong> For the input file <code>broken.txt</code>, display lines between the markers <code>top</code> and <code>bottom</code>. The first <code>sed</code> command shown below doesn't work because lines till the end of file are printed when the second address isn't found.<pre><code class=language-bash>$ cat broken.txt
+--top--
 3.14
-bottom
-top
+[bottom]
+--top--
 1234567890
-bottom
-top
+[bottom]
+--top--
 Hi there
 Have a nice day
 Good bye
 
-$ # wrong output
+# wrong output
 $ sed -n '/top/,/bottom/ {//!p}' broken.txt
 3.14
 1234567890
@@ -179,17 +191,15 @@ Hi there
 Have a nice day
 Good bye
 
-$ # expected output
-$ ##### add your solution here
+# expected output
+##### add your solution here
 3.14
 1234567890
-</code></pre><p><strong>b)</strong> For the input file <code>addr.txt</code>, replace the lines occurring between the markers <code>How</code> and <code>12345</code> with contents of the file <code>hex.txt</code>.<pre><code class=language-bash>$ sed ##### add your solution here
+</code></pre><p><strong>5)</strong> For the input file <code>addr.txt</code>, replace the lines occurring between the markers <code>How</code> and <code>12345</code> with the contents of the file <code>hex.txt</code>.<pre><code class=language-bash>$ sed ##### add your solution here
 Hello World
 How are you
 start address: 0xA0, func1 address: 0xA0
 end address: 0xFF, func2 address: 0xB0
 12345
 You are funny
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=control-structures.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=gotchas-and-tricks.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=control-structures.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=gotchas-and-tricks.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
-            window.playground_copyable = true;
-        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
+</code></pre></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=control-structures.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="mobile-nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=gotchas-and-tricks.html rel=next> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=control-structures.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=gotchas-and-tricks.html rel=next> <i class="fa fa-angle-right"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>

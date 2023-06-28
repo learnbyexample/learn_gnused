@@ -1,8 +1,5 @@
-<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Selective editing - GNU SED</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide to mastering GNU SED"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script><script>
-            try {
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Selective editing - CLI text processing with GNU sed</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Example based guide to mastering GNU sed"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="CLI text processing with GNU sed"property=og:title><meta content=website property=og:type><meta content="Example based guide to mastering GNU sed"property=og:description><meta content=https://learnbyexample.github.io/learn_gnused/ property=og:url><meta content=https://raw.githubusercontent.com/learnbyexample/learn_gnused/master/images/sed_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
 
@@ -13,101 +10,91 @@
                 if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
-            } catch (e) { }
-        </script><script>
-            var theme;
+            } catch (e) { }</script><script>var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
             html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
-        </script><script>
-            var html = document.querySelector('html');
+            html.classList.add('js');</script><script>var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>2.</strong> Introduction</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>3.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=selective-editing.html class=active><strong aria-hidden=true>4.</strong> Selective editing</a><li class="chapter-item expanded"><a href=breere-regular-expressions.html><strong aria-hidden=true>5.</strong> BRE/ERE Regular Expressions</a><li class="chapter-item expanded"><a href=flags.html><strong aria-hidden=true>6.</strong> Flags</a><li class="chapter-item expanded"><a href=shell-substitutions.html><strong aria-hidden=true>7.</strong> Shell substitutions</a><li class="chapter-item expanded"><a href=z-s-and-f-command-line-options.html><strong aria-hidden=true>8.</strong> z, s and f command line options</a><li class="chapter-item expanded"><a href=append-change-insert.html><strong aria-hidden=true>9.</strong> append, change, insert</a><li class="chapter-item expanded"><a href=adding-content-from-file.html><strong aria-hidden=true>10.</strong> Adding content from file</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>11.</strong> Control structures</a><li class="chapter-item expanded"><a href=processing-lines-bounded-by-distinct-markers.html><strong aria-hidden=true>12.</strong> Processing lines bounded by distinct markers</a><li class="chapter-item expanded"><a href=gotchas-and-tricks.html><strong aria-hidden=true>13.</strong> Gotchas and Tricks</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>14.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>15.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/learn_gnused>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>GNU SED</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/learn_gnused title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>2.</strong> Introduction</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>3.</strong> In-place file editing</a><li class="chapter-item expanded"><a class=active href=selective-editing.html><strong aria-hidden=true>4.</strong> Selective editing</a><li class="chapter-item expanded"><a href=breere-regular-expressions.html><strong aria-hidden=true>5.</strong> BRE/ERE Regular Expressions</a><li class="chapter-item expanded"><a href=flags.html><strong aria-hidden=true>6.</strong> Flags</a><li class="chapter-item expanded"><a href=shell-substitutions.html><strong aria-hidden=true>7.</strong> Shell substitutions</a><li class="chapter-item expanded"><a href=z-s-and-f-command-line-options.html><strong aria-hidden=true>8.</strong> z, s and f command line options</a><li class="chapter-item expanded"><a href=append-change-insert.html><strong aria-hidden=true>9.</strong> append, change, insert</a><li class="chapter-item expanded"><a href=adding-content-from-file.html><strong aria-hidden=true>10.</strong> Adding content from file</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>11.</strong> Control structures</a><li class="chapter-item expanded"><a href=processing-lines-bounded-by-distinct-markers.html><strong aria-hidden=true>12.</strong> Processing lines bounded by distinct markers</a><li class="chapter-item expanded"><a href=gotchas-and-tricks.html><strong aria-hidden=true>13.</strong> Gotchas and Tricks</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>14.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>15.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/learn_gnused>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>CLI text processing with GNU sed</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/learn_gnused> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=selective-editing><a class=header href=#selective-editing>Selective editing</a></h1><p>By default, <code>sed</code> acts on the entire input content. Many a times, you only want to act upon specific portions of the input. To that end, <code>sed</code> has features to filter lines, similar to tools like <code>grep</code>, <code>head</code> and <code>tail</code>. <code>sed</code> can replicate most of <code>grep</code>'s filtering features without too much fuss. And has features like line number based filtering, selecting lines between two patterns, relative addressing, etc which isn't possible with <code>grep</code>. If you are familiar with functional programming, you would have come across <strong>map, filter, reduce</strong> paradigm. A typical task with <code>sed</code> involves filtering a subset of input and then modifying (mapping) them. Sometimes, the subset is the entire input, as seen in the examples of previous chapters.<blockquote><p><img src=images/info.svg alt=info> A tool optimized for a particular functionality should be preferred where possible. <code>grep</code>, <code>head</code> and <code>tail</code> would be better performance wise compared to <code>sed</code> for equivalent line filtering solutions.</blockquote><p>For some of the examples, equivalent commands will also be shown as comments for learning purposes.<h2 id=conditional-execution><a class=header href=#conditional-execution>Conditional execution</a></h2><p>As seen earlier, the syntax for substitute command is <code>s/REGEXP/REPLACEMENT/FLAGS</code>. The <code>/REGEXP/FLAGS</code> portion can be used as a conditional expression to allow commands to execute only for the lines matching the pattern.<pre><code class=language-bash>$ # change commas to hyphens only if the input line contains '2'
-$ # space between the filter and the command is optional
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=selective-editing><a class=header href=#selective-editing>Selective editing</a></h1><p>By default, <code>sed</code> acts on the entire input content. Many a times, you want to act only upon specific portions of the input. To that end, <code>sed</code> has features to filter lines, similar to tools like <code>grep</code>, <code>head</code> and <code>tail</code>. <code>sed</code> can replicate most of <code>grep</code>'s filtering features without too much fuss. And has additional features like line number based filtering, selecting lines between two patterns, relative addressing, etc. If you are familiar with functional programming, you would have come across the <strong>map, filter, reduce</strong> paradigm. A typical task with <code>sed</code> involves filtering a subset of input and then modifying (mapping) them. Sometimes, the subset is the entire input, as seen in the examples of previous chapters.<blockquote><p><img alt=info src=images/info.svg> A tool optimized for a particular functionality should be preferred where possible. <code>grep</code>, <code>head</code> and <code>tail</code> would be better performance wise compared to <code>sed</code> for equivalent line filtering solutions.</blockquote><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnused/tree/master/example_files>example_files</a> directory has all the files used in the examples.</blockquote><h2 id=regexp-filtering><a class=header href=#regexp-filtering>REGEXP filtering</a></h2><p>As seen earlier, syntax for the substitute command is <code>s/REGEXP/REPLACEMENT/FLAGS</code>. The <code>/REGEXP/FLAGS</code> portion can be used as a conditional expression to allow commands to execute only for the lines matching the pattern.<pre><code class=language-bash># change commas to hyphens only if the input line contains '2'
+# space between the filter and the command is optional
 $ printf '1,2,3,4\na,b,c,d\n' | sed '/2/ s/,/-/g'
 1-2-3-4
 a,b,c,d
-</code></pre><p>Use <code>/REGEXP/FLAGS!</code> to act upon lines other than the matching ones.<pre><code class=language-bash>$ # change commas to hyphens if the input line does NOT contain '2'
-$ # space around ! is optional
+</code></pre><p>Use <code>/REGEXP/FLAGS!</code> to act upon lines other than the matching ones.<pre><code class=language-bash># change commas to hyphens if the input line does NOT contain '2'
+# space around ! is optional
 $ printf '1,2,3,4\na,b,c,d\n' | sed '/2/! s/,/-/g'
 1,2,3,4
 a-b-c-d
-</code></pre><p><code>/REGEXP/</code> is one of the ways to define a filter in <code>sed</code>, termed as <strong>address</strong> in the manual. Others will be covered in sections to come in this chapter.<h2 id=delete-command><a class=header href=#delete-command>Delete command</a></h2><p>To <strong>d</strong>elete the filtered lines, use the <code>d</code> command. Recall that all input lines are printed by default.<pre><code class=language-bash>$ # same as: grep -v 'at'
+</code></pre><p><code>/REGEXP/</code> is one of the ways to define a filter, termed as <strong>address</strong> in the manual. Others will be covered later in this chapter.<blockquote><p><img alt=info src=images/info.svg> Regular expressions will be discussed <a href=./breere-regular-expressions.html#breere-regular-expressions>later</a>. In this chapter, the examples with <code>/REGEXP/</code> filtering will use only fixed strings (exact string comparison).</blockquote><h2 id=delete-command><a class=header href=#delete-command>Delete command</a></h2><p>To <strong>d</strong>elete the filtered lines, use the <code>d</code> command. Recall that all input lines are printed by default.<pre><code class=language-bash># same as: grep -v 'at'
 $ printf 'sea\neat\ndrop\n' | sed '/at/d'
 sea
 drop
-</code></pre><p>To get the default <code>grep</code> filtering, use <code>!d</code> combination. Sometimes, negative logic can get confusing to use. It boils down to personal preference, similar to choosing between <code>if</code> and <code>unless</code> conditionals in programming languages.<pre><code class=language-bash>$ # same as: grep 'at'
+</code></pre><p>To get the default <code>grep</code> filtering, use the <code>!d</code> combination. Sometimes, negative logic can get confusing to use. It boils down to personal preference, similar to choosing between <code>if</code> and <code>unless</code> conditionals in programming languages.<pre><code class=language-bash># same as: grep 'at'
 $ printf 'sea\neat\ndrop\n' | sed '/at/!d'
 eat
-</code></pre><blockquote><p><img src=images/info.svg alt=info> Using an <strong>address</strong> is optional. So, for example, <code>sed '!d' file</code> would be equivalent to the <code>cat file</code> command.</blockquote><h2 id=print-command><a class=header href=#print-command>Print command</a></h2><p>To <strong>p</strong>rint the filtered lines, use the <code>p</code> command. But, recall that all input lines are printed by default. So, this command is typically used in combination with <code>-n</code> command line option, which would turn off the default printing.<pre><code class=language-bash>$ cat programming_quotes.txt
-Debugging is twice as hard as writing the code in the first place.
-Therefore, if you write the code as cleverly as possible, you are,
-by definition, not smart enough to debug it by Brian W. Kernighan
+</code></pre><blockquote><p><img alt=info src=images/info.svg> Using an <strong>address</strong> is optional. So, for example, <code>sed '!d' file</code> would be equivalent to the <code>cat file</code> command.<pre><code class=language-bash># same as: cat greeting.txt
+$ sed '!d' greeting.txt
+Hi there
+Have a nice day
+</code></pre></blockquote><h2 id=print-command><a class=header href=#print-command>Print command</a></h2><p>To <strong>p</strong>rint the filtered lines, use the <code>p</code> command. But, recall that all input lines are printed by default. So, this command is typically used in combination with the <code>-n</code> option, which would turn off the default printing.<pre><code class=language-bash>$ cat rhymes.txt
+it is a warm and cozy day
+listen to what I say
+go play in the park
+come back before the sky turns dark
 
-Some people, when confronted with a problem, think - I know, I will
-use regular expressions. Now they have two problems by Jamie Zawinski
+There are so many delights to cherish
+Apple, Banana and Cherry
+Bread, Butter and Jelly
+Try them all before you perish
 
-A language that does not affect the way you think about programming,
-is not worth knowing by Alan Perlis
+# same as: grep 'warm' rhymes.txt
+$ sed -n '/warm/p' rhymes.txt
+it is a warm and cozy day
 
-There are 2 hard problems in computer science: cache invalidation,
-naming things, and off-by-1 errors by Leon Bambrick
+# same as: grep 'n t' rhymes.txt
+$ sed -n '/n t/p' rhymes.txt
+listen to what I say
+go play in the park
+</code></pre><p>The substitute command provides <code>p</code> as a flag. In such a case, the modified line would be printed only if the substitution succeeded.<pre><code class=language-bash>$ sed -n 's/warm/cool/gp' rhymes.txt
+it is a cool and cozy day
 
-$ # same as: grep 'twice' programming_quotes.txt
-$ sed -n '/twice/p' programming_quotes.txt
-Debugging is twice as hard as writing the code in the first place.
-$ # same as: grep 'e th' programming_quotes.txt
-$ sed -n '/e th/p' programming_quotes.txt
-Therefore, if you write the code as cleverly as possible, you are,
-A language that does not affect the way you think about programming,
-</code></pre><p>The substitute command provides <code>p</code> as a flag. In such a case, the modified line would be printed only if the substitution succeeded.<pre><code class=language-bash>$ # same as: grep '1' programming_quotes.txt | sed 's/1/one/g'
-$ sed -n 's/1/one/gp' programming_quotes.txt
-naming things, and off-by-one errors by Leon Bambrick
-
-$ # filter + substitution + p combination
-$ # same as: grep 'not' programming_quotes.txt | sed 's/in/**/g'
-$ sed -n '/not/ s/in/**/gp' programming_quotes.txt
-by def**ition, not smart enough to debug it by Brian W. Kernighan
-A language that does not affect the way you th**k about programm**g,
-is not worth know**g by Alan Perlis
-</code></pre><p>Using <code>!p</code> with <code>-n</code> option will be equivalent to using the <code>d</code> command.<pre><code class=language-bash>$ # same as: sed '/at/d'
+# filter + substitution + p combination
+$ sed -n '/the/ s/ark/ARK/gp' rhymes.txt
+go play in the pARK
+come back before the sky turns dARK
+</code></pre><p>Using <code>!p</code> with the <code>-n</code> option will be equivalent to using the <code>d</code> command.<pre><code class=language-bash># same as: sed '/at/d'
 $ printf 'sea\neat\ndrop\n' | sed -n '/at/!p'
 sea
 drop
-</code></pre><p>Here's an example of using <code>p</code> command without the <code>-n</code> option.<pre><code class=language-bash>$ # duplicate every line
+</code></pre><p>Here's an example of using the <code>p</code> command without the <code>-n</code> option.<pre><code class=language-bash># duplicate every line
 $ seq 2 | sed 'p'
 1
 1
 2
 2
-</code></pre><h2 id=quit-commands><a class=header href=#quit-commands>Quit commands</a></h2><p>Using <code>q</code> command will exit <code>sed</code> immediately, without any further processing.<pre><code class=language-bash>$ # quits after an input line containing 'if' is found
-$ sed '/if/q' programming_quotes.txt
-Debugging is twice as hard as writing the code in the first place.
-Therefore, if you write the code as cleverly as possible, you are,
-</code></pre><p><code>Q</code> command is similar to <code>q</code> but won't print the matching line.<pre><code class=language-bash>$ # matching line won't be printed
-$ sed '/if/Q' programming_quotes.txt
-Debugging is twice as hard as writing the code in the first place.
-</code></pre><p>Use <code>tac</code> to get all lines starting from last occurrence of the search string with respect to entire file content.<pre><code class=language-bash>$ tac programming_quotes.txt | sed '/not/q' | tac
-is not worth knowing by Alan Perlis
-
-There are 2 hard problems in computer science: cache invalidation,
-naming things, and off-by-1 errors by Leon Bambrick
+</code></pre><h2 id=quit-commands><a class=header href=#quit-commands>Quit commands</a></h2><p>The <code>q</code> command causes <code>sed</code> to exit immediately. Remaining commands and input lines will not be processed.<pre><code class=language-bash># quits after an input line containing 'say' is found
+$ sed '/say/q' rhymes.txt
+it is a warm and cozy day
+listen to what I say
+</code></pre><p>The <code>Q</code> command is similar to <code>q</code> but won't print the matching line.<pre><code class=language-bash># matching line won't be printed
+$ sed '/say/Q' rhymes.txt
+it is a warm and cozy day
+</code></pre><p>Use <code>tac</code> to get all lines starting from the last occurrence of the search string in the entire file.<pre><code class=language-bash>$ tac rhymes.txt | sed '/an/q' | tac
+Bread, Butter and Jelly
+Try them all before you perish
 </code></pre><p>You can optionally provide an exit status (from <code>0</code> to <code>255</code>) along with the quit commands.<pre><code class=language-bash>$ printf 'sea\neat\ndrop\n' | sed '/at/q2'
 sea
 eat
@@ -118,174 +105,176 @@ $ printf 'sea\neat\ndrop\n' | sed '/at/Q3'
 sea
 $ echo $?
 3
-</code></pre><blockquote><p><img src=images/warning.svg alt=warning> Be careful if you want to use <code>q</code> or <code>Q</code> commands with multiple files, as <code>sed</code> will stop even if there are other files to process. You could use a <a href=./selective-editing.html#address-range>mixed address range</a> as a workaround. See also <a href=https://unix.stackexchange.com/q/309514/109046>unix.stackexchange: applying q to multiple files</a>.</blockquote><h2 id=multiple-commands><a class=header href=#multiple-commands>Multiple commands</a></h2><p>Commands seen so far can be specified more than once by separating them using <code>;</code> or using the <code>-e</code> command line option. See <a href=https://www.gnu.org/software/sed/manual/sed.html#Multiple-commands-syntax>sed manual: Multiple commands syntax</a> for more details.<pre><code class=language-bash>$ # print all input lines as well as modified lines
+</code></pre><blockquote><p><img alt=warning src=images/warning.svg> Be careful if you want to use <code>q</code> or <code>Q</code> commands with multiple files, as <code>sed</code> will stop even if there are other files remaining to be processed. You could use a <a href=./selective-editing.html#address-range>mixed address range</a> as a workaround. See also <a href=https://unix.stackexchange.com/q/309514/109046>unix.stackexchange: applying q to multiple files</a>.</blockquote><h2 id=multiple-commands><a class=header href=#multiple-commands>Multiple commands</a></h2><p>Commands seen so far can be specified more than once by separating them using <code>;</code> or using the <code>-e</code> option multiple times. See <a href=https://www.gnu.org/software/sed/manual/sed.html#Multiple-commands-syntax>sed manual: Multiple commands syntax</a> for more details.<pre><code class=language-bash># print all input lines as well as the modified lines
 $ printf 'sea\neat\ndrop\n' | sed -n -e 'p' -e 's/at/AT/p'
 sea
 eat
 eAT
 drop
 
-$ # equivalent command to above example using ; instead of -e
-$ # space around ; is optional
+# equivalent command to the above example using ; instead of -e
+# space around ; is optional
 $ printf 'sea\neat\ndrop\n' | sed -n 'p; s/at/AT/p'
 sea
 eat
 eAT
 drop
-</code></pre><p>Another way is to separate the commands using a literal newline character. If more than 2-3 lines are needed, it is better to use a <a href=./z-s-and-f-command-line-options.html#file-as-source-of-sed-commands>sed script</a> instead.<pre><code class=language-bash>$ # here, each command is separated by a literal newline character
-$ # > at the start of line indicates continuation of a multiline shell command
+</code></pre><p>You can also separate the commands using a literal newline character. If many lines are needed, it is better to use a <a href=./z-s-and-f-command-line-options.html#file-as-the-source-of-sed-commands>sed script</a> instead.<pre><code class=language-bash># here, each command is separated by a literal newline character
+# similar to $ representing the primary prompt PS1,
+# > represents the secondary prompt PS2
 $ sed -n '
-> /not/ s/in/**/gp
-> s/1/one/gp
-> s/2/two/gp
-> ' programming_quotes.txt
-by def**ition, not smart enough to debug it by Brian W. Kernighan
-A language that does not affect the way you th**k about programm**g,
-is not worth know**g by Alan Perlis
-There are two hard problems in computer science: cache invalidation,
-naming things, and off-by-one errors by Leon Bambrick
-</code></pre><blockquote><p><img src=images/warning.svg alt=warning> Do not use multiple commands to construct conditional OR of multiple search strings, as you might get lines duplicated in the output. For example, check what output you get for <code>sed -ne '/use/p' -e '/two/p' programming_quotes.txt</code> command. You can use regular expression feature <a href=./breere-regular-expressions.html#alternation>alternation</a> for such cases.</blockquote><p>To execute multiple commands for a common filter, use <code>{}</code> to group the commands. You can also nest them if needed.<pre><code class=language-bash>$ # same as: sed -n 'p; s/at/AT/p'
-$ printf 'sea\neat\ndrop\n' | sed '/at/{p; s/at/AT/}'
-sea
-eat
-eAT
-drop
-
-$ # spaces around {} is optional
+> /the/ s/ark/ARK/gp
+> s/warm/cool/gp
+> s/Bread/Cake/gp
+> ' rhymes.txt
+it is a cool and cozy day
+go play in the pARK
+come back before the sky turns dARK
+Cake, Butter and Jelly
+</code></pre><blockquote><p><img alt=warning src=images/warning.svg> Do not use multiple commands to construct conditional OR of multiple search strings, as you might get lines duplicated in the output as shown below. You can use regular expression feature <a href=./breere-regular-expressions.html#alternation>alternation</a> for such cases.<pre><code class=language-bash>$ sed -ne '/play/p' -e '/ark/p' rhymes.txt
+go play in the park
+go play in the park
+come back before the sky turns dark
+</code></pre></blockquote><p>To execute multiple commands for a common filter, use <code>{}</code> to group the commands. You can also nest them if needed.<pre><code class=language-bash># spaces around {} is optional
 $ printf 'gates\nnot\nused\n' | sed '/e/{s/s/*/g; s/t/*/g}'
 ga*e*
 not
 u*ed
-</code></pre><p>Command grouping is an easy way to construct conditional AND of multiple search strings.<pre><code class=language-bash>$ # same as: grep 'in' programming_quotes.txt | grep 'not'
-$ sed -n '/in/{/not/p}' programming_quotes.txt
-by definition, not smart enough to debug it by Brian W. Kernighan
-A language that does not affect the way you think about programming,
-is not worth knowing by Alan Perlis
 
-$ # same as: grep 'in' programming_quotes.txt | grep 'not' | grep 'you'
-$ sed -n '/in/{/not/{/you/p}}' programming_quotes.txt
-A language that does not affect the way you think about programming,
+$ sed -n '/the/{s/for/FOR/gp; /play/{p; s/park/PARK/gp}}' rhymes.txt
+go play in the park
+go play in the PARK
+come back beFORe the sky turns dark
+Try them all beFORe you perish
+</code></pre><p>Command grouping is an easy way to construct conditional AND of multiple search strings.<pre><code class=language-bash># same as: grep 'ark' rhymes.txt | grep 'play'
+$ sed -n '/ark/{/play/p}' rhymes.txt
+go play in the park
 
-$ # same as: grep 'not' programming_quotes.txt | grep -v 'you'
-$ sed -n '/not/{/you/!p}' programming_quotes.txt
-by definition, not smart enough to debug it by Brian W. Kernighan
-is not worth knowing by Alan Perlis
-</code></pre><p>Other solutions using alternation feature of regular expressions and <code>sed</code>'s <a href=./control-structures.html#control-structures>control structures</a> will be discussed later.<h2 id=line-addressing><a class=header href=#line-addressing>Line addressing</a></h2><p>Line numbers can also be used as a filtering criteria.<pre><code class=language-bash>$ # here, 3 represents the address for the print command
-$ # same as: head -n3 programming_quotes.txt | tail -n1 and sed '3!d'
-$ sed -n '3p' programming_quotes.txt
-by definition, not smart enough to debug it by Brian W. Kernighan
+# same as: grep 'the' rhymes.txt | grep 'for' | grep 'urn'
+$ sed -n '/the/{/for/{/urn/p}}' rhymes.txt
+come back before the sky turns dark
 
-$ # print 2nd and 5th line
-$ sed -n '2p; 5p' programming_quotes.txt
-Therefore, if you write the code as cleverly as possible, you are,
-Some people, when confronted with a problem, think - I know, I will
+# same as: grep 'for' rhymes.txt | grep -v 'sky'
+$ sed -n '/for/{/sky/!p}' rhymes.txt
+Try them all before you perish
+</code></pre><p>Other solutions using alternation feature of regular expressions and <code>sed</code>'s <a href=./control-structures.html#control-structures>control structures</a> will be discussed later.<h2 id=line-addressing><a class=header href=#line-addressing>Line addressing</a></h2><p>Line numbers can also be used as a filtering criteria.<pre><code class=language-bash># here, 3 represents the address for the print command
+# same as: head -n3 rhymes.txt | tail -n1
+# same as: sed '3!d'
+$ sed -n '3p' rhymes.txt
+go play in the park
 
-$ # substitution only on 2nd line
+# print 2nd and 6th line
+$ sed -n '2p; 6p' rhymes.txt
+listen to what I say
+There are so many delights to cherish
+
+# apply substitution only for the 2nd line
 $ printf 'gates\nnot\nused\n' | sed '2 s/t/*/g'
 gates
 no*
 used
-</code></pre><p>As a special case, <code>$</code> indicates the last line of the input.<pre><code class=language-bash>$ # same as: tail -n1 programming_quotes.txt
-$ sed -n '$p' programming_quotes.txt
-naming things, and off-by-1 errors by Leon Bambrick
-</code></pre><p>For large input files, use <code>q</code> command to avoid processing unnecessary input lines.<pre><code class=language-bash>$ seq 3542 4623452 | sed -n '2452{p; q}'
+</code></pre><p>As a special case, <code>$</code> indicates the last line of the input.<pre><code class=language-bash># same as: tail -n1 rhymes.txt
+$ sed -n '$p' rhymes.txt
+Try them all before you perish
+</code></pre><p>For large input files, use the <code>q</code> command to avoid processing unnecessary input lines.<pre><code class=language-bash>$ seq 3542 4623452 | sed -n '2452{p; q}'
 5993
 $ seq 3542 4623452 | sed -n '250p; 2452{p; q}'
 3791
 5993
 
-$ # here is a sample time comparison
+# here is a sample time comparison
 $ time seq 3542 4623452 | sed -n '2452{p; q}' > f1
-real    0m0.003s
+real    0m0.005s
 $ time seq 3542 4623452 | sed -n '2452p' > f2
-real    0m0.140s
-</code></pre><p>Mimicking <code>head</code> command using line addressing and the <code>q</code> command.<pre><code class=language-bash>$ # same as: seq 23 45 | head -n5
+real    0m0.121s
+$ rm f1 f2
+</code></pre><p>Mimicking the <code>head</code> command using line number addressing and the <code>q</code> command.<pre><code class=language-bash># same as: seq 23 45 | head -n5
 $ seq 23 45 | sed '5q'
 23
 24
 25
 26
 27
-</code></pre><h2 id=print-only-line-number><a class=header href=#print-only-line-number>Print only line number</a></h2><p>The <code>=</code> command will display the line numbers of matching lines.<pre><code class=language-bash>$ # gives both line number and matching line
-$ grep -n 'not' programming_quotes.txt
-3:by definition, not smart enough to debug it by Brian W. Kernighan
-8:A language that does not affect the way you think about programming,
-9:is not worth knowing by Alan Perlis
+</code></pre><h2 id=print-only-the-line-number><a class=header href=#print-only-the-line-number>Print only the line number</a></h2><p>The <code>=</code> command will display the line numbers of matching lines.<pre><code class=language-bash># gives both the line number and matching lines
+$ grep -n 'the' rhymes.txt
+3:go play in the park
+4:come back before the sky turns dark
+9:Try them all before you perish
 
-$ # gives only line number of matching line
-$ # note the use of -n option to avoid default printing
-$ sed -n '/not/=' programming_quotes.txt
+# gives only the line number of matching lines
+# note the use of the -n option to avoid default printing
+$ sed -n '/the/=' rhymes.txt
 3
-8
+4
 9
-</code></pre><p>If needed, matching line can also be printed. But there will be a newline character between the matching line and line number.<pre><code class=language-bash>$ sed -n '/off/{=; p}' programming_quotes.txt
-12
-naming things, and off-by-1 errors by Leon Bambrick
+</code></pre><p>If needed, matching line can also be printed. But there will be a newline character between the matching line and the line number.<pre><code class=language-bash>$ sed -n '/what/{=; p}' rhymes.txt
+2
+listen to what I say
 
-$ sed -n '/off/{p; =}' programming_quotes.txt
-naming things, and off-by-1 errors by Leon Bambrick
-12
-</code></pre><h2 id=address-range><a class=header href=#address-range>Address range</a></h2><p>So far, filtering has been based on specific line number or lines matching the given <code>/REGEXP/FLAGS</code> pattern. Address range gives the ability to define a starting address and an ending address, separated by a comma.<pre><code class=language-bash>$ # note that all the matching ranges are printed
-$ sed -n '/are/,/by/p' programming_quotes.txt
-Therefore, if you write the code as cleverly as possible, you are,
-by definition, not smart enough to debug it by Brian W. Kernighan
-There are 2 hard problems in computer science: cache invalidation,
-naming things, and off-by-1 errors by Leon Bambrick
+$ sed -n '/what/{p; =}' rhymes.txt
+listen to what I say
+2
+</code></pre><h2 id=address-range><a class=header href=#address-range>Address range</a></h2><p>So far, filtering has been based on specific line number or lines matching the given REGEXP pattern. Address range gives the ability to define a starting address and an ending address separated by a comma.<pre><code class=language-bash># note that all the matching ranges are printed
+$ sed -n '/to/,/pl/p' rhymes.txt
+listen to what I say
+go play in the park
+There are so many delights to cherish
+Apple, Banana and Cherry
 
-$ # same as: sed -n '3,8!p'
+# same as: sed -n '3,8!p'
 $ seq 15 24 | sed '3,8d'
 15
 16
 23
 24
-</code></pre><p>Line numbers and string matching can be mixed.<pre><code class=language-bash>$ sed -n '5,/use/p' programming_quotes.txt
-Some people, when confronted with a problem, think - I know, I will
-use regular expressions. Now they have two problems by Jamie Zawinski
+</code></pre><p>Line numbers and REGEXP filtering can be mixed.<pre><code class=language-bash>$ sed -n '6,/utter/p' rhymes.txt
+There are so many delights to cherish
+Apple, Banana and Cherry
+Bread, Butter and Jelly
 
-$ # same as: sed '/smart/Q'
-$ # inefficient, but this will work for multiple file inputs
-$ sed '/smart/,$d' programming_quotes.txt
-Debugging is twice as hard as writing the code in the first place.
-Therefore, if you write the code as cleverly as possible, you are,
-</code></pre><p>If the second filtering condition doesn't match, lines starting from the first condition to the last line of the input will be matched.<pre><code class=language-bash>$ # there's a line containing 'affect' but doesn't have matching pair
-$ sed -n '/affect/,/XYZ/p' programming_quotes.txt
-A language that does not affect the way you think about programming,
-is not worth knowing by Alan Perlis
+# same as: sed '/play/Q' rhymes.txt
+# inefficient, but this will work for multiple file inputs
+$ sed '/play/,$d' rhymes.txt
+it is a warm and cozy day
+listen to what I say
+</code></pre><p>If the second filtering condition doesn't match, lines starting from the first condition to the last line of the input will be matched.<pre><code class=language-bash># there's a line containing 'Banana' but the matching pair isn't found
+$ sed -n '/Banana/,/XYZ/p' rhymes.txt
+Apple, Banana and Cherry
+Bread, Butter and Jelly
+Try them all before you perish
+</code></pre><p>The second address will always be used as a filtering condition only from the line that comes after the line that satisfied the first address. For example, if the same search pattern is used for both the addresses, there'll be at least two lines in output (assuming there are lines in the input after the first matching line).<pre><code class=language-bash>$ sed -n '/w/,/w/p' rhymes.txt
+it is a warm and cozy day
+listen to what I say
 
-There are 2 hard problems in computer science: cache invalidation,
-naming things, and off-by-1 errors by Leon Bambrick
-</code></pre><p>The second address will always be used as a filtering condition only from the line that comes after the line that satisfied the first address. For example, if the same search pattern is used for both the addresses, there'll be at least two lines in output (provided there are lines in the input after the first matching line).<pre><code class=language-bash>$ # there's no line containing 'worth' after the 9th line
-$ # so, rest of the file gets matched
-$ sed -n '9,/worth/p' programming_quotes.txt
-is not worth knowing by Alan Perlis
+# there's no line containing 'Cherry' after the 7th line
+# so, rest of the file gets printed
+$ sed -n '7,/Cherry/p' rhymes.txt
+Apple, Banana and Cherry
+Bread, Butter and Jelly
+Try them all before you perish
+</code></pre><p>As a special case, the first address can be <code>0</code> if the second one is a REGEXP filter. This allows the search pattern to be matched against the first line of the file.<pre><code class=language-bash># same as: sed '/cozy/q'
+# inefficient, but this will work for multiple file inputs
+$ sed -n '0,/cozy/p' rhymes.txt
+it is a warm and cozy day
 
-There are 2 hard problems in computer science: cache invalidation,
-naming things, and off-by-1 errors by Leon Bambrick
-</code></pre><p>As a special case, the first address can be <code>0</code> if the second one is a search pattern. This allows the search pattern to be matched against the first line of the file.<pre><code class=language-bash>$ # same as: sed '/in/q'
-$ # inefficient, but this will work for multiple file inputs
-$ sed -n '0,/in/p' programming_quotes.txt
-Debugging is twice as hard as writing the code in the first place.
+# same as: sed '/say/q'
+$ sed -n '0,/say/p' rhymes.txt
+it is a warm and cozy day
+listen to what I say
+</code></pre><h2 id=relative-addressing><a class=header href=#relative-addressing>Relative addressing</a></h2><p>The <code>grep</code> command has an option <code>-A</code> that allows you to view lines that come <em>after</em> the matching lines. The <code>sed</code> command provides a similar feature when you prefix a <code>+</code> character to the number used in the second address. One difference compared to <code>grep</code> is that the context lines won't trigger a fresh matching of the first address.<pre><code class=language-bash># match a line containing 'the' and display the next line as well
+# won't be same as: grep -A1 --no-group-separator 'the'
+$ sed -n '/the/,+1p' rhymes.txt
+go play in the park
+come back before the sky turns dark
+Try them all before you perish
 
-$ # same as: sed '/not/q'
-$ sed -n '0,/not/p' programming_quotes.txt
-Debugging is twice as hard as writing the code in the first place.
-Therefore, if you write the code as cleverly as possible, you are,
-by definition, not smart enough to debug it by Brian W. Kernighan
-</code></pre><h2 id=relative-addressing><a class=header href=#relative-addressing>Relative addressing</a></h2><p>Prefixing <code>+</code> to line number as the second address gives relative filtering. This is similar to using <code>grep -A&LTnum> --no-group-separator</code> but <code>grep</code> will start a new group if a line matches within context lines.<pre><code class=language-bash>$ # line matching 'not' and 2 lines after
-$ # won't be same as: grep -A2 --no-group-separator 'not'
-$ sed -n '/not/,+2p' programming_quotes.txt
-by definition, not smart enough to debug it by Brian W. Kernighan
-
-Some people, when confronted with a problem, think - I know, I will
-A language that does not affect the way you think about programming,
-is not worth knowing by Alan Perlis
-
-$ # the first address can be a line number too
-$ # helpful when it is programmatically constructed in a script
-$ sed -n '5,+1p' programming_quotes.txt
-Some people, when confronted with a problem, think - I know, I will
-use regular expressions. Now they have two problems by Jamie Zawinski
-</code></pre><p>You can construct an arithmetic progression with start and step values separated by the <code>~</code> symbol. <code>i~j</code> will filter lines numbered <code>i+0j</code>, <code>i+1j</code>, <code>i+2j</code>, <code>i+3j</code>, etc. So, <code>1~2</code> means all odd numbered lines and <code>5~3</code> means 5th, 8th, 11th, etc.<pre><code class=language-bash>$ # print even numbered lines
+# the first address can be a line number too
+# helpful when it is programmatically constructed in a script
+$ sed -n '6,+2p' rhymes.txt
+There are so many delights to cherish
+Apple, Banana and Cherry
+Bread, Butter and Jelly
+</code></pre><p>You can construct an arithmetic progression with start and step values separated by the <code>~</code> symbol. <code>i~j</code> will filter lines numbered <code>i+0j</code>, <code>i+1j</code>, <code>i+2j</code>, <code>i+3j</code>, etc. So, <code>1~2</code> means all odd numbered lines and <code>5~3</code> means 5th, 8th, 11th, etc.<pre><code class=language-bash># print even numbered lines
 $ seq 10 | sed -n '2~2p'
 2
 4
@@ -293,35 +282,35 @@ $ seq 10 | sed -n '2~2p'
 8
 10
 
-$ # delete lines numbered 2+0*4, 2+1*4, 2+2*4, etc
+# delete lines numbered 2+0*4, 2+1*4, 2+2*4, etc (2, 6, 10, etc)
 $ seq 7 | sed '2~4d'
 1
 3
 4
 5
 7
-</code></pre><p>If <code>i,~j</code> is used (note the <code>,</code>) then the meaning changes completely. After the start address, the closest line number which is a multiple of <code>j</code> will mark the end address. The start address can be specified using search pattern as well.<pre><code class=language-bash>$ # here, closest multiple of 4 is 4th line
+</code></pre><p>If <code>i,~j</code> is used (note the <code>,</code>) then the meaning changes completely. After the start address, the closest line number which is a multiple of <code>j</code> will mark the end address. The start address can be REGEXP based filtering as well.<pre><code class=language-bash># here, closest multiple of 4 is the 4th line
 $ seq 10 | sed -n '2,~4p'
 2
 3
 4
-$ # here, closest multiple of 4 is 8th line
+# here, closest multiple of 4 is the 8th line
 $ seq 10 | sed -n '5,~4p'
 5
 6
 7
 8
 
-$ # line matching on 'regular' is 6th line, so ending is 9th line
-$ sed -n '/regular/,~3p' programming_quotes.txt
-use regular expressions. Now they have two problems by Jamie Zawinski
-
-A language that does not affect the way you think about programming,
-is not worth knowing by Alan Perlis
-</code></pre><h2 id=n-and-n-commands><a class=header href=#n-and-n-commands>n and N commands</a></h2><p>So far, the commands used have all been processing only one line at a time. The address range option provides the ability to act upon a group of lines, but the commands still operate one line at a time for that group. There are cases when you want a command to handle a string that contains multiple lines. As mentioned in the preface, this book will not cover advanced commands related to multiline processing and I highly recommend using <code>awk</code> or <code>perl</code> for such scenarios. However, this section will introduce two commands <code>n</code> and <code>N</code> which are relatively easier to use and will be seen in coming chapters as well.<p>This is also a good place to give more details about how <code>sed</code> works. Quoting from <a href=https://www.gnu.org/software/sed/manual/sed.html#Execution-Cycle>sed manual: How sed Works</a>:<blockquote><p>sed maintains two data buffers: the active pattern space, and the auxiliary hold space. Both are initially empty.<br> sed operates by performing the following cycle on each line of input: first, sed reads one line from the input stream, removes any trailing newline, and places it in the pattern space. Then commands are executed; each command can have an address associated to it: addresses are a kind of condition code, and a command is only executed if the condition is verified before the command is to be executed.<br> When the end of the script is reached, unless the -n option is in use, the contents of pattern space are printed out to the output stream, adding back the trailing newline if it was removed. Then the next cycle starts for the next input line.</blockquote><p>The <strong>pattern space</strong> buffer has only contained single line of input in all the examples seen so far. By using <code>n</code> and <code>N</code> commands, you can change the contents of the pattern space and use commands to act upon entire contents of this data buffer. For example, you can perform substitution on two or more lines at once.<p>First up, the <code>n</code> command. Quoting from <a href=https://www.gnu.org/software/sed/manual/sed.html#Common-Commands>sed manual: Often-Used Commands</a>:<blockquote><p>If auto-print is not disabled, print the pattern space, then, regardless, replace the pattern space with the next line of input. If there is no more input then sed exits without processing any more commands.</blockquote><pre><code class=language-bash>$ # same as: sed -n '2~2p'
-$ # n will replace pattern space with the next line of input
-$ # as -n option is used, the replaced line won't be printed
-$ # then the new line is printed as p command is used
+# line matching 'many' is the 6th line, closest multiple of 3 is the 9th line
+$ sed -n '/many/,~3p' rhymes.txt
+There are so many delights to cherish
+Apple, Banana and Cherry
+Bread, Butter and Jelly
+Try them all before you perish
+</code></pre><h2 id=n-and-n-commands><a class=header href=#n-and-n-commands>n and N commands</a></h2><p>So far, the commands used have all been processing only one line at a time. The address range option provides the ability to act upon a group of lines, but the commands still operate one line at a time for that group. There are cases when you want a command to handle a string that contains multiple lines. As mentioned in the preface, this book will not cover advanced commands related to multiline processing and I highly recommend using <code>awk</code> or <code>perl</code> for such scenarios. However, this section will introduce two commands <code>n</code> and <code>N</code> which are relatively easier to use and will be seen in the coming chapters as well.<p>This is also a good place to get to know more details about how <code>sed</code> works. Quoting from <a href=https://www.gnu.org/software/sed/manual/sed.html#Execution-Cycle>sed manual: How sed Works</a>:<blockquote><p>sed maintains two data buffers: the active pattern space, and the auxiliary hold space. Both are initially empty.<br> sed operates by performing the following cycle on each line of input: first, sed reads one line from the input stream, removes any trailing newline, and places it in the pattern space. Then commands are executed; each command can have an address associated to it: addresses are a kind of condition code, and a command is only executed if the condition is verified before the command is to be executed.<br> When the end of the script is reached, unless the -n option is in use, the contents of pattern space are printed out to the output stream, adding back the trailing newline if it was removed. Then the next cycle starts for the next input line.</blockquote><p>The <strong>pattern space</strong> buffer has only contained single line of input in all the examples seen so far. By using <code>n</code> and <code>N</code> commands, you can change the contents of the pattern space and use commands to act upon entire contents of this data buffer. For example, you can perform substitution on two or more lines at once.<p>First up, the <code>n</code> command. Quoting from <a href=https://www.gnu.org/software/sed/manual/sed.html#Common-Commands>sed manual: Often-Used Commands</a>:<blockquote><p>If auto-print is not disabled, print the pattern space, then, regardless, replace the pattern space with the next line of input. If there is no more input then sed exits without processing any more commands.</blockquote><pre><code class=language-bash># same as: sed -n '2~2p'
+# n will replace pattern space with the next line of input
+# as -n option is used, the replaced line won't be printed
+# the p command then prints the new line
 $ seq 10 | sed -n 'n; p'
 2
 4
@@ -329,37 +318,37 @@ $ seq 10 | sed -n 'n; p'
 8
 10
 
-$ # if line contains 't', replace pattern space with the next line
-$ # substitute all 't' with 'TTT' for the new line thus fetched
-$ # note that 't' wasn't substituted in the line that got replaced
-$ # replaced pattern space gets printed as -n option is NOT used here
+# if a line contains 't', replace pattern space with the next line
+# substitute all 't' with 'TTT' for the new line thus fetched
+# note that 't' wasn't substituted in the line that got replaced
+# replaced pattern space gets printed as -n option is NOT used here
 $ printf 'gates\nnot\nused\n' | sed '/t/{n; s/t/TTT/g}'
 gates
 noTTT
 used
-</code></pre><p>Next, the <code>N</code> command. Quoting from <a href=https://www.gnu.org/software/sed/manual/sed.html#Other-Commands>sed manual: Less Frequently-Used Commands</a>:<blockquote><p>Add a newline to the pattern space, then append the next line of input to the pattern space. If there is no more input then sed exits without processing any more commands.<br> When -z is used, a zero byte (the ascii ‘NUL’ character) is added between the lines (instead of a new line).</blockquote><pre><code class=language-bash>$ # append the next line to the pattern space
-$ # and then replace newline character with colon character
+</code></pre><p>Next, the <code>N</code> command. Quoting from <a href=https://www.gnu.org/software/sed/manual/sed.html#Other-Commands>sed manual: Less Frequently-Used Commands</a>:<blockquote><p>Add a newline to the pattern space, then append the next line of input to the pattern space. If there is no more input then sed exits without processing any more commands.<br> When -z is used, a zero byte (the ascii 'NUL' character) is added between the lines (instead of a new line).</blockquote><pre><code class=language-bash># append the next line to the pattern space
+# and then replace newline character with colon character
 $ seq 7 | sed 'N; s/\n/:/'
 1:2
 3:4
 5:6
 7
 
-$ # if line contains 'at', the next line gets appended to the pattern space
-$ # then the substitution is performed on the two lines in the buffer
+# if line contains 'at', the next line gets appended to the pattern space
+# then the substitution is performed on the two lines in the buffer
 $ printf 'gates\nnot\nused\n' | sed '/at/{N; s/s\nnot/d/}'
 gated
 used
-</code></pre><blockquote><p><img src=images/info.svg alt=info> See also <a href=https://www.gnu.org/software/sed/manual/sed.html#N_005fcommand_005flast_005fline>sed manual: N command on the last line</a>. <a href=./breere-regular-expressions.html#escape-sequences>Escape sequences</a> like <code>\n</code> will be discussed in detail later.</blockquote><blockquote><p><img src=images/info.svg alt=info> See <a href=https://www.grymoire.com/Unix/Sed.html>grymoire: sed tutorial</a> if you wish to explore about the data buffers in detail and learn about the various multiline commands.</blockquote><h2 id=cheatsheet-and-summary><a class=header href=#cheatsheet-and-summary>Cheatsheet and summary</a></h2><table><thead><tr><th>Note<th>Description<tbody><tr><td><code>ADDR cmd</code><td>Execute cmd only if input line satisfies the ADDR condition<tr><td><td><code>ADDR</code> can be REGEXP or line number or a combination of them<tr><td><code>/at/d</code><td>delete all lines based on the given REGEXP<tr><td><code>/at/!d</code><td>don't delete lines matching the given REGEXP<tr><td><code>/twice/p</code><td>print all lines based on the given REGEXP<tr><td><td>as print is default action, usually <code>p</code> is paired with <code>-n</code> option<tr><td><code>/not/ s/in/**/gp</code><td>substitute only if line matches given REGEXP<tr><td><td>and print only if the substitution succeeds<tr><td><code>/if/q</code><td>quit immediately after printing current pattern space<tr><td><td>further input files, if any, won't be processed<tr><td><code>/if/Q</code><td>quit immediately without printing current pattern space<tr><td><code>/at/q2</code><td>both <code>q</code> and <code>Q</code> can additionally use <code>0-255</code> as exit code<tr><td><code>-e 'cmd1' -e 'cmd2'</code><td>execute multiple commands one after the other<tr><td><code>cmd1; cmd2</code><td>execute multiple commands one after the other<tr><td><td>note that not all commands can be constructed this way<tr><td><td>commands can also be separated by literal newline character<tr><td><code>ADDR {cmds}</code><td>group one or more commands to be executed for given ADDR<tr><td><td>groups can be nested as well<tr><td><td>ex: <code>/in/{/not/{/you/p}}</code> conditional AND of 3 REGEXPs<tr><td><code>2p</code><td>line addressing, print only 2nd line<tr><td><code>$</code><td>special address to indicate last line of input<tr><td><code>2452{p; q}</code><td>quit early to avoid processing unnecessary lines<tr><td><code>/not/=</code><td>print line number instead of matching line<tr><td><code>ADDR1,ADDR2</code><td>start and end addresses to operate upon<tr><td><td>if ADDR2 doesn't match, lines till end of file gets processed<tr><td><code>/are/,/by/p</code><td>print all groups of line matching the REGEXPs<tr><td><code>3,8d</code><td>delete lines numbered 3 to 8<tr><td><code>5,/use/p</code><td>line number and REGEXP can be mixed<tr><td><code>0,/not/p</code><td>inefficient equivalent of <code>/not/q</code> but works for multiple files<tr><td><code>ADDR,+N</code><td>all lines matching the ADDR and <code>N</code> lines after<tr><td><code>i~j</code><td>arithmetic progression with <code>i</code> as start and <code>j</code> as step<tr><td><code>ADDR,~j</code><td>closest multiple of <code>j</code> w.r.t. line matching the ADDR<tr><td>pattern space<td>active data buffer, commands work on this content<tr><td><code>n</code><td>if <code>-n</code> option isn't used, pattern space gets printed<tr><td><td>and then pattern space is replaced with the next line of input<tr><td><td>exit without executing other commands if there's no more input<tr><td><code>N</code><td>add newline (or NUL for <code>-z</code>) to the pattern space<tr><td><td>and then append next line of input<tr><td><td>exit without executing other commands if there's no more input</table><p>This chapter introduced the filtering capabilities of <code>sed</code> and how it can be combined with <code>sed</code> commands to process only lines of interest instead of the entire input contents. Filtering can be specified using a REGEXP, line number or a combination of them. You also learnt various ways to compose multiple <code>sed</code> commands. In the next chapter, you will learn syntax and features of regular expressions as implemented in <code>sed</code> command.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><p><strong>a)</strong> Remove only the third line of given input.<pre><code class=language-bash>$ seq 34 37 | sed ##### add your solution here
+</code></pre><blockquote><p><img alt=info src=images/info.svg> See also <a href=https://www.gnu.org/software/sed/manual/sed.html#N_005fcommand_005flast_005fline>sed manual: N command on the last line</a>. <a href=./breere-regular-expressions.html#escape-sequences>Escape sequences</a> like <code>\n</code> will be discussed in detail later.</blockquote><blockquote><p><img alt=info src=images/info.svg> See <a href=https://www.grymoire.com/Unix/Sed.html>grymoire: sed tutorial</a> if you wish to explore about the data buffers in detail and learn about the various multiline commands.</blockquote><h2 id=cheatsheet-and-summary><a class=header href=#cheatsheet-and-summary>Cheatsheet and summary</a></h2><div class=table-wrapper><table><thead><tr><th>Note<th>Description<tbody><tr><td><code>ADDR cmd</code><td>Execute cmd only if the input line satisfies the ADDR condition<tr><td><td><code>ADDR</code> can be REGEXP or line number or a combination of them<tr><td><code>/at/d</code><td>delete all lines satisfying the given REGEXP<tr><td><code>/at/!d</code><td>don't delete lines matching the given REGEXP<tr><td><code>/twice/p</code><td>print all lines based on the given REGEXP<tr><td><td>as print is the default action, usually <code>p</code> is paired with <code>-n</code> option<tr><td><code>/not/ s/in/out/gp</code><td>substitute only if line matches the given REGEXP<tr><td><td>and print only if the substitution succeeds<tr><td><code>/if/q</code><td>quit immediately after printing the current pattern space<tr><td><td>further input files, if any, won't be processed<tr><td><code>/if/Q</code><td>quit immediately without printing the current pattern space<tr><td><code>/at/q2</code><td>both <code>q</code> and <code>Q</code> can additionally use <code>0-255</code> as exit code<tr><td><code>-e 'cmd1' -e 'cmd2'</code><td>execute multiple commands one after the other<tr><td><code>cmd1; cmd2</code><td>execute multiple commands one after the other<tr><td><td>note that not all commands can be constructed this way<tr><td><td>commands can also be separated by a literal newline character<tr><td><code>ADDR {cmds}</code><td>group one or more commands to be executed for given ADDR<tr><td><td>groups can be nested as well<tr><td><td>ex: <code>/in/{/not/{/you/p}}</code> conditional AND of 3 REGEXPs<tr><td><code>2p</code><td>line addressing, print only the 2nd line<tr><td><code>$</code><td>special address to indicate the last line of input<tr><td><code>2452{p; q}</code><td>quit early to avoid processing unnecessary lines<tr><td><code>/not/=</code><td>print line number instead of the matching line<tr><td><code>ADDR1,ADDR2</code><td>start and end addresses to operate upon<tr><td><td>if ADDR2 doesn't match, lines till end of the file gets processed<tr><td><code>/are/,/by/p</code><td>print all groups of line matching the REGEXPs<tr><td><code>3,8d</code><td>delete lines numbered 3 to 8<tr><td><code>5,/use/p</code><td>line number and REGEXP can be mixed<tr><td><code>0,/not/p</code><td>inefficient equivalent of <code>/not/q</code> but works for multiple files<tr><td><code>ADDR,+N</code><td>all lines matching the ADDR and <code>N</code> lines after<tr><td><code>i~j</code><td>arithmetic progression with <code>i</code> as start and <code>j</code> as step<tr><td><code>ADDR,~j</code><td>closest multiple of <code>j</code> w.r.t. the line matching the ADDR<tr><td>pattern space<td>active data buffer, commands work on this content<tr><td><code>n</code><td>if <code>-n</code> option isn't used, pattern space gets printed<tr><td><td>and then pattern space is replaced with the next line of input<tr><td><td>exit without executing other commands if there's no more input<tr><td><code>N</code><td>add newline (or NUL for <code>-z</code>) to the pattern space<tr><td><td>and then append the next line of input<tr><td><td>exit without executing other commands if there's no more input</table></div><p>This chapter introduced the filtering capabilities of <code>sed</code> and how it can be combined with <code>sed</code> commands to process only lines of interest instead of the entire input contents. Filtering can be specified using a REGEXP, line number or a combination of them. You also learnt various ways to compose multiple <code>sed</code> commands. In the next chapter, you will learn syntax and features of regular expressions as supported by the <code>sed</code> command.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnused/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> For the given input, display except the third line.<pre><code class=language-bash>$ seq 34 37 | sed ##### add your solution here
 34
 35
 37
-</code></pre><p><strong>b)</strong> Display only fourth, fifth, sixth and seventh lines for the given input.<pre><code class=language-bash>$ seq 65 78 | sed ##### add your solution here
+</code></pre><p><strong>2)</strong> Display only the fourth, fifth, sixth and seventh lines for the given input.<pre><code class=language-bash>$ seq 65 78 | sed ##### add your solution here
 68
 69
 70
 71
-</code></pre><p><strong>c)</strong> For the input file <code>addr.txt</code>, replace all occurrences of <code>are</code> with <code>are not</code> and <code>is</code> with <code>is not</code> only from line number <strong>4</strong> till end of file. Also, only the lines that were changed should be displayed in the output.<pre><code class=language-bash>$ cat addr.txt
+</code></pre><p><strong>3)</strong> For the input file <code>addr.txt</code>, replace all occurrences of <code>are</code> with <code>are not</code> and <code>is</code> with <code>is not</code> only from line number <strong>4</strong> till the end of file. Also, only the lines that were changed should be displayed in the output.<pre><code class=language-bash>$ cat addr.txt
 Hello World
 How are you
 This game is good
@@ -370,20 +359,20 @@ You are funny
 $ sed ##### add your solution here
 Today is not sunny
 You are not funny
-</code></pre><p><strong>d)</strong> Use <code>sed</code> to get the output shown below for the given input. You'll have to first understand the logic behind input to output transformation and then use commands introduced in this chapter to construct a solution.<pre><code class=language-bash>$ seq 15 | sed ##### add your solution here
+</code></pre><p><strong>4)</strong> Use <code>sed</code> to get the output shown below for the given input. You'll have to first understand the input to output transformation logic and then use commands introduced in this chapter to construct a solution.<pre><code class=language-bash>$ seq 15 | sed ##### add your solution here
 2
 4
 7
 9
 12
 14
-</code></pre><p><strong>e)</strong> For the input file <code>addr.txt</code>, display all lines from start of the file till the first occurrence of <code>game</code>.<pre><code class=language-bash>$ sed ##### add your solution here
+</code></pre><p><strong>5)</strong> For the input file <code>addr.txt</code>, display all lines from the start of the file till the first occurrence of <code>is</code>.<pre><code class=language-bash>$ sed ##### add your solution here
 Hello World
 How are you
 This game is good
-</code></pre><p><strong>f)</strong> For the input file <code>addr.txt</code>, display all lines that contain <code>is</code> but not <code>good</code>.<pre><code class=language-bash>$ sed ##### add your solution here
+</code></pre><p><strong>6)</strong> For the input file <code>addr.txt</code>, display all lines that contain <code>is</code> but not <code>good</code>.<pre><code class=language-bash>$ sed ##### add your solution here
 Today is sunny
-</code></pre><p><strong>g)</strong> See <a href=./gotchas-and-tricks.html#gotchas-and-tricks>Gotchas and Tricks</a> chapter and correct the command to get the output as shown below.<pre><code class=language-bash>$ # wrong output
+</code></pre><p><strong>7)</strong> <code>n</code> and <code>N</code> commands will not execute further commands if there are no more input lines to fetch. Correct the command shown below to get the expected output.<pre><code class=language-bash># wrong output
 $ seq 11 | sed 'N; N; s/\n/-/g'
 1-2-3
 4-5-6
@@ -391,13 +380,13 @@ $ seq 11 | sed 'N; N; s/\n/-/g'
 10
 11
 
-$ # expected output
+# expected output
 $ seq 11 | sed ##### add your solution here
 1-2-3
 4-5-6
 7-8-9
 10-11
-</code></pre><p><strong>h)</strong> For the input file <code>addr.txt</code>, add line numbers in the format as shown below.<pre><code class=language-bash>$ sed ##### add your solution here
+</code></pre><p><strong>8)</strong> For the input file <code>addr.txt</code>, add line numbers in the format as shown below.<pre><code class=language-bash>$ sed ##### add your solution here
 1
 Hello World
 2
@@ -410,14 +399,50 @@ Today is sunny
 12345
 6
 You are funny
-</code></pre><p><strong>i)</strong> For the input file <code>addr.txt</code>, print all lines that contain <code>are</code> and the line that comes after such a line, if any.<pre><code class=language-bash>$ sed ##### add your solution here
+</code></pre><p><strong>9)</strong> For the input file <code>addr.txt</code>, print all lines that contain <code>are</code> and the line that comes after, if any.<pre><code class=language-bash>$ sed ##### add your solution here
 How are you
 This game is good
 You are funny
-</code></pre><p><strong>Bonus:</strong> For the above input file, will <code>sed -n '/is/,+1 p' addr.txt</code> produce identical results as <code>grep -A1 'is' addr.txt</code>? If not, why?<p><strong>j)</strong> Print all lines if their line numbers follow the sequence <code>1, 15, 29, 43, etc</code> but not if the line contains <code>4</code> in it.<pre><code class=language-bash>$ seq 32 100 | sed ##### add your solution here
+</code></pre><p><strong>Bonus:</strong> For the above input file, will <code>sed -n '/is/,+1 p' addr.txt</code> produce identical results as <code>grep -A1 'is' addr.txt</code>? If not, why?<p><strong>10)</strong> Print all lines if their line numbers follow the sequence 1, 15, 29, 43, etc but not if the line contains <code>4</code> in it.<pre><code class=language-bash>$ seq 32 100 | sed ##### add your solution here
 32
 60
 88
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=in-place-file-editing.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=breere-regular-expressions.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=in-place-file-editing.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=breere-regular-expressions.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
-            window.playground_copyable = true;
-        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
+</code></pre><p><strong>11)</strong> For the input file <code>sample.txt</code>, display from the start of the file till the first occurrence of <code>are</code>, excluding the matching line.<pre><code class=language-bash>$ cat sample.txt
+Hello World
+
+Hi there
+How are you
+
+Just do-it
+Believe it
+
+banana
+papaya
+mango
+
+Much ado about nothing
+He he he
+Adios amigo
+
+$ sed ##### add your solution here
+Hello World
+
+Hi there
+</code></pre><p><strong>12)</strong> For the input file <code>sample.txt</code>, display from the last occurrence of <code>do</code> till the end of the file.<pre><code class=language-bash>##### add your solution here
+Much ado about nothing
+He he he
+Adios amigo
+</code></pre><p><strong>13)</strong> For the input file <code>sample.txt</code>, display from the 9th line till a line containing <code>go</code>.<pre><code class=language-bash>$ sed ##### add your solution here
+banana
+papaya
+mango
+</code></pre><p><strong>14)</strong> For the input file <code>sample.txt</code>, display from a line containing <code>it</code> till the next line number that is divisible by 3.<pre><code class=language-bash>$ sed ##### add your solution here
+Just do-it
+Believe it
+
+banana
+</code></pre><p><strong>15)</strong> Display only the odd numbered lines from <code>addr.txt</code>.<pre><code class=language-bash>$ sed ##### add your solution here
+Hello World
+This game is good
+12345
+</code></pre></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=in-place-file-editing.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="mobile-nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=breere-regular-expressions.html rel=next> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=in-place-file-editing.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=breere-regular-expressions.html rel=next> <i class="fa fa-angle-right"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>

@@ -1,8 +1,5 @@
-<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Gotchas and Tricks - GNU SED</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide to mastering GNU SED"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script><script>
-            try {
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Gotchas and Tricks - CLI text processing with GNU sed</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Example based guide to mastering GNU sed"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="CLI text processing with GNU sed"property=og:title><meta content=website property=og:type><meta content="Example based guide to mastering GNU sed"property=og:description><meta content=https://learnbyexample.github.io/learn_gnused/ property=og:url><meta content=https://raw.githubusercontent.com/learnbyexample/learn_gnused/master/images/sed_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
 
@@ -13,282 +10,277 @@
                 if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
-            } catch (e) { }
-        </script><script>
-            var theme;
+            } catch (e) { }</script><script>var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
             html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
-        </script><script>
-            var html = document.querySelector('html');
+            html.classList.add('js');</script><script>var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>2.</strong> Introduction</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>3.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=selective-editing.html><strong aria-hidden=true>4.</strong> Selective editing</a><li class="chapter-item expanded"><a href=breere-regular-expressions.html><strong aria-hidden=true>5.</strong> BRE/ERE Regular Expressions</a><li class="chapter-item expanded"><a href=flags.html><strong aria-hidden=true>6.</strong> Flags</a><li class="chapter-item expanded"><a href=shell-substitutions.html><strong aria-hidden=true>7.</strong> Shell substitutions</a><li class="chapter-item expanded"><a href=z-s-and-f-command-line-options.html><strong aria-hidden=true>8.</strong> z, s and f command line options</a><li class="chapter-item expanded"><a href=append-change-insert.html><strong aria-hidden=true>9.</strong> append, change, insert</a><li class="chapter-item expanded"><a href=adding-content-from-file.html><strong aria-hidden=true>10.</strong> Adding content from file</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>11.</strong> Control structures</a><li class="chapter-item expanded"><a href=processing-lines-bounded-by-distinct-markers.html><strong aria-hidden=true>12.</strong> Processing lines bounded by distinct markers</a><li class="chapter-item expanded"><a href=gotchas-and-tricks.html class=active><strong aria-hidden=true>13.</strong> Gotchas and Tricks</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>14.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>15.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/learn_gnused>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>GNU SED</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/learn_gnused title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=introduction.html><strong aria-hidden=true>2.</strong> Introduction</a><li class="chapter-item expanded"><a href=in-place-file-editing.html><strong aria-hidden=true>3.</strong> In-place file editing</a><li class="chapter-item expanded"><a href=selective-editing.html><strong aria-hidden=true>4.</strong> Selective editing</a><li class="chapter-item expanded"><a href=breere-regular-expressions.html><strong aria-hidden=true>5.</strong> BRE/ERE Regular Expressions</a><li class="chapter-item expanded"><a href=flags.html><strong aria-hidden=true>6.</strong> Flags</a><li class="chapter-item expanded"><a href=shell-substitutions.html><strong aria-hidden=true>7.</strong> Shell substitutions</a><li class="chapter-item expanded"><a href=z-s-and-f-command-line-options.html><strong aria-hidden=true>8.</strong> z, s and f command line options</a><li class="chapter-item expanded"><a href=append-change-insert.html><strong aria-hidden=true>9.</strong> append, change, insert</a><li class="chapter-item expanded"><a href=adding-content-from-file.html><strong aria-hidden=true>10.</strong> Adding content from file</a><li class="chapter-item expanded"><a href=control-structures.html><strong aria-hidden=true>11.</strong> Control structures</a><li class="chapter-item expanded"><a href=processing-lines-bounded-by-distinct-markers.html><strong aria-hidden=true>12.</strong> Processing lines bounded by distinct markers</a><li class="chapter-item expanded"><a class=active href=gotchas-and-tricks.html><strong aria-hidden=true>13.</strong> Gotchas and Tricks</a><li class="chapter-item expanded"><a href=further-reading.html><strong aria-hidden=true>14.</strong> Further Reading</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>15.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/learn_gnused>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>CLI text processing with GNU sed</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/learn_gnused> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=gotchas-and-tricks><a class=header href=#gotchas-and-tricks>Gotchas and Tricks</a></h1><ol><li>Use single quotes to enclose <code>sed</code> commands on the command line to avoid potential conflict with shell metacharacters. This case applies when the command doesn't need variable or command substitution.</ol><pre><code class=language-bash>$ # space is a shell metacharacter, hence the error
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=gotchas-and-tricks><a class=header href=#gotchas-and-tricks>Gotchas and Tricks</a></h1><p>This chapter will discuss some of the often made beginner mistakes, corner cases as well as a few tricks to improve performance. Some of the examples were already covered in the previous chapters.<blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_gnused/tree/master/example_files>example_files</a> directory has all the files used in the examples.</blockquote><h2 id=shell-quoting><a class=header href=#shell-quoting>Shell quoting</a></h2><p>Use single quotes to enclose the script on the command line to avoid potential conflict with shell metacharacters.<pre><code class=language-bash># space is a shell metacharacter, hence the error
 $ echo 'a sunny day' | sed s/sunny day/cloudy day/
 sed: -e expression #1, char 7: unterminated `s' command
-$ # shell treats characters inside single quotes literally
+
+# shell treats characters inside single quotes literally
 $ echo 'a sunny day' | sed 's/sunny day/cloudy evening/'
 a cloudy evening
-</code></pre><ol start=2><li>On the other hand, beginners often do not realize the difference between single and double quotes and expect shell substitutions to work from within single quotes. See <a href=https://mywiki.wooledge.org/Quotes>wooledge: Quotes</a> and <a href=https://unix.stackexchange.com/q/131766/109046>unix.stackexchange: Why does my shell script choke on whitespace or other special characters?</a> for details about various quoting mechanisms.</ol><pre><code class=language-bash>$ # $USER won't get expanded within single quotes
+</code></pre><p>On the other hand, beginners often do not realize the difference between single and double quotes and expect shell substitutions to work from within single quotes. See <a href=https://mywiki.wooledge.org/Quotes>wooledge: Quotes</a> and <a href=https://unix.stackexchange.com/q/131766/109046>unix.stackexchange: Why does my shell script choke on whitespace or other special characters?</a> for details about various quoting mechanisms.<pre><code class=language-bash># $USER won't get expanded within single quotes
 $ echo 'User name: ' | sed 's/$/$USER/'
 User name: $USER
 
-$ # use double quotes for such cases
+# use double quotes for such cases
 $ echo 'User name: ' | sed "s/$/$USER/"
 User name: learnbyexample
-</code></pre><ol start=3><li>When shell substitution is needed, surrounding entire command with double quotes may lead to issues due to conflict between <code>sed</code> and <code>bash</code> special characters. So, use double quotes only for the portion of the command where it is required.</ol><pre><code class=language-bash>$ # ! is one of special shell characters within double quotes
+</code></pre><p>When shell substitution is needed, surrounding entire command with double quotes may lead to issues due to conflict between <code>sed</code> and <code>bash</code> special characters. So, use double quotes only for the portion of the command where it is required.<pre><code class=language-bash># ! is one of special shell characters within double quotes
 $ word='at'
+# !d got expanded to 'date -Is' from my history and hence the error
 $ printf 'sea\neat\ndrop\n' | sed "/${word}/!d"
 printf 'sea\neat\ndrop\n' | sed "/${word}/date -Is"
 sed: -e expression #1, char 6: extra characters after command
 
-$ # works correctly when only the required portion is double quoted
+# works correctly when only the required portion is double quoted
 $ printf 'sea\neat\ndrop\n' | sed '/'"${word}"'/!d'
 eat
-</code></pre><ol start=4><li>Another gotcha when applying variable or command substitution is the conflict between <code>sed</code> metacharacters and the value of the substituted string. See also <a href=https://stackoverflow.com/q/29613304/4082052>stackoverflow: Is it possible to escape regex metacharacters reliably with sed</a> and <a href=https://unix.stackexchange.com/q/297122/109046>unix.stackexchange: security consideration when using shell substitution</a>.</ol><pre><code class=language-bash>$ # variable being substituted cannot have the delimiter character
-$ printf 'home\n' | sed 's/$/: '"$HOME"'/'
+</code></pre><h2 id=escaping-metacharacters><a class=header href=#escaping-metacharacters>Escaping metacharacters</a></h2><p>Another gotcha when applying variable or command substitution is the conflict between <code>sed</code> metacharacters and the value of the substituted string.<pre><code class=language-bash># variable being substituted cannot have the delimiter character
+$ printf 'path\n' | sed 's/$/: '"$HOME"'/'
 sed: -e expression #1, char 8: unknown option to `s'
 
-$ # use a different delimiter that won't conflict with variable value
-$ printf 'home\n' | sed 's|$|: '"$HOME"'|'
-home: /home/learnbyexample
-</code></pre><ol start=5><li>You can specify command line options after filename arguments. Useful if you forgot some option(s) and want to edit the previous command from history.</ol><pre><code class=language-bash>$ printf 'boat\nsite\nfoot\n' > temp.txt
-$ # no output, as + is not special with default BRE
-$ sed -n '/[aeo]+t/p' temp.txt
+# use a different delimiter that won't conflict with the variable value
+$ printf 'path\n' | sed 's|$|: '"$HOME"'|'
+path: /home/learnbyexample
+</code></pre><p>But you might not have the luxury of choosing a delimiter that won't conflict with characters in the shell variable. Also, for literal search and replace, you'll have to preprocess the variable content to escape metacharacters. See the <a href=./shell-substitutions.html#shell-substitutions>Shell substitutions</a> chapter for details and examples for such cases.<h2 id=options-at-the-end-of-the-command><a class=header href=#options-at-the-end-of-the-command>Options at the end of the command</a></h2><p>You can specify command line options even at the end of the command. Useful if you forgot some option(s) and want to edit the previous command from the shell history.<pre><code class=language-bash># no output, as + is not special with default BRE
+$ printf 'boat\nsite\nfoot\n' | sed -n 's/[aeo]+t/(&)/p'
 
-$ # pressing up arrow will bring up the last command from history
-$ # then you can add the option needed at the end of the command
-$ sed -n '/[aeo]+t/p' temp.txt -E
-boat
-foot
-</code></pre><p>As a corollary, if a filename starts with <code>-</code>, you need to either escape it or use <code>--</code> as an option to indicate that no more options will be used. The <code>--</code> feature is not unique to <code>sed</code> command, it is applicable to many other commands as well and typically used when filenames are obtained from another source or expanded by shell globs such as <code>*.txt</code>.<pre><code class=language-bash>$ echo 'hi hello' > -dash.txt
+# pressing up arrow will bring up the last command from history
+# then you can add the option needed at the end of the command
+$ printf 'boat\nsite\nfoot\n' | sed -n 's/[aeo]+t/(&)/p' -E
+b(oat)
+f(oot)
+</code></pre><p>As a corollary, if a filename starts with <code>-</code>, you need to either escape it or use <code>--</code> as an option to indicate that no more options will be used. The <code>--</code> feature is not unique to the <code>sed</code> command, it is applicable to many other commands as well and typically used when filenames are obtained from another source or expanded by shell globs such as <code>*.txt</code>.<pre><code class=language-bash>$ echo 'hi hello' > -dash.txt
 $ sed 's/hi/HI/' -dash.txt
 sed: invalid option -- 'd'
 
 $ sed -- 's/hi/HI/' -dash.txt
 HI hello
 
-$ # clean up temporary file
+# clean up temporary file
 $ rm -- -dash.txt
-</code></pre><ol start=6><li>Your command might not work and/or get weird output if your input file has dos style line endings.</ol><pre><code class=language-bash>$ # substitution doesn't work here because of dos style line ending
+</code></pre><h2 id=dos-style-line-endings><a class=header href=#dos-style-line-endings>DOS style line endings</a></h2><p>Your command might not work and/or produce weird output if your input content has DOS style line endings.<pre><code class=language-bash># substitution doesn't work here because of DOS style line ending
 $ printf 'hi there\r\ngood day\r\n' | sed -E 's/\w+$/123/'
 hi there
 good day
-$ # matching \r optionally is one way to solve this issue
-$ # that way, it'll work for both \r\n and \n line endings
+# matching \r optionally is one way to solve this issue
+# that way, it'll work for both \r\n and \n line endings
 $ printf 'hi there\r\ngood day\r\n' | sed -E 's/\w+(\r?)$/123\1/'
 hi 123
 good 123
 
-$ # swapping every two columns, works well with \n line ending
+# swapping every two columns, works well with \n line ending
 $ printf 'good,bad,42,24\n' | sed -E 's/([^,]+),([^,]+)/\2,\1/g'
 bad,good,24,42
-$ # output gets mangled with \r\n line ending
+# output gets mangled with \r\n line ending
 $ printf 'good,bad,42,24\r\n' | sed -E 's/([^,]+),([^,]+)/\2,\1/g'
 ,42,good,24
-</code></pre><p>I use these <code>bash</code> functions (as part of <code>.bashrc</code> configuration) to easily switch between dos and unix style line endings. Some Linux distribution may come with these commands installed by default. See also <a href=https://stackoverflow.com/q/45772525/4082052>stackoverflow: Why does my tool output overwrite itself and how do I fix it?</a><pre><code class=language-bash>unix2dos() { sed -i 's/$/\r/' "$@" ; }
+</code></pre><p>I use these <code>bash</code> functions (as part of <code>.bashrc</code> configuration) to easily switch between DOS and Unix style line endings. Some Linux distribution may come with these commands installed by default. See also <a href=https://stackoverflow.com/q/45772525/4082052>stackoverflow: Why does my tool output overwrite itself and how do I fix it?</a><pre><code class=language-bash>unix2dos() { sed -i 's/$/\r/' "$@" ; }
 dos2unix() { sed -i 's/\r$//' "$@" ; }
-</code></pre><ol start=7><li>Unlike <code>grep</code>, <code>sed</code> will not add a newline if last line of input didn't have one.</ol><pre><code class=language-bash>$ # grep added a newline even though 'drop' doesn't end with newline
+</code></pre><h2 id=no-newline-at-the-end-of-the-last-input-line><a class=header href=#no-newline-at-the-end-of-the-last-input-line>No newline at the end of the last input line</a></h2><p>Unlike <code>grep</code>, <code>sed</code> will not add a newline if the last line of input didn't have one.<pre><code class=language-bash># grep adds a newline even though 'drop' doesn't end with newline
 $ printf 'sea\neat\ndrop' | grep -v 'at'
 sea
 drop
-$ # sed will not do so
-$ # note how the prompt appears after 'drop'
+
+# sed will not do so
+# note how the prompt appears after 'drop'
 $ printf 'sea\neat\ndrop' | sed '/at/d'
 sea
 drop$ 
-</code></pre><ol start=8><li>Use of <code>-e</code> option for commands like <code>a/c/i/r/R</code> when command grouping is also required.</ol><pre><code class=language-bash>$ # } gets treated as part of argument for append command, hence the error
+</code></pre><h2 id=command-grouping-and--e-option><a class=header href=#command-grouping-and--e-option>Command grouping and -e option</a></h2><p>Some commands (for example, the <code>s</code> command) can be terminated with a semicolon or <code>}</code> (command grouping). But commands like <code>a</code> and <code>r</code> will treat them as part of the string argument. You can use a literal newline to terminate such commands or use the <code>-e</code> option as shown below.<pre><code class=language-bash># } gets treated as part of the string argument, hence the error
 $ seq 3 | sed '2{s/^/*/; a hi}'
 sed: -e expression #1, char 0: unmatched `{'
 
-$ # } now used with -e, but -e is still missing for first half of command
-$ seq 3 | sed '2{s/^/*/; a hi' -e '}'
-sed: -e expression #1, char 1: unexpected `}'
-
-$ # -e now properly used for both portions of the command
+# -e to the rescue
+# note the use of -e for the first portion of the command as well
 $ seq 3 | sed -e '2{s/^/*/; a hi' -e '}'
 1
 *2
 hi
 3
-</code></pre><ol start=9><li>Longest match wins. See also <a href=./breere-regular-expressions.html#longest-match-wins>Longest match wins section</a>.</ol><pre><code class=language-bash>$ s='food land bark sand band cue combat'
-$ # this will always match from first 'foo' to last 'ba'
+</code></pre><h2 id=longest-match-wins><a class=header href=#longest-match-wins>Longest match wins</a></h2><p><code>sed</code> doesn't support something like the non-greedy quantifier found in other flavors like Perl and Python. See also <a href=./breere-regular-expressions.html#longest-match-wins>Longest match wins section</a> for more details.<pre><code class=language-bash>$ s='food land bark sand band cue combat'
+# this will always match from the first 'foo' to the last 'ba'
 $ echo "$s" | sed 's/foo.*ba/X/'
 Xt
-$ # if you need to match from first 'foo' to first 'ba', then
-$ # use a tool which supports non-greedy quantifiers
+
+# if you need to match from the first 'foo' to the first 'ba', then
+# use a tool which supports non-greedy quantifiers
 $ echo "$s" | perl -pe 's/foo.*?ba/X/'
 Xrk sand band cue combat
-</code></pre><p>For certain cases, character class can help in matching only the relevant characters. And in some cases, adding more qualifiers instead of just <code>.*</code> can help. See <a href=https://stackoverflow.com/q/45168607/4082052>stackoverflow: How to replace everything until the first occurrence</a> for an example.<pre><code class=language-bash>$ echo '{52} apples and {31} mangoes' | sed 's/{.*}/42/g'
+</code></pre><p>For certain cases, character class can help in matching only the relevant characters. And in some cases, adding more qualifiers instead of just <code>.*</code> can help. See <a href=https://stackoverflow.com/q/45168607/4082052>stackoverflow: How to replace everything until the first occurrence</a> for an example.<pre><code class=language-bash># first { to the last }
+$ echo '{52} apples and {31} mangoes' | sed 's/{.*}/42/g'
 42 mangoes
+
+# matches from { to the very next }
 $ echo '{52} apples and {31} mangoes' | sed 's/{[^}]*}/42/g'
 42 apples and 42 mangoes
-</code></pre><ol start=10><li>Beware of empty matches when using the <code>*</code> quantifier.</ol><pre><code class=language-bash>$ # * matches zero or more times
+</code></pre><h2 id=empty-matches-with--quantifier><a class=header href=#empty-matches-with--quantifier>Empty matches with * quantifier</a></h2><p>Beware of empty matches when using the <code>*</code> quantifier.<pre><code class=language-bash># * matches zero or more times
 $ echo '42,,,,,hello,bye,,,hi' | sed 's/,*/,/g'
 ,4,2,h,e,l,l,o,b,y,e,h,i,
-$ # + matches one or more times
+
+# + matches one or more times
 $ echo '42,,,,,hello,bye,,,hi' | sed -E 's/,+/,/g'
 42,hello,bye,hi
-</code></pre><ol start=11><li>BRE vs ERE syntax could get confusing for beginners. Quoting from the manual:</ol><blockquote><p>In GNU sed, the only difference between basic and extended regular expressions is in the behavior of a few special characters: <code>?</code>, <code>+</code>, parentheses, braces (<code>{}</code>), and <code>|</code>.</blockquote><pre><code class=language-bash>$ # no match as + is not special with default BRE
+</code></pre><h2 id=bre-vs-ere><a class=header href=#bre-vs-ere>BRE vs ERE</a></h2><p>Unlike other implementations of <code>sed</code>, there are no feature differences between BRE and ERE flavors in <code>GNU sed</code>. Quoting from the manual:<blockquote><p>In GNU sed, the only difference between basic and extended regular expressions is in the behavior of a few special characters: <code>?</code>, <code>+</code>, parentheses, braces (<code>{}</code>), and <code>|</code>.</blockquote><pre><code class=language-bash># no match as + is not special with default BRE
 $ echo '52 apples and 31234 mangoes' | sed 's/[0-9]+/[&]/g'
 52 apples and 31234 mangoes
-$ # so, either use \+ with BRE or use + with ERE
+# so, either use \+ with BRE or use + with ERE
 $ echo '52 apples and 31234 mangoes' | sed 's/[0-9]\+/[&]/g'
 [52] apples and [31234] mangoes
 
-$ # the reverse is also common, use of escapes when not required
+# the reverse is also a common beginner mistake
 $ echo 'get {} set' | sed 's/\{\}/[]/'
 sed: -e expression #1, char 10: Invalid preceding regular expression
 $ echo 'get {} set' | sed 's/{}/[]/'
 get [] set
-</code></pre><ol start=12><li>Online tools like <a href=https://regex101.com/>regex101</a> and <a href=https://www.debuggex.com>debuggex</a> can be very useful for beginners to regular expressions, especially for debugging purposes. However, their popularity has lead to users trying out their pattern on these sites and expecting them to work as is for command line tools like <code>grep</code>, <code>sed</code> and <code>awk</code>. The issue arises when features like <strong>non-greedy</strong> and <strong>lookarounds</strong> are used as they wouldn't work with BRE/ERE. See also <a href=https://unix.stackexchange.com/q/119905/109046>unix.stackexchange: Why does my regular expression work in X but not in Y?</a></ol><pre><code class=language-bash>$ echo '1,,,two,,3' | sed -E 's/,\K(?=,)/NA/g'
+</code></pre><h2 id=using-online-regexp-tools><a class=header href=#using-online-regexp-tools>Using online regexp tools</a></h2><p>Online tools like <a href=https://regex101.com/>regex101</a> and <a href=https://www.debuggex.com>debuggex</a> can be very useful, especially for debugging purposes. However, their popularity has lead to users trying out their pattern on these sites and expecting them to work as is for command line tools like <code>grep</code>, <code>sed</code> and <code>awk</code>. The issue arises when features like <strong>non-greedy</strong> and <strong>lookarounds</strong> are used, as they wouldn't work with BRE/ERE. See also <a href=https://unix.stackexchange.com/q/119905/109046>unix.stackexchange: Why does my regular expression work in X but not in Y?</a><pre><code class=language-bash>$ echo '1,,,two,,3' | sed -E 's/,\K(?=,)/NA/g'
 sed: -e expression #1, char 15: Invalid preceding regular expression
 $ echo '1,,,two,,3' | perl -pe 's/,\K(?=,)/NA/g'
 1,NA,NA,two,NA,3
 
-$ # \d is not available as character set escape sequence
-$ # will match 'd' instead
+# \d is not available as a character set escape sequence
+# will match 'd' instead
 $ echo '52 apples and 31234 mangoes' | sed -E 's/\d+/[&]/g'
 52 apples an[d] 31234 mangoes
 $ echo '52 apples and 31234 mangoes' | perl -pe 's/\d+/[$&]/g'
 [52] apples and [31234] mangoes
-</code></pre><ol start=13><li>If you are facing issues with end of line matching, it is often due to dos-style line ending (discussed earlier in this chapter) or whitespace characters at the end of line.</ol><pre><code class=language-bash>$ # there's no visual clue to indicate whitespace characters at end of line
+</code></pre><h2 id=end-of-line-matching><a class=header href=#end-of-line-matching>End of line matching</a></h2><p>If you are facing issues with end of line matching, it is often due to DOS-style line ending (discussed earlier in this chapter) or whitespace characters at the end of line.<pre><code class=language-bash># there's no visual clue to indicate whitespace characters at the end of line
 $ printf 'food bark \n1234 6789\t\n'
 food bark 
 1234 6789	
-$ # no match
+# no match
 $ printf 'food bark \n1234 6789\t\n' | sed -E 's/\w+$/xyz/'
 food bark 
 1234 6789	
 
-$ # cat command has options to indicate end of line, tabs, etc
+# cat command has options to indicate end of line, tabs, etc
 $ printf 'food bark \n1234 6789\t\n' | cat -A
 food bark $
 1234 6789^I$
-$ # works now, as whitespace characters are matched too
+# works now, as whitespace characters at the end are matched too
 $ printf 'food bark \n1234 6789\t\n' | sed -E 's/\w+\s*$/xyz/'
 food xyz
 1234 xyz
-</code></pre><ol start=14><li>The word boundary <code>\b</code> matches both start and end of word locations. Whereas, <code>\<</code> and <code>\></code> match exactly the start and end of word locations respectively. This leads to cases where you have to choose which of these word boundaries to use depending on results desired. Consider <code>I have 12, he has 2!</code> as sample text, shown below as an image with vertical bars marking the word boundaries. The last character <code>!</code> doesn't have end of word boundary as it is not a word character.</ol><p><img src=images/word_boundary.png alt="word boundary"><pre><code class=language-bash>$ # \b matches both start and end of word boundaries
-$ # the first match here used starting boundary of 'I' and 'have'
+</code></pre><h2 id=word-boundary-differences><a class=header href=#word-boundary-differences>Word boundary differences</a></h2><p>The word boundary <code>\b</code> matches both the start and end of word locations. Whereas, <code>\<</code> and <code>\></code> will match exactly the start and end of word locations respectively. This leads to cases where you have to choose which of these word boundaries to use depending on the results desired. Consider <code>I have 12, he has 2!</code> as a sample text, shown below as an image with vertical bars marking the word boundaries. The last character <code>!</code> doesn't have the end of word boundary marker as it is not a word character.<p align=center><img alt="word boundary"src=images/word_boundary.png><pre><code class=language-bash># \b matches both the start and end of word boundaries
+# the first match here used starting boundary of 'I' and 'have'
 $ echo 'I have 12, he has 2!' | sed 's/\b..\b/[&]/g'
 [I ]have [12][, ][he] has[ 2]!
 
-$ # \< and \> only match the start and end word boundaries respectively
+# \< and \> only matches the start and end word boundaries respectively
 $ echo 'I have 12, he has 2!' | sed 's/\<..\>/[&]/g'
 I have [12], [he] has 2!
-</code></pre><p>Here's another example to show the difference between the two types of word boundaries.<pre><code class=language-bash>$ # add something to both start/end of word
+</code></pre><p>Here's another example to show the difference between the two types of word boundaries.<pre><code class=language-bash># add something to both the start/end of word
 $ echo 'hi log_42 12b' | sed 's/\b/:/g'
 :hi: :log_42: :12b:
 
-$ # add something only at start of word
+# add something only at the start of word
 $ echo 'hi log_42 12b' | sed 's/\&LT/:/g'
 :hi :log_42 :12b
 
-$ # add something only at end of word
+# add something only at the end of word
 $ echo 'hi log_42 12b' | sed 's/\>/:/g'
 hi: log_42: 12b:
-</code></pre><ol start=15><li>For some cases, you could simplify and improve readability of a substitution command by adding a filter condition instead of using substitution only.</ol><pre><code class=language-bash>$ # insert 'Error: ' at start of line if the line contains '42'
-$ # also, remove all other starting whitespaces for such lines
+</code></pre><h2 id=filter-and-then-substitute><a class=header href=#filter-and-then-substitute>Filter and then substitute</a></h2><p>For some cases, you can simplify and improve readability of a substitution command by adding a filter condition instead of using substitution only.<pre><code class=language-bash># insert 'Error: ' at the start of a line if it contains '42'
+# also, remove all other starting whitespaces for such lines
 $ printf '1423\n214\n   425\n' | sed -E 's/^\s*(.*42)/Error: \1/'
 Error: 1423
 214
 Error: 425
 
-$ # simpler and readable
-$ # also note that -E is no longer required
+# simpler and easier to understand
+# also note that -E is no longer required
 $ printf '1423\n214\n   425\n' | sed '/42/ s/^\s*/Error: /'
 Error: 1423
 214
 Error: 425
-</code></pre><ol start=16><li>Both <code>1</code> and <code>$</code> will match as an address if input file has only one line of data.</ol><pre><code class=language-bash>$ printf '3.14\nhi\n42\n' | sed '1 s/^/start: /; $ s/$/ :end/'
+</code></pre><h2 id=addressing-input-that-only-has-a-single-line><a class=header href=#addressing-input-that-only-has-a-single-line>Addressing input that only has a single line</a></h2><p>Both <code>1</code> and <code>$</code> will match as an address if the input has only one line of data.<pre><code class=language-bash>$ printf '3.14\nhi\n42\n' | sed '1 s/^/start: /; $ s/$/ :end/'
 start: 3.14
 hi
 42 :end
 $ echo '3.14' | sed '1 s/^/start: /; $ s/$/ :end/'
 start: 3.14 :end
 
-$ # you could use control structures as a workaround
-$ # this will not work for ending address if input has only one line
+# you can use control structures as a workaround
+# this prevents ending address match if input has only one line
 $ echo '3.14' | sed '1{s/^/start: /; b}; $ s/$/ :end/'
 start: 3.14
-$ # this will not work for starting address if input has only one line
+# this prevents starting address match if input has only one line
 $ echo '3.14' | sed '${s/$/ :end/; b}; 1 s/^/start: /'
 3.14 :end
-</code></pre><ol start=17><li><code>n</code> and <code>N</code> commands will not execute further commands if there's no more input lines to fetch.</ol><pre><code class=language-bash>$ # last line matched the filtering condition
-$ # but substitution didn't work for last line as there's no more input
+</code></pre><h2 id=behavior-of-n-and-n-commands-at-the-end-of-input><a class=header href=#behavior-of-n-and-n-commands-at-the-end-of-input>Behavior of n and N commands at the end of input</a></h2><p><code>n</code> and <code>N</code> commands will not execute further commands if there are no more input lines to fetch.<pre><code class=language-bash># last line matches the filtering condition
+# but substitution didn't work for the last line
 $ printf 'red\nblue\ncredible\n' | sed '/red/{N; s/e.*e/2/}'
 r2
 credible
 
-$ # $!N will avoid executing N command for last line of input
+# $!N will avoid executing the N command for the last line of input
 $ printf 'red\nblue\ncredible\n' | sed '/red/{$!N; s/e.*e/2/}'
 r2
 cr2
-</code></pre><ol start=18><li>Changing locale to ASCII (assuming default is not ASCII locale) can give significant speed boost.</ol><pre><code class=language-bash>$ # time shown is best result from multiple runs
-$ # speed benefit will vary depending on computing resources, input, etc
-$ time sed -nE '/^([a-d][r-z]){3}$/p' /usr/share/dict/words > f1
-real    0m0.022s
+</code></pre><h2 id=faster-execution-for-ascii-input><a class=header href=#faster-execution-for-ascii-input>Faster execution for ASCII input</a></h2><p>Changing locale to ASCII (assuming that the default is not ASCII) can give a significant speed boost.<pre><code class=language-bash># time shown is the best result from multiple runs
+# speed benefit will vary depending on computing resources, input, etc
+$ time sed -nE '/^([a-d][r-z]){3}$/p' words.txt > f1
+real    0m0.023s
 
-$ # LC_ALL=C will give ASCII locale, active only for this command
-$ time LC_ALL=C sed -nE '/^([a-d][r-z]){3}$/p' /usr/share/dict/words > f2
+# LC_ALL=C will give ASCII locale, active only for this command
+$ time LC_ALL=C sed -nE '/^([a-d][r-z]){3}$/p' words.txt > f2
 real    0m0.012s
 
-$ # check that results are same for both versions of the command
+# check if the results are identical for both commands
 $ diff -s f1 f2
 Files f1 and f2 are identical
-</code></pre><p>Here's another example.<pre><code class=language-bash>$ time sed -nE '/^([a-z]..)\1$/p' /usr/share/dict/words > f1
-real    0m0.049s
+</code></pre><p>Here's another example.<pre><code class=language-bash>$ time sed -nE '/^([a-z]..)\1$/p' words.txt > f1
+real    0m0.050s
 
-$ time LC_ALL=C sed -nE '/^([a-z]..)\1$/p' /usr/share/dict/words > f2
+$ time LC_ALL=C sed -nE '/^([a-z]..)\1$/p' words.txt > f2
 real    0m0.029s
 
-$ # clean up temporary files
+# clean up temporary files
 $ rm f[12]
-</code></pre><ol start=19><li><a href=https://github.com/BurntSushi/ripgrep>ripgrep</a> (command name <code>rg</code>) is primarily used as an alternative to <code>grep</code> but also supports search and replace functionality. It has more regular expression features than BRE/ERE, supports unicode, multiline and fixed string matching and generally faster than <code>sed</code>. <code>sed 's/search/replace/g' file</code> is similar to <code>rg --passthru -N 'search' -r 'replace' file</code>. There are plenty of features to recommended learning <code>rg</code> even though it supports substitution in limited fashion compared to <code>sed</code> (no in-place support, no address filtering, no control structures, etc). See my book on <a href=https://github.com/learnbyexample/learn_gnugrep_ripgrep>GNU GREP and RIPGREP</a> for more details.</ol><pre><code class=language-bash>$ # same as: sed 's/e/E/g' greeting.txt
-$ # --passthru is needed to print lines which didn't match the pattern
+</code></pre><h2 id=substitution-with-ripgrep-command><a class=header href=#substitution-with-ripgrep-command>Substitution with ripgrep command</a></h2><p><a href=https://github.com/BurntSushi/ripgrep>ripgrep</a> (command name <code>rg</code>) is primarily an alternative to the <code>grep</code> command, but it also supports search and replace functionality. It has more regular expression features compared to BRE/ERE, supports unicode, multiline and fixed string matching and generally faster than <code>sed</code>. You can use <code>rg --passthru -N 'search' -r 'replace' file</code> to emulate <code>sed 's/search/replace/g' file</code>. There are plenty of reasons to recommend learning <code>rg</code> even though substitution features are limited (no in-place support, no address filtering, no control structures, etc).<pre><code class=language-bash># same as: sed 's/e/E/g' greeting.txt
+# --passthru is needed to print lines that don't match the search pattern
 $ rg --passthru -N 'e' -r 'E' greeting.txt
 Hi thErE
 HavE a nicE day
 
-$ # non-greedy quantifier
+# non-greedy quantifier
 $ s='food land bark sand band cue combat'
 $ echo "$s" | rg --passthru 'foo.*?ba' -r 'X'
 Xrk sand band cue combat
 
-$ # Multiline search and replacement
+# Multiline search and replacement
 $ printf '42\nHi there\nHave a Nice Day' | rg --passthru -U '(?s)the.*ice' -r ''
 42
 Hi  Day
 
-$ # easily handle fixed strings, this one replaces [4]* with 2
-$ printf '2.3/[4]*6\nfoo\n5.3-[4]*9\n' | rg --passthru -F '[4]*' -r '2'
+# fixed string matching example, this one replaces [4]* with 2
+$ printf '2.3/[4]*6\nfig\n5.3-[4]*9\n' | rg --passthru -F '[4]*' -r '2'
 2.3/26
-foo
+fig
 5.3-29
 
-$ # unicode support
+# unicode support
 $ echo 'fox:αλεπού,eagle:αετός' | rg '\p{L}+' -r '($0)'
 (fox):(αλεπού),(eagle):(αετός)
 
-$ # -P option enables PCRE2 if you need even more advanced features
-$ echo 'car bat cod map' | rg -P '(bat|map)(*SKIP)(*F)|\w+' -r '[$0]'
+# -P option enables PCRE if you need even more advanced features
+$ echo 'car bat cod map' | rg -Pw '(bat|map)(*SKIP)(*F)|\w+' -r '[$0]'
 [car] bat [cod] map
-</code></pre><ol start=20><li>Quoting from <a href=https://github.com/lhoursquentin/sed-bin>sed-bin: POSIX sed to C translator</a>:</ol><blockquote><p>This project allows to translate <code>sed</code> to <code>C</code> to be able to compile the result and generate a binary that will have the exact same behavior as the original <code>sed</code> script</blockquote><p>It could help in debugging a complex <code>sed</code> script, obfuscation, better speed, etc.</main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=processing-lines-bounded-by-distinct-markers.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=further-reading.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=processing-lines-bounded-by-distinct-markers.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=further-reading.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
-            window.playground_copyable = true;
-        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
+</code></pre><blockquote><p><img alt=info src=images/info.svg> See my ebook <a href=https://github.com/learnbyexample/learn_gnugrep_ripgrep>CLI text processing with GNU grep and ripgrep</a> for more examples and details.</blockquote><h2 id=compiling-sed-script><a class=header href=#compiling-sed-script>Compiling sed script</a></h2><p>Quoting from <a href=https://github.com/lhoursquentin/sed-bin>sed-bin: POSIX sed to C translator</a>:<blockquote><p>This project allows to translate <code>sed</code> to <code>C</code> to be able to compile the result and generate a binary that will have the exact same behavior as the original <code>sed</code> script</blockquote><p>It could help in debugging a complex <code>sed</code> script, obfuscation, better speed, etc.</main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=processing-lines-bounded-by-distinct-markers.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="mobile-nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=further-reading.html rel=next> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=processing-lines-bounded-by-distinct-markers.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=further-reading.html rel=next> <i class="fa fa-angle-right"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>
