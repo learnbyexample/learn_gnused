@@ -1,6 +1,6 @@
 # CLI text processing with GNU sed
 
-Example based guide to mastering GNU sed.
+Example based guide to mastering GNU sed. Visit https://youtu.be/nvKyKoeiZD8 for a short video about the book.
 
 <p align="center"><img src="./images/sed_ls.png" alt="CLI text processing with GNU sed ebook cover image" /></p>
 
@@ -28,7 +28,7 @@ See [Version_changes.md](./Version_changes.md) to keep track of changes made to 
 
 For a preview of the book, see [sample chapters](./sample_chapters/gnu_sed_sample.pdf).
 
-The book can also be [viewed as a single markdown file in this repo](./gnu_sed.md). See my blogpost on [generating pdfs from markdown using pandoc](https://learnbyexample.github.io/tutorial/ebook-generation/customizing-pandoc/) if you are interested in the ebook creation process.
+The book can also be [viewed as a single markdown file in this repo](./gnu_sed.md). See my blogpost on [generating pdfs from markdown using pandoc](https://learnbyexample.github.io/customizing-pandoc/) if you are interested in the ebook creation process.
 
 For the web version of the book, visit https://learnbyexample.github.io/learn_gnused/
 
