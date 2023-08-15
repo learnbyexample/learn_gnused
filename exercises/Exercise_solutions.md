@@ -533,7 +533,7 @@ $ echo "$s" | sed -E 's/\b([0-9]+)\1+\b/\1/g'
 
 ```bash
 $ ip='wow:Good:2_two.five: hi-2 bye kite.777:water.'
-$ echo "$ip" | sed -E 's/(\w+)[:.](\w+[:.])+/\1/g'
+$ echo "$ip" | sed -E 's/([:.]\w*)+//g'
 wow hi-2 bye kite
 ```
 
