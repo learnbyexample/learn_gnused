@@ -428,7 +428,7 @@ eqn2 = pressure*3+8-14256
 * `*` is same as `{0,}`
 * `+` is same as `{1,}`
 
-**10)** True or False? In ERE, `(a*|b*)` is same as `(a|b)*`.
+**10)** In ERE, `(a*|b*)` is same as `(a|b)*` — True or False?
 
 False. Because `(a*|b*)` will match only sequences like `a`, `aaa`, `bb`, `bbbbbbbb`. But `(a|b)*` can match a mixed sequence like `ababbba` too.
 
@@ -508,7 +508,7 @@ $ echo 'apple42:fig100' | sed -E 's/^a\w+([0-9]+:fig)?/[&]/'
 [apple42:fig]100
 ```
 
-For patterns matching from the same starting location, longest match wins in case of BRE/ERE flavors. So, `\w+` will give up characters to allow `([0-9]+:fig)?` to also match in the second case. In other flavors like PCRE, `apple42` will be matched both the cases.
+For patterns matching from the same starting location, longest match wins in case of BRE/ERE flavors. So, `\w+` will give up characters to allow `([0-9]+:fig)?` to also match in the second case. In other flavors like PCRE, `apple42` will be matched for both the cases.
 
 **17)** For the input file `patterns.txt`, display lines starting with `4` or `-` or `u` or `sub` or `care`.
 
@@ -697,7 +697,7 @@ hi there
 bye
 ```
 
-**8)** For the input file `patterns.txt`, replace the last but second `ar` with `X`. Display only the modified lines.
+**8)** For the input file `patterns.txt`, filter lines containing three or more occurrences of `ar`. For such lines, replace the third from last occurrence of `ar` with `X`.
 
 ```bash
 $ sed -nE 's/(.*)ar((.*ar){2})/\1X\2/p' patterns.txt
@@ -1065,7 +1065,7 @@ $ sed -n '/^%%Code: python%%$/,/^%%end%%$/{//!p; /^%%end%%$/q}' code.txt
 3
 ```
 
-**4)** For the input file `broken.txt`, display lines between the markers `top` and `bottom`. The first `sed` command shown below doesn't work because lines till the end of file are printed when the second address isn't found.
+**4)** The input file `broken.txt` starts with a line containing `top` followed by some content before a line containing `bottom` is found. Blocks of lines bounded by these two markers repeats except for the last block as it is missing the `bottom` marker. The first `sed` command shown below doesn't work because it is matching till the end of file due to the missing marker. Correct this command to get the expected output shown below.
 
 ```bash
 $ cat broken.txt

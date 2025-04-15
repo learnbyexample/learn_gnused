@@ -1,5 +1,12 @@
 <br>
 
+### 2.1
+
+* Corrected typos, updated exercises, descriptions and external links
+* Updated snapshot image for the interactive TUI app
+
+<br>
+
 ### 2.0
 
 * Command version updated to **GNU sed 4.9**

@@ -194,15 +194,15 @@ printf 'tryst\nfun\nglyph\npity\nwhy\n' | sed '/[aeiou]/d'
 
 ## Escape sequence sets
 
-echo 'load;err_msg--\nant,r2..not' | sed -E 's/\W+/-/g'
+printf '%s\n' 'load;err_msg--\nant,r2..not' | sed -E 's/\W+/-/g'
 
 printf 'hi  \v\f  there.\thave   \ra nice\t\tday\n' | sed -E 's/\s+/ /g'
 
-echo 'w=y\x+9*3' | sed 's/[\w=]//g'
+printf '%s\n' 'w=y\x+9*3' | sed 's/[\w=]//g'
 
-echo '42\d123' | sed -E 's/\d+/-/g'
+printf '%s\n' '42\d123' | sed -E 's/\d+/-/g'
 
-echo '42\d123' | perl -pe 's/\d+/-/g'
+printf '%s\n' '42\d123' | perl -pe 's/\d+/-/g'
 
 ## Named character sets
 
@@ -252,7 +252,7 @@ echo 'hello world' | sed 's/.*/"\x26"/'
 
 echo 'effort flee facade oddball rat tool' | sed -E 's/\w*(\w)\1\w*/X/g'
 
-echo '\[\] and \\w and \[a-zA-Z0-9\_\]' | sed -E 's/(\\?)\\/\1/g'
+printf '%s\n' '\[\] and \\w and \[a-zA-Z0-9\_\]' | sed -E 's/(\\?)\\/\1/g'
 
 echo 'aa a a a 42 f_1 f_1 f_13.14' | sed -E 's/\b(\w+)( \1)+\b/\1/g'
 

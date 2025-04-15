@@ -10,7 +10,7 @@ It is recommended that you manually type each example. Make an effort to underst
 
 You should be familiar with command line usage in a Unix-like environment. You should also be comfortable with concepts like file redirection and command pipelines. Knowing the basics of the `grep` command will be handy in understanding the filtering features of `sed`.
 
-If you are new to the world of the command line, check out my [Computing from the Command Line](https://github.com/learnbyexample/cli-computing) ebook and curated resources on [Linux CLI and Shell scripting](https://learnbyexample.github.io/curated_resources/linux_cli_scripting.html) before starting this book.
+If you are new to the world of the command line, check out my [Linux Command Line Computing](https://github.com/learnbyexample/cli-computing) ebook and curated resources on [Linux CLI and Shell scripting](https://learnbyexample.github.io/curated_resources/linux_cli_scripting.html) before starting this book.
 
 ## Conventions
 
@@ -58,11 +58,11 @@ This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareA
 
 Code snippets are available under [MIT License](https://github.com/learnbyexample/learn_gnused/blob/master/LICENSE).
 
-Resources mentioned in Acknowledgements section above are available under original licenses.
+Resources mentioned in the Acknowledgements section are available under original licenses.
 
 ## Book version
 
-2.0
+2.1
 
 See [Version_changes.md](https://github.com/learnbyexample/learn_gnused/blob/master/Version_changes.md) to track changes across book versions.
 
@@ -174,7 +174,7 @@ specified, then the standard input is read.
 
 ## Editing standard input
 
-`sed` has various commands to manipulate text. The **substitute** command is the most commonly used operation, helps to replace matching text with something else. The syntax is `s/REGEXP/REPLACEMENT/FLAGS` where
+`sed` has various commands to manipulate text. The **substitute** command is the most commonly used operation, which helps to replace matching portions with something else. The syntax is `s/REGEXP/REPLACEMENT/FLAGS` where:
 
 * `s` stands for the **substitute** command
 * `/` is an idiomatic delimiter character to separate various portions of the command
@@ -219,7 +219,7 @@ In the above example, the input data is created using the `printf` command to sh
 
 ## Editing file input
 
-Although `sed` derives its name from *stream editing*, it is common to use `sed` for file editing. To do so, you can pass one or more input filenames as arguments. You can use `-` to represent stdin as one of the input sources. By default, the modified data will go to the `stdout` stream and the input files are not modified. [In-place file editing](#in-place-file-editing) chapter will discuss how to apply the changes back to the source file(s).
+Although `sed` derives its name from *stream editing*, it is common to use `sed` for file editing. To do so, you can pass one or more input filenames as arguments. You can use `-` to represent stdin as one of the input sources. By default, the modified data will go to the `stdout` stream and the input files are not modified. [In-place file editing](#in-place-file-editing) chapter will discuss how to apply the changes back to the source files.
 
 >![info](images/info.svg) The [example_files](https://github.com/learnbyexample/learn_gnused/tree/master/example_files) directory has all the files used in the examples.
 
@@ -234,14 +234,14 @@ Hi there
 Have a nice weekend
 
 # change all occurrences of 'e' to 'E'
-# redirect modified data to another file
+# redirect the modified data to another file
 $ sed 's/e/E/g' greeting.txt > out.txt
 $ cat out.txt
 Hi thErE
 HavE a nicE day
 ```
 
-In the previous section examples, every input line had matched the search expression. The first `sed` command here searched for `day`, which did not match the first line of `greeting.txt` file. By default, even if a line doesn't satisfy the search expression, it will be part of the output. You'll see how to get only the modified lines in the [Print command](#print-command) section.
+In the previously seen examples, every input line had matched the search expression. The first `sed` command here searched for `day`, which did not match the first line of `greeting.txt` file. By default, even if a line doesn't satisfy the search expression, it will be part of the output. You'll see how to get only the modified lines in the [Print command](#print-command) section.
 
 ## Cheatsheet and summary
 
@@ -252,7 +252,7 @@ In the previous section examples, every input line had matched the search expres
 | `info sed` | comprehensive manual |
 | [online gnu sed manual](https://www.gnu.org/software/sed/manual/sed.html) | well formatted, easier to read and navigate |
 | `s/REGEXP/REPLACEMENT/FLAGS` | syntax for the substitute command |
-| `sed 's/,/-/'` | for each line, replace first `,` with `-` |
+| `sed 's/,/-/'` | for each line, replace the first `,` with `-` |
 | `sed 's/,/-/g'` | replace all `,` with `-` |
 
 This introductory chapter covered installation process, documentation and how to search and replace text using `sed` from the command line. In the coming chapters, you'll learn many more commands and features that make `sed` an important tool when it comes to command line text processing. One such feature is editing files in-place, which will be discussed in the next chapter.
@@ -335,7 +335,7 @@ deep blue
 light orange
 blue delight
 
-# no output on terminal as -i option is used
+# no output on terminal as the -i option is used
 # space is NOT allowed between -i and the extension
 $ sed -i.bkp 's/blue/green/' colors.txt
 # output from sed is written back to 'colors.txt'
@@ -424,14 +424,14 @@ f1.txt  f2.txt
 
 | Note                     | Description    |
 | ------------------------ | -------------- |
-| `-i` | after processing, write back changes to the source file(s) |
+| `-i` | after processing, write back changes to the source files |
 | | changes made cannot be undone, so use this option with caution |
 | `-i.bkp` | in addition to in-place editing, preserve original contents to a file |
 | | whose name is derived from the input filename and `.bkp` as a suffix |
 | `-i'bkp.*'` | `*` here gets replaced with the input filename |
 | | thus providing a way to add a prefix instead of a suffix |
 | `-i'backups/*'` | this will place the backup copy in a different existing directory |
-| | instead of source directory |
+| | instead of the source directory |
 
 This chapter discussed about the `-i` option which is useful when you need to edit a file in-place. This is particularly useful in automation scripts. But, do ensure that you have tested the `sed` command before applying to actual files if you need to use this option without creating backups. In the next chapter, you'll learn filtering features of `sed` and how that helps to apply commands to only certain input lines instead of all the lines.
 
@@ -587,7 +587,7 @@ eat
 
 ## Print command
 
-To **p**rint the filtered lines, use the `p` command. But, recall that all input lines are printed by default. So, this command is typically used in combination with the `-n` option, which would turn off the default printing.
+To **p**rint the filtered lines, use the `p` command. But, recall that all input lines are printed by default. So, this command is typically used in combination with the `-n` option, which turns off the default printing.
 
 ```bash
 $ cat rhymes.txt
@@ -779,7 +779,7 @@ Line numbers can also be used as a filtering criteria.
 $ sed -n '3p' rhymes.txt
 go play in the park
 
-# print 2nd and 6th line
+# print the 2nd and 6th lines
 $ sed -n '2p; 6p' rhymes.txt
 listen to what I say
 There are so many delights to cherish
@@ -1041,7 +1041,7 @@ Next, the `N` command. Quoting from [sed manual: Less Frequently-Used Commands](
 
 ```bash
 # append the next line to the pattern space
-# and then replace newline character with colon character
+# and then replace newline character with a colon character
 $ seq 7 | sed 'N; s/\n/:/'
 1:2
 3:4
@@ -1068,13 +1068,13 @@ used
 | `/at/d` | delete all lines satisfying the given REGEXP |
 | `/at/!d` | don't delete lines matching the given REGEXP |
 | `/twice/p` | print all lines based on the given REGEXP |
-| | as print is the default action, usually `p` is paired with `-n` option |
+| | as print is the default action, usually `p` is paired with `-n` |
 | `/not/ s/in/out/gp` | substitute only if line matches the given REGEXP |
 | | and print only if the substitution succeeds |
 | `/if/q` | quit immediately after printing the current pattern space |
 | | further input files, if any, won't be processed |
 | `/if/Q` | quit immediately without printing the current pattern space |
-| `/at/q2` | both `q` and `Q` can additionally use `0-255` as exit code |
+| `/at/q2` | both `q` and `Q` can additionally use `0-255` as the exit code |
 | `-e 'cmd1' -e 'cmd2'` | execute multiple commands one after the other |
 | `cmd1; cmd2` | execute multiple commands one after the other |
 | | note that not all commands can be constructed this way |
@@ -1298,7 +1298,7 @@ This chapter covers Basic and Extended Regular Expressions as implemented in `GN
 
 By default, `sed` treats the search pattern as Basic Regular Expression (BRE). The `-E` option enables Extended Regular Expression (ERE). Older `sed` versions used `-r` for ERE, which can still be used, but `-E` is more portable. In `GNU sed`, BRE and ERE only differ in how metacharacters are represented, there are no feature differences.
 
->![info](./images/info.svg) See also [POSIX specification for BRE and ERE](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap09.html).
+>![info](./images/info.svg) See also [POSIX specification for BRE and ERE](https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap09.html).
 
 >![info](images/info.svg) The [example_files](https://github.com/learnbyexample/learn_gnused/tree/master/example_files) directory has all the files used in the examples.
 
@@ -1336,7 +1336,7 @@ PAR
 spar
 ```
 
-The anchors can be used by themselves as a pattern too. Helps to insert text at the start/end of a input line, emulating string concatenation operations. This might not feel like a useful capability, but combined with other features they become quite a handy tool.
+The anchors can be used by themselves as a pattern too. Helps to insert text at the start/end of an input line, emulating string concatenation operations. This might not feel like a useful capability, but combined with other features they become quite a handy tool.
 
 ```bash
 # add '* ' at the start of every input line
@@ -1457,7 +1457,7 @@ The alternative which matches earliest in the input gets precedence.
 
 ```bash
 # here, the output will be same irrespective of alternation order
-# note that 'g' flag isn't used here, so only the first match gets replaced
+# note that the 'g' flag isn't used here, so only the first match gets replaced
 $ echo 'cats dog bee parrot foxed' | sed -E 's/bee|parrot|at/--/'
 c--s dog bee parrot foxed
 $ echo 'cats dog bee parrot foxed' | sed -E 's/parrot|at|bee/--/'
@@ -1500,7 +1500,7 @@ $ sed -nE '/\b(par|part)\b/p' anchors.txt
 sub par
 cart part tart mart
 # taking out common characters as well
-# you'll later learn a better technique instead of using empty alternate
+# you'll later learn a better technique instead of using an empty alternate
 $ sed -nE '/\bpar(|t)\b/p' anchors.txt
 sub par
 cart part tart mart
@@ -1561,7 +1561,7 @@ $ printf '/home/joe/1\n/home/john/1\n' | sed -n '\;/home/joe/;p'
 /home/joe/1
 ```
 
->![info](images/info.svg) See also [a bit of history on why / is commonly used as the delimiter](https://old.reddit.com/r/commandline/comments/3lhgwh/why_did_people_standardize_on_using_forward/cvgie7j/).
+>![info](images/info.svg) See also [a bit of history on why / is commonly used as the delimiter](https://old.reddit.com/r/commandline/comments/3lhgwh/deleted_by_user/cvgie7j/).
 
 ## The dot meta character
 
@@ -1674,7 +1674,7 @@ ac abc abbc X abbbbbbbbc
 
 ## Conditional AND
 
-Next up, constructing AND conditional using dot metacharacter and quantifiers.
+Next up, constructing AND conditional using the dot metacharacter and quantifiers.
 
 ```bash
 # match 'Error' followed by zero or more characters followed by 'valid'
@@ -1796,14 +1796,14 @@ $ echo '0501 035 154 12 26 98234' | sed -E 's/\b0*[1-9][0-9]{2,}\b/X/g'
 X 035 X 12 26 X
 ```
 
-Next metacharacter is `^` which has to specified as the first character of the character class. It negates the set of characters, so all characters other than those specified will be matched. As highlighted earlier, handle negative logic with care, you might end up matching more than you wanted.
+Next metacharacter is `^` which has to be specified as the first character of the character class. It negates the set of characters, so all characters other than those specified will be matched. As highlighted earlier, handle negative logic with care, you might end up matching more than you wanted.
 
 ```bash
 # replace all non-digit characters
 $ echo 'Sample123string42with777numbers' | sed -E 's/[^0-9]+/-/g'
 -123-42-777-
 
-# delete last two columns
+# delete the last two columns
 $ echo 'apple:123:banana:cherry' | sed -E 's/(:[^:]+){2}$//'
 apple:123
 
@@ -1831,16 +1831,16 @@ Some commonly used character sets have predefined escape sequences:
 These escape sequences *cannot* be used inside character classes. Also, as mentioned earlier, these definitions assume ASCII input.
 
 ```bash
-# match all non-word characters
-$ echo 'load;err_msg--\nant,r2..not' | sed -E 's/\W+/-/g'
+# match non-word characters
+$ printf '%s\n' 'load;err_msg--\nant,r2..not' | sed -E 's/\W+/-/g'
 load-err_msg-nant-r2-not
 
-# replace all sequences of whitespaces with a single space
+# replace sequences of whitespaces with a single space
 $ printf 'hi  \v\f  there.\thave   \ra nice\t\tday\n' | sed -E 's/\s+/ /g'
 hi there. have a nice day
 
 # \w would simply match \ and w inside character classes
-$ echo 'w=y\x+9*3' | sed 's/[\w=]//g'
+$ printf '%s\n' 'w=y\x+9*3' | sed 's/[\w=]//g'
 yx+9*3
 ```
 
@@ -1848,11 +1848,11 @@ yx+9*3
 >
 > ```bash
 > # \d will match just the 'd' character
-> $ echo '42\d123' | sed -E 's/\d+/-/g'
+> $ printf '%s\n' '42\d123' | sed -E 's/\d+/-/g'
 > 42\-123
 > 
-> # \d here matches all digit characters
-> $ echo '42\d123' | perl -pe 's/\d+/-/g'
+> # \d here matches digit characters
+> $ printf '%s\n' '42\d123' | perl -pe 's/\d+/-/g'
 > -\d-
 > ```
 
@@ -1937,7 +1937,7 @@ f*(c) - 3*(c)/(a-b)
 
 ## Escape sequences
 
-Certain ASCII characters like tab `\t`, carriage return `\r`, newline `\n`, etc have escape sequences to represent them. Additionally, any character can be represented using their ASCII value in decimal `\dNNN` or octal `\oNNN` or hexadecimal `\xNN` formats. Unlike character set escape sequences like `\w`, these can be used inside character classes. As `\` is special inside character class, use `\\` to represent it literally (technically, this is only needed if the combination of `\` and the character(s) that follows is a valid escape sequence).
+Certain ASCII characters like tab `\t`, carriage return `\r`, newline `\n`, etc have escape sequences to represent them. Additionally, any character can be represented using their ASCII value in decimal `\dNNN` or octal `\oNNN` or hexadecimal `\xNN` formats. Unlike character set escape sequences like `\w`, these can be used inside character classes. As `\` is special inside character class, use `\\` to represent it literally (technically, this is only needed if the combination of `\` and the characters that follow is a valid escape sequence).
 
 ```bash
 # \t represents the tab character
@@ -1951,7 +1951,7 @@ $ printf 'a\t\r\fb\vc\n' | sed -E 's/[\t\v\f\r]+/:/g'
 a:b:c
 
 # representing single quotes
-# use \d039 and \o047 for decimal and octal respectively
+# use \d039 and \o047 for decimal and octal formats respectively
 $ echo "universe: '42'" | sed 's/\x27/"/g'
 universe: "42"
 $ echo 'universe: "42"' | sed 's/"/\x27/g'
@@ -1988,7 +1988,7 @@ $ echo 'effort flee facade oddball rat tool' | sed -E 's/\w*(\w)\1\w*/X/g'
 X X facade X rat X
 
 # reduce \\ to \ and delete if it is a single \
-$ echo '\[\] and \\w and \[a-zA-Z0-9\_\]' | sed -E 's/(\\?)\\/\1/g'
+$ printf '%s\n' '\[\] and \\w and \[a-zA-Z0-9\_\]' | sed -E 's/(\\?)\\/\1/g'
 [] and \w and [a-zA-Z0-9_]
 
 # remove two or more duplicate words separated by spaces
@@ -2132,7 +2132,7 @@ it line with it here it too sit
 |   | each alternative can have independent anchors  |
 | | alternative which matches earliest in the input gets precedence |
 | | and the leftmost longest portion wins in case of a tie |
-| `()` | group pattern(s) |
+| `()` | group patterns |
 | `a(b\|c)d` | same as `abd\|acd` |
 | `\^` | prefix metacharacters with `\` to match them literally |
 | `\\` | to match `\` literally |
@@ -2256,7 +2256,7 @@ eqn2 = pressure*3+8-14256
 * `*` is same as
 * `+` is same as
 
-**10)** True or False? In ERE, `(a*|b*)` is same as `(a|b)*`.
+**10)** In ERE, `(a*|b*)` is same as `(a|b)*` — True or False?
 
 **11)** For the input file `patterns.txt`, construct two different REGEXPs to get the outputs as shown below. Display only the modified lines.
 
@@ -2483,14 +2483,14 @@ hello:BYE good:BETTER
 Finally, examples where escapes are used next to each other.
 
 ```bash
-# uppercase first character of a word
-# and lowercase rest of the word characters
+# uppercase the first character of a word
+# and lowercase the rest of the word characters
 # note the order of escapes used, \u\L won't work
 $ echo 'HeLLo:bYe gOoD:beTTEr' | sed -E 's/[a-z]+/\L\u&/Ig'
 Hello:Bye Good:Better
 
-# lowercase first character of a word
-# and uppercase rest of the word characters
+# lowercase the first character of a word
+# and uppercase the rest of the word characters
 $ echo 'HeLLo:bYe gOoD:beTTEr' | sed -E 's/[a-z]+/\U\l&/Ig'
 hELLO:bYE gOOD:bETTER
 ```
@@ -2531,7 +2531,7 @@ $ echo "$s" | sed -E 's/[^:]+/"&"/3'
 apple:banana:"cherry":fig:mango
 ```
 
-Use a combination of capture groups and quantifiers to replace *N*th match from the end of the line.
+Use a combination of capture groups and quantifiers to replace the *N*th match from the end of the line.
 
 ```bash
 $ s='car,art,pot,tap,urn,ray,ear'
@@ -2541,7 +2541,7 @@ $ s='car,art,pot,tap,urn,ray,ear'
 $ echo "$s" | sed -E 's/(.*),/\1[]/'
 car,art,pot,tap,urn,ray[]ear
 
-# replace last but one
+# replace the last but one occurrence
 $ echo "$s" | sed -E 's/(.*),(.*,)/\1[]\2/'
 car,art,pot,tap,urn[]ray,ear
 
@@ -2586,7 +2586,7 @@ car,art[]pot[]tap,urn[]ray,ear
 This flag was already introduced in the [Selective editing](#selective-editing) chapter.
 
 ```bash
-# no output if no substitution
+# no output if the substitution fails
 $ echo 'hi there. have a nice day' | sed -n 's/xyz/XYZ/p'
 
 # modified line is printed when the substitution succeeds
@@ -2627,13 +2627,13 @@ seven
 1seven
 ```
 
-There are two predefined filenames:
+You can also use these special filenames:
 
 * `/dev/stdout` to represent the **stdout** stream
 * `/dev/stderr` to represent the **stderr** stream
 
 ```bash
-# in-place editing as well as display changes on stdout
+# edit the file in-place and display the changes on stdout as well
 # 3.txt was created at the start of this section
 $ sed -i 's/three/3/w /dev/stdout' 3.txt
 3
@@ -2645,7 +2645,7 @@ $ cat 3.txt
 
 ## Executing external commands
 
-The `e` flag helps you to use the output of a shell command. The external command can be based on the pattern space contents or provided as an argument. Quoting from the manual:
+The `e` flag helps you to use the output of a shell command within `sed`. The external command can be based on the pattern space contents or provided as an argument. Quoting from the manual:
 
 >This command allows one to pipe input from a shell command into pattern space. Without parameters, the e command executes the command that is found in pattern space and replaces the pattern space with the output; a trailing newline is suppressed.
 
@@ -2664,7 +2664,7 @@ replace this line
 # replace entire line with the output of a shell command
 $ printf 'Date:\nreplace this line\n' | sed 's/^replace.*/date/e'
 Date:
-Monday 29 May 2023 04:09:24 PM IST
+Friday 04 April 2025 08:58:13 AM IST
 ```
 
 If the `p` flag is used as well, order is important. Quoting from the manual:
@@ -2673,7 +2673,7 @@ If the `p` flag is used as well, order is important. Quoting from the manual:
 
 ```bash
 $ printf 'Date:\nreplace this line\n' | sed -n 's/^replace.*/date/ep'
-Monday 29 May 2023 04:10:20 PM IST
+Friday 04 April 2025 08:59:47 AM IST
 
 $ printf 'Date:\nreplace this line\n' | sed -n 's/^replace.*/date/pe'
 date
@@ -2697,11 +2697,11 @@ Next, examples with filtering alone.
 # execute entire matching line as a shell command
 # replaces the matching line with the output of the command
 $ printf 'date\ndate -I\n' | sed '/date/e'
-Monday 29 May 2023 04:12:01 PM IST
-2023-05-29
+Friday 04 April 2025 09:00:03 AM IST
+2025-04-04
 $ printf 'date\ndate -I\n' | sed '2e'
 date
-2023-05-29
+2025-04-04
 ```
 
 Here's an example where the command is provided as an argument. In such cases, the command's output is inserted before the matching line.
@@ -2909,7 +2909,7 @@ hi there
 bye
 ```
 
-**8)** For the input file `patterns.txt`, replace the last but second `ar` with `X`. Display only the modified lines.
+**8)** For the input file `patterns.txt`, filter lines containing three or more occurrences of `ar`. For such lines, replace the third from last occurrence of `ar` with `X`.
 
 ```bash
 $ sed ##### add your solution here
@@ -3032,13 +3032,13 @@ $ r=$(printf '%s' "$r" | sed 's#[\&/]#\\&#g')
 # ERE version for search string
 $ s='{[(\ta^b/d).*+?^$|]}'
 $ s=$(printf '%s' "$s" | sed 's#[{[()^$*?+.\|/]#\\&#g')
-$ echo 'f*{[(\ta^b/d).*+?^$|]} - 3' | sed -E 's/'"$s"'/'"$r"'/g'
+$ printf '%s\n' 'f*{[(\ta^b/d).*+?^$|]} - 3' | sed -E 's/'"$s"'/'"$r"'/g'
 f*a/b&c\d - 3
 
 # BRE version for search string
 $ s='{[(\ta^b/d).*+?^$|]}'
 $ s=$(printf '%s' "$s" | sed 's#[[^$*.\/]#\\&#g')
-$ echo 'f*{[(\ta^b/d).*+?^$|]} - 3' | sed 's/'"$s"'/'"$r"'/g'
+$ printf '%s\n' 'f*{[(\ta^b/d).*+?^$|]} - 3' | sed 's/'"$s"'/'"$r"'/g'
 f*a/b&c\d - 3
 ```
 
@@ -3098,10 +3098,10 @@ $ printf 'f1.txt\nf2.txt\n' | sed 's/^/'"${p}"'\//'
 | | and variable contents have to be preprocessed to prevent |
 | | clashing with `sed` metacharacters and security issue |
 | | if you don't control the variable contents |
-| `sed 's#[\&/]#\\&#g'` | escape metacharacters for replacement section |
-| `sed '$!s/$/\\/'` | escape literal newlines for replacement section |
-| `sed 's#[{[()^$*?+.\\|/]#\\&#g'` | escape metacharacters for search section, ERE |
-| `sed 's#[[^$*.\/]#\\&#g'` | escape metacharacters for search section, BRE |
+| `sed 's#[\&/]#\\&#g'` | escape metacharacters for the replacement section |
+| `sed '$!s/$/\\/'` | escape literal newlines for the replacement section |
+| `sed 's#[{[()^$*?+.\\|/]#\\&#g'` | escape metacharacters for the search section, ERE |
+| `sed 's#[[^$*.\/]#\\&#g'` | escape metacharacters for the search section, BRE |
 | `sed 's/date/'"$(date -I)"'/'` | example for command substitution |
 | | command output's final newline character gets stripped |
 | | other literal newlines, if any, have to be escaped |
@@ -3174,7 +3174,7 @@ The `-s` option will cause `sed` to treat multiple input files separately instea
 
 ```bash
 # without -s, there is only one first line for the concatenated contents
-# F command inserts filename of the current file at the given address
+# the F command inserts filename of the current file at the given address
 $ sed '1F' greeting.txt ip.txt
 greeting.txt
 Hi there
@@ -3652,8 +3652,7 @@ $ printf '123' | sed '1r /dev/stdin' ip.txt
 Here are some examples to emulate the *change* command functionality. As seen in the previous chapter, use the `-e` option or literal newlines when multiple commands are needed. See also [unix.stackexchange: Various ways to replace line M in file1 with line N in file2](https://unix.stackexchange.com/q/396445/109046).
 
 ```bash
-# replace only the 2nd line
-# order is important, first 'r' and then 'd'
+# replace only the 2nd line; order is important, first 'r' and then 'd'
 # note the use of command grouping to avoid repeating the address
 $ items='    * blue\n    * green\n'
 $ printf '%b' "$items" | sed -e '2 {r /dev/stdin' -e 'd}' ip.txt
@@ -3661,7 +3660,7 @@ $ printf '%b' "$items" | sed -e '2 {r /dev/stdin' -e 'd}' ip.txt
     * blue
     * green
 
-# replace range of lines
+# replace a range of lines
 # command grouping will add file contents for each matching line
 # so, use 'r' only for one of the addresses and then delete the range
 # // here avoids address duplication
@@ -3685,7 +3684,7 @@ The manual has this handy note for the `e` flag:
 
 >Note that, unlike the `r` command, the output of the command will be printed immediately; the `r` command instead delays the output to the end of the current cycle.
 
-This makes the `e` flag the easiest way to insert file content before the matching lines. Similar to the `r` command, the output of an external command is inserted literally. But one difference from `r` command is that if the filename passed to the external `cat` command doesn't exist, then you will see its error message inserted.
+This makes the `e` flag the easiest way to insert file content before the matching lines. Similar to the `r` command, the output of an external command is inserted literally. But one difference from the `r` command is that if the filename passed to the external `cat` command doesn't exist, then you will see its error message inserted.
 
 ```bash
 $ sed '/red/e cat ip.txt' fav_color.txt
@@ -3735,7 +3734,7 @@ brown
 | `R filename` | add one line at a time after each matching line |
 | | space between the command and the filename is optional |
 | | `/dev/stdin` as the filename will use stdin data |
-| | content is added literally, unlike `a`, `c` and `i` commands |
+| | content is added literally, unlike the `a`, `c` and `i` commands |
 
 This chapter showed robust solutions for adding text literally from a file or command output. These are particularly useful for templating solutions where a line containing a keyword gets replaced with text from elsewhere. In the next chapter, you'll learn how to implement control structures using branch commands.
 
@@ -3921,7 +3920,7 @@ $ echo 'he be me,1 2 3 4,nice slice' | sed -E ':b s/^([^,]*,[^ ,]*) /\1_/; tb'
 he be me,1_2_3_4,nice slice
 ```
 
-The looping construct also helps to emulate certain advanced regular expression features not available in `sed` like lookarounds (see [stackoverflow: regex faq](https://stackoverflow.com/q/22937618/4082052) for details on lookarounds).
+The looping construct also helps to emulate certain advanced regular expression features not available in `sed` like lookarounds (see [stackoverflow: regex faq](https://stackoverflow.com/q/22937618/4082052) for details on lookarounds). See my blog post [Emulating regexp lookarounds in GNU sed](https://learnbyexample.github.io/sed-lookarounds/) for more examples.
 
 ```bash
 # replace empty fields with NA
@@ -3932,8 +3931,6 @@ $ echo '1,,,two,,3' | sed 's/,,/,NA,/g'
 $ echo '1,,,two,,3' | sed -E ':c s/,,/,NA,/g; tc'
 1,NA,NA,two,NA,3
 ```
-
->![info](images/info.svg) See my blog post [Emulating regexp lookarounds in GNU sed](https://learnbyexample.github.io/sed-lookarounds/) for more examples.
 
 The below example has similar solution to the previous example, but the problem statement is different and cannot be solved using lookarounds. Here, the act of performing substitution results in an output string that will again match the search pattern.
 
@@ -4309,7 +4306,7 @@ $ sed ##### add your solution here
 3
 ```
 
-**4)** For the input file `broken.txt`, display lines between the markers `top` and `bottom`. The first `sed` command shown below doesn't work because lines till the end of file are printed when the second address isn't found.
+**4)** The input file `broken.txt` starts with a line containing `top` followed by some content before a line containing `bottom` is found. Blocks of lines bounded by these two markers repeats except for the last block as it is missing the `bottom` marker. The first `sed` command shown below doesn't work because it is matching till the end of file due to the missing marker. Correct this command to get the expected output shown below.
 
 ```bash
 $ cat broken.txt
@@ -4415,7 +4412,7 @@ But you might not have the luxury of choosing a delimiter that won't conflict wi
 
 ## Options at the end of the command
 
-You can specify command line options even at the end of the command. Useful if you forgot some option(s) and want to edit the previous command from the shell history.
+You can specify command line options even at the end of the command. Useful if you forgot some options and want to edit the previous command from the shell history.
 
 ```bash
 # no output, as + is not special with default BRE
@@ -4808,7 +4805,7 @@ Here are resource links for specific topics:
 
 * ASCII reference and locale usage
     * [ASCII code table](https://ascii.cl/)
-    * [wiki.archlinux: locale](https://wiki.archlinux.org/index.php/locale)
+    * [wiki.archlinux: locale](https://wiki.archlinux.org/title/Locale)
     * [shellhacks: Define Locale and Language Settings](https://www.shellhacks.com/linux-define-locale-language-settings/)
     * [unix.stackexchange: What does LC_ALL=C do?](https://unix.stackexchange.com/q/87745/109046)
 * [unix.stackexchange: When to use grep, sed, awk, perl, etc](https://unix.stackexchange.com/q/303044/109046)

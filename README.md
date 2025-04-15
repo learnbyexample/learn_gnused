@@ -1,10 +1,10 @@
 # CLI text processing with GNU sed
 
-Example based guide to mastering GNU sed. Visit https://youtu.be/nvKyKoeiZD8 for a short video about the book.
+Learn GNU sed with hundreds of examples and exercises. Visit https://youtu.be/nvKyKoeiZD8 for a short video about the book.
 
 <p align="center"><img src="./images/sed_ls.png" alt="CLI text processing with GNU sed ebook cover image" /></p>
 
-The book also includes exercises to test your understanding, which are presented together as a single file in this repo — [Exercises.md](./exercises/Exercises.md)
+The book also includes exercises to test your understanding, which are presented together as a single file in this repo — [Exercises.md](./exercises/Exercises.md).
 
 For solutions to the exercises, see [Exercise_solutions.md](./exercises/Exercise_solutions.md).
 
@@ -20,15 +20,15 @@ See [Version_changes.md](./Version_changes.md) to keep track of changes made to 
     * https://learnbyexample.gumroad.com/l/gnu_sed
     * https://leanpub.com/gnu_sed
 * You can also get the book as part of these bundles:
-    * **All books bundle** bundle from https://learnbyexample.gumroad.com/l/all-books
-        * Includes all my programming books
-    * **Magical one-liners** bundle from https://learnbyexample.gumroad.com/l/oneliners or https://leanpub.com/b/oneliners
-    * **Awesome Regex** bundle from https://learnbyexample.gumroad.com/l/regex or https://leanpub.com/b/regex
+    * **All books bundle** bundle from https://leanpub.com/b/learnbyexample-all-books or https://learnbyexample.gumroad.com/l/all-books
+    * **Linux CLI Text Processing** bundle from https://leanpub.com/b/linux-cli-text-processing or https://learnbyexample.gumroad.com/l/linux-cli-text-processing
+    * **Magical one-liners** bundle from https://leanpub.com/b/oneliners or https://learnbyexample.gumroad.com/l/oneliners
+    * **Awesome Regex** bundle from https://leanpub.com/b/regex or https://learnbyexample.gumroad.com/l/regex
 * See https://learnbyexample.github.io/books/ for a list of other books
 
 For a preview of the book, see [sample chapters](./sample_chapters/gnu_sed_sample.pdf).
 
-The book can also be [viewed as a single markdown file in this repo](./gnu_sed.md). See my blogpost on [generating pdfs from markdown using pandoc](https://learnbyexample.github.io/customizing-pandoc/) if you are interested in the ebook creation process.
+The book can also be [viewed as a single markdown file in this repo](./gnu_sed.md). See my blogpost on [generating pdf/epub from markdown using pandoc](https://learnbyexample.github.io/customizing-pandoc/) if you are interested in the ebook creation process.
 
 For the web version of the book, visit https://learnbyexample.github.io/learn_gnused/
 

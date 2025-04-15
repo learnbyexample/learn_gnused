@@ -40,13 +40,13 @@ s='{[(\ta^b/d).*+?^$|]}'
 
 s=$(printf '%s' "$s" | sed 's#[{[()^$*?+.\|/]#\\&#g')
 
-echo 'f*{[(\ta^b/d).*+?^$|]} - 3' | sed -E 's/'"$s"'/'"$r"'/g'
+printf '%s\n' 'f*{[(\ta^b/d).*+?^$|]} - 3' | sed -E 's/'"$s"'/'"$r"'/g'
 
 s='{[(\ta^b/d).*+?^$|]}'
 
 s=$(printf '%s' "$s" | sed 's#[[^$*.\/]#\\&#g')
 
-echo 'f*{[(\ta^b/d).*+?^$|]} - 3' | sed 's/'"$s"'/'"$r"'/g'
+printf '%s\n' 'f*{[(\ta^b/d).*+?^$|]} - 3' | sed 's/'"$s"'/'"$r"'/g'
 
 ## Command substitution
 

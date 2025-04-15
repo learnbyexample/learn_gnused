@@ -415,7 +415,7 @@ eqn2 = pressure*3+8-14256
 * `*` is same as
 * `+` is same as
 
-**10)** True or False? In ERE, `(a*|b*)` is same as `(a|b)*`.
+**10)** In ERE, `(a*|b*)` is same as `(a|b)*` — True or False?
 
 **11)** For the input file `patterns.txt`, construct two different REGEXPs to get the outputs as shown below. Display only the modified lines.
 
@@ -658,7 +658,7 @@ hi there
 bye
 ```
 
-**8)** For the input file `patterns.txt`, replace the last but second `ar` with `X`. Display only the modified lines.
+**8)** For the input file `patterns.txt`, filter lines containing three or more occurrences of `ar`. For such lines, replace the third from last occurrence of `ar` with `X`.
 
 ```bash
 $ sed ##### add your solution here
@@ -1019,7 +1019,7 @@ $ sed ##### add your solution here
 3
 ```
 
-**4)** For the input file `broken.txt`, display lines between the markers `top` and `bottom`. The first `sed` command shown below doesn't work because lines till the end of file are printed when the second address isn't found.
+**4)** The input file `broken.txt` starts with a line containing `top` followed by some content before a line containing `bottom` is found. Blocks of lines bounded by these two markers repeats except for the last block as it is missing the `bottom` marker. The first `sed` command shown below doesn't work because it is matching till the end of file due to the missing marker. Correct this command to get the expected output shown below.
 
 ```bash
 $ cat broken.txt
