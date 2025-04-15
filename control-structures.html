@@ -84,14 +84,14 @@ hi 12345 hello42
 # end of line or another comma will break the loop
 $ echo 'he be me,1 2 3 4,nice slice' | sed -E ':b s/^([^,]*,[^ ,]*) /\1_/; tb'
 he be me,1_2_3_4,nice slice
-</code></pre><p>The looping construct also helps to emulate certain advanced regular expression features not available in <code>sed</code> like lookarounds (see <a href=https://stackoverflow.com/q/22937618/4082052>stackoverflow: regex faq</a> for details on lookarounds).<pre><code class=language-bash># replace empty fields with NA
+</code></pre><p>The looping construct also helps to emulate certain advanced regular expression features not available in <code>sed</code> like lookarounds (see <a href=https://stackoverflow.com/q/22937618/4082052>stackoverflow: regex faq</a> for details on lookarounds). See my blog post <a href=https://learnbyexample.github.io/sed-lookarounds/>Emulating regexp lookarounds in GNU sed</a> for more examples.<pre><code class=language-bash># replace empty fields with NA
 # simple replacement won't work for the ,,, case
 $ echo '1,,,two,,3' | sed 's/,,/,NA,/g'
 1,NA,,two,NA,3
 # looping to the rescue
 $ echo '1,,,two,,3' | sed -E ':c s/,,/,NA,/g; tc'
 1,NA,NA,two,NA,3
-</code></pre><blockquote><p><img alt=info src=images/info.svg> See my blog post <a href=https://learnbyexample.github.io/sed-lookarounds/>Emulating regexp lookarounds in GNU sed</a> for more examples.</blockquote><p>The below example has similar solution to the previous example, but the problem statement is different and cannot be solved using lookarounds. Here, the act of performing substitution results in an output string that will again match the search pattern.<pre><code class=language-bash># deleting 'fin' results in 'cofing' which can again match 'fin'
+</code></pre><p>The below example has similar solution to the previous example, but the problem statement is different and cannot be solved using lookarounds. Here, the act of performing substitution results in an output string that will again match the search pattern.<pre><code class=language-bash># deleting 'fin' results in 'cofing' which can again match 'fin'
 $ echo 'coffining' | sed 's/fin//'
 cofing
 # add more s commands if the number of times to substitute is known

@@ -255,7 +255,7 @@ hand
 eqn3 = r*42-5/3+42///5-83+a
 eqn1 = a+8-c
 eqn2 = pressure*3+8-14256
-</code></pre><p><strong>9)</strong> For the given quantifiers, what would be the equivalent form using the <code>{m,n}</code> representation?<ul><li><code>?</code> is same as <code>{,1}</code><li><code>*</code> is same as <code>{0,}</code><li><code>+</code> is same as <code>{1,}</code></ul><p><strong>10)</strong> True or False? In ERE, <code>(a*|b*)</code> is same as <code>(a|b)*</code>.<p>False. Because <code>(a*|b*)</code> will match only sequences like <code>a</code>, <code>aaa</code>, <code>bb</code>, <code>bbbbbbbb</code>. But <code>(a|b)*</code> can match a mixed sequence like <code>ababbba</code> too.<p><strong>11)</strong> For the input file <code>patterns.txt</code>, construct two different REGEXPs to get the outputs as shown below. Display only the modified lines.<pre><code class=language-bash># delete from '(' till next ')'
+</code></pre><p><strong>9)</strong> For the given quantifiers, what would be the equivalent form using the <code>{m,n}</code> representation?<ul><li><code>?</code> is same as <code>{,1}</code><li><code>*</code> is same as <code>{0,}</code><li><code>+</code> is same as <code>{1,}</code></ul><p><strong>10)</strong> In ERE, <code>(a*|b*)</code> is same as <code>(a|b)*</code> — True or False?<p>False. Because <code>(a*|b*)</code> will match only sequences like <code>a</code>, <code>aaa</code>, <code>bb</code>, <code>bbbbbbbb</code>. But <code>(a|b)*</code> can match a mixed sequence like <code>ababbba</code> too.<p><strong>11)</strong> For the input file <code>patterns.txt</code>, construct two different REGEXPs to get the outputs as shown below. Display only the modified lines.<pre><code class=language-bash># delete from '(' till next ')'
 $ sed -n 's/([^)]*)//gp' patterns.txt
 a/b + c%d
 *[5]
@@ -301,7 +301,7 @@ part cart mart
 
 $ echo 'apple42:fig100' | sed -E 's/^a\w+([0-9]+:fig)?/[&]/'
 [apple42:fig]100
-</code></pre><p>For patterns matching from the same starting location, longest match wins in case of BRE/ERE flavors. So, <code>\w+</code> will give up characters to allow <code>([0-9]+:fig)?</code> to also match in the second case. In other flavors like PCRE, <code>apple42</code> will be matched both the cases.<p><strong>17)</strong> For the input file <code>patterns.txt</code>, display lines starting with <code>4</code> or <code>-</code> or <code>u</code> or <code>sub</code> or <code>care</code>.<pre><code class=language-bash>$ sed -nE '/^([4u-]|sub|care)/p' patterns.txt
+</code></pre><p>For patterns matching from the same starting location, longest match wins in case of BRE/ERE flavors. So, <code>\w+</code> will give up characters to allow <code>([0-9]+:fig)?</code> to also match in the second case. In other flavors like PCRE, <code>apple42</code> will be matched for both the cases.<p><strong>17)</strong> For the input file <code>patterns.txt</code>, display lines starting with <code>4</code> or <code>-</code> or <code>u</code> or <code>sub</code> or <code>care</code>.<pre><code class=language-bash>$ sed -nE '/^([4u-]|sub|care)/p' patterns.txt
 care
 4*5]
 -handy
@@ -403,7 +403,7 @@ good start
 hi there
 
 bye
-</code></pre><p><strong>8)</strong> For the input file <code>patterns.txt</code>, replace the last but second <code>ar</code> with <code>X</code>. Display only the modified lines.<pre><code class=language-bash>$ sed -nE 's/(.*)ar((.*ar){2})/\1X\2/p' patterns.txt
+</code></pre><p><strong>8)</strong> For the input file <code>patterns.txt</code>, filter lines containing three or more occurrences of <code>ar</code>. For such lines, replace the third from last occurrence of <code>ar</code> with <code>X</code>.<pre><code class=language-bash>$ sed -nE 's/(.*)ar((.*ar){2})/\1X\2/p' patterns.txt
 par car tX far Cart
 pXt cart mart
 </code></pre><p><strong>9)</strong> Display lines from <code>sample.txt</code> that satisfy both of these conditions:<ul><li><code>he</code> matched irrespective of case<li>either <code>World</code> or <code>Hi</code> matched case sensitively</ul><pre><code class=language-bash>$ sed -nE '/he/I{/World|Hi/p}' sample.txt
@@ -596,7 +596,7 @@ Enjoy learning Python.
 3.142857142857143
 >>> 22 // 7
 3
-</code></pre><p><strong>4)</strong> For the input file <code>broken.txt</code>, display lines between the markers <code>top</code> and <code>bottom</code>. The first <code>sed</code> command shown below doesn't work because lines till the end of file are printed when the second address isn't found.<pre><code class=language-bash>$ cat broken.txt
+</code></pre><p><strong>4)</strong> The input file <code>broken.txt</code> starts with a line containing <code>top</code> followed by some content before a line containing <code>bottom</code> is found. Blocks of lines bounded by these two markers repeats except for the last block as it is missing the <code>bottom</code> marker. The first <code>sed</code> command shown below doesn't work because it is matching till the end of file due to the missing marker. Correct this command to get the expected output shown below.<pre><code class=language-bash>$ cat broken.txt
 --top--
 3.14
 [bottom]

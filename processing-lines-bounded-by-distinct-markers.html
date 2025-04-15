@@ -171,7 +171,7 @@ Enjoy learning Python.
 3.142857142857143
 >>> 22 // 7
 3
-</code></pre><p><strong>4)</strong> For the input file <code>broken.txt</code>, display lines between the markers <code>top</code> and <code>bottom</code>. The first <code>sed</code> command shown below doesn't work because lines till the end of file are printed when the second address isn't found.<pre><code class=language-bash>$ cat broken.txt
+</code></pre><p><strong>4)</strong> The input file <code>broken.txt</code> starts with a line containing <code>top</code> followed by some content before a line containing <code>bottom</code> is found. Blocks of lines bounded by these two markers repeats except for the last block as it is missing the <code>bottom</code> marker. The first <code>sed</code> command shown below doesn't work because it is matching till the end of file due to the missing marker. Correct this command to get the expected output shown below.<pre><code class=language-bash>$ cat broken.txt
 --top--
 3.14
 [bottom]

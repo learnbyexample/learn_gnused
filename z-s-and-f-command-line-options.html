@@ -48,7 +48,7 @@ coat;
 cutter
 mat
 </code></pre><blockquote><p><img alt=info src=images/info.svg> See my blog post <a href=https://learnbyexample.github.io/multiline-search-and-replace/#gnu-sed>Multiline fixed string search and replace</a> for more examples.</blockquote><h2 id=separate-files><a class=header href=#separate-files>Separate files</a></h2><p>The <code>-s</code> option will cause <code>sed</code> to treat multiple input files separately instead of treating them as single concatenated input. This helps if you need line number addressing to be effective for each input file. When the <code>-i</code> option is active, <code>-s</code> is also implied.<pre><code class=language-bash># without -s, there is only one first line for the concatenated contents
-# F command inserts filename of the current file at the given address
+# the F command inserts filename of the current file at the given address
 $ sed '1F' greeting.txt ip.txt
 greeting.txt
 Hi there

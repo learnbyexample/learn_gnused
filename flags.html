@@ -72,14 +72,14 @@ fig_ AUG_price NEXT_line
 # \L or \U will override any existing conversion
 $ echo 'HeLLo:bYe gOoD:beTTEr' | sed -E 's/([a-z]+)(:[a-z]+)/\L\1\U\2/Ig'
 hello:BYE good:BETTER
-</code></pre><p>Finally, examples where escapes are used next to each other.<pre><code class=language-bash># uppercase first character of a word
-# and lowercase rest of the word characters
+</code></pre><p>Finally, examples where escapes are used next to each other.<pre><code class=language-bash># uppercase the first character of a word
+# and lowercase the rest of the word characters
 # note the order of escapes used, \u\L won't work
 $ echo 'HeLLo:bYe gOoD:beTTEr' | sed -E 's/[a-z]+/\L\u&/Ig'
 Hello:Bye Good:Better
 
-# lowercase first character of a word
-# and uppercase rest of the word characters
+# lowercase the first character of a word
+# and uppercase the rest of the word characters
 $ echo 'HeLLo:bYe gOoD:beTTEr' | sed -E 's/[a-z]+/\U\l&/Ig'
 hELLO:bYE gOOD:bETTER
 </code></pre><h2 id=global-replace><a class=header href=#global-replace>Global replace</a></h2><p>By default, the substitute command will replace only the first occurrence of matching portions. Use the <code>g</code> flag to replace all the matches.<pre><code class=language-bash># for each input line, change only the first ',' to '-'
@@ -104,14 +104,14 @@ $ echo "$s" | sed 's/:/---/3'
 apple:banana:cherry---fig:mango
 $ echo "$s" | sed -E 's/[^:]+/"&"/3'
 apple:banana:"cherry":fig:mango
-</code></pre><p>Use a combination of capture groups and quantifiers to replace <em>N</em>th match from the end of the line.<pre><code class=language-bash>$ s='car,art,pot,tap,urn,ray,ear'
+</code></pre><p>Use a combination of capture groups and quantifiers to replace the <em>N</em>th match from the end of the line.<pre><code class=language-bash>$ s='car,art,pot,tap,urn,ray,ear'
 
 # replace the last occurrence
 # can also use sed -E 's/,([^,]*)$/[]\1/'
 $ echo "$s" | sed -E 's/(.*),/\1[]/'
 car,art,pot,tap,urn,ray[]ear
 
-# replace last but one
+# replace the last but one occurrence
 $ echo "$s" | sed -E 's/(.*),(.*,)/\1[]\2/'
 car,art,pot,tap,urn[]ray,ear
 
@@ -137,7 +137,7 @@ car,art[]pot[]tap,urn,ray,ear
 # replace the second, third and fifth occurrences
 $ echo "$s" | sed 's/,/[]/5; s/,/[]/3; s/,/[]/2'
 car,art[]pot[]tap,urn[]ray,ear
-</code></pre><h2 id=print-flag><a class=header href=#print-flag>Print flag</a></h2><p>This flag was already introduced in the <a href=./selective-editing.html#selective-editing>Selective editing</a> chapter.<pre><code class=language-bash># no output if no substitution
+</code></pre><h2 id=print-flag><a class=header href=#print-flag>Print flag</a></h2><p>This flag was already introduced in the <a href=./selective-editing.html#selective-editing>Selective editing</a> chapter.<pre><code class=language-bash># no output if the substitution fails
 $ echo 'hi there. have a nice day' | sed -n 's/xyz/XYZ/p'
 
 # modified line is printed when the substitution succeeds
@@ -164,7 +164,7 @@ five
 $ cat 7.txt
 seven
 1seven
-</code></pre><p>There are two predefined filenames:<ul><li><code>/dev/stdout</code> to represent the <strong>stdout</strong> stream<li><code>/dev/stderr</code> to represent the <strong>stderr</strong> stream</ul><pre><code class=language-bash># in-place editing as well as display changes on stdout
+</code></pre><p>You can also use these special filenames:<ul><li><code>/dev/stdout</code> to represent the <strong>stdout</strong> stream<li><code>/dev/stderr</code> to represent the <strong>stderr</strong> stream</ul><pre><code class=language-bash># edit the file in-place and display the changes on stdout as well
 # 3.txt was created at the start of this section
 $ sed -i 's/three/3/w /dev/stdout' 3.txt
 3
@@ -172,7 +172,7 @@ $ sed -i 's/three/3/w /dev/stdout' 3.txt
 $ cat 3.txt
 3
 13
-</code></pre><h2 id=executing-external-commands><a class=header href=#executing-external-commands>Executing external commands</a></h2><p>The <code>e</code> flag helps you to use the output of a shell command. The external command can be based on the pattern space contents or provided as an argument. Quoting from the manual:<blockquote><p>This command allows one to pipe input from a shell command into pattern space. Without parameters, the e command executes the command that is found in pattern space and replaces the pattern space with the output; a trailing newline is suppressed.</blockquote><blockquote><p>If a parameter is specified, instead, the e command interprets it as a command and sends its output to the output stream. The command can run across multiple lines, all but the last ending with a back-slash.</blockquote><blockquote><p>In both cases, the results are undefined if the command to be executed contains a NUL character.</blockquote><p>First, examples with the substitution command.<pre><code class=language-bash># sample input
+</code></pre><h2 id=executing-external-commands><a class=header href=#executing-external-commands>Executing external commands</a></h2><p>The <code>e</code> flag helps you to use the output of a shell command within <code>sed</code>. The external command can be based on the pattern space contents or provided as an argument. Quoting from the manual:<blockquote><p>This command allows one to pipe input from a shell command into pattern space. Without parameters, the e command executes the command that is found in pattern space and replaces the pattern space with the output; a trailing newline is suppressed.</blockquote><blockquote><p>If a parameter is specified, instead, the e command interprets it as a command and sends its output to the output stream. The command can run across multiple lines, all but the last ending with a back-slash.</blockquote><blockquote><p>In both cases, the results are undefined if the command to be executed contains a NUL character.</blockquote><p>First, examples with the substitution command.<pre><code class=language-bash># sample input
 $ printf 'Date:\nreplace this line\n'
 Date:
 replace this line
@@ -180,9 +180,9 @@ replace this line
 # replace entire line with the output of a shell command
 $ printf 'Date:\nreplace this line\n' | sed 's/^replace.*/date/e'
 Date:
-Monday 29 May 2023 04:09:24 PM IST
+Friday 04 April 2025 08:58:13 AM IST
 </code></pre><p>If the <code>p</code> flag is used as well, order is important. Quoting from the manual:<blockquote><p>when both the p and e options are specified, the relative ordering of the two produces very different results. In general, ep (evaluate then print) is what you want, but operating the other way round can be useful for debugging. For this reason, the current version of GNU sed interprets specially the presence of p options both before and after e, printing the pattern space before and after evaluation, while in general flags for the s command show their effect just once. This behavior, although documented, might change in future versions.</blockquote><pre><code class=language-bash>$ printf 'Date:\nreplace this line\n' | sed -n 's/^replace.*/date/ep'
-Monday 29 May 2023 04:10:20 PM IST
+Friday 04 April 2025 08:59:47 AM IST
 
 $ printf 'Date:\nreplace this line\n' | sed -n 's/^replace.*/date/pe'
 date
@@ -196,11 +196,11 @@ $ echo 'xyz 5' | sed 's/xyz/seq/e'
 </code></pre><p>Next, examples with filtering alone.<pre><code class=language-bash># execute entire matching line as a shell command
 # replaces the matching line with the output of the command
 $ printf 'date\ndate -I\n' | sed '/date/e'
-Monday 29 May 2023 04:12:01 PM IST
-2023-05-29
+Friday 04 April 2025 09:00:03 AM IST
+2025-04-04
 $ printf 'date\ndate -I\n' | sed '2e'
 date
-2023-05-29
+2025-04-04
 </code></pre><p>Here's an example where the command is provided as an argument. In such cases, the command's output is inserted before the matching line.<pre><code class=language-bash>$ printf 'show\nexample\n' | sed '/am/e seq 2'
 show
 1
@@ -309,7 +309,7 @@ good start
 hi there
 
 bye
-</code></pre><p><strong>8)</strong> For the input file <code>patterns.txt</code>, replace the last but second <code>ar</code> with <code>X</code>. Display only the modified lines.<pre><code class=language-bash>$ sed ##### add your solution here
+</code></pre><p><strong>8)</strong> For the input file <code>patterns.txt</code>, filter lines containing three or more occurrences of <code>ar</code>. For such lines, replace the third from last occurrence of <code>ar</code> with <code>X</code>.<pre><code class=language-bash>$ sed ##### add your solution here
 par car tX far Cart
 pXt cart mart
 </code></pre><p><strong>9)</strong> Display lines from <code>sample.txt</code> that satisfy both of these conditions:<ul><li><code>he</code> matched irrespective of case<li>either <code>World</code> or <code>Hi</code> matched case sensitively</ul><pre><code class=language-bash>$ sed ##### add your solution here
